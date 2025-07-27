@@ -124,6 +124,13 @@
     transform: none;
 }
 
+.calendar-day.today:not(.active-day) {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: var(--blue);
+    font-weight: 600;
+    border: 1px solid var(--blue);
+}
+
 .calendar-day.active-day {
     background: var(--blue);
     color: var(--white-color);

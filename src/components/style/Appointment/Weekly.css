@@ -31,12 +31,25 @@
     transition: all 0.2s ease;
     cursor: pointer;
     background: var(--white-color);
+    color: var(--text-primary);
+    user-select: none;
 }
 
 .day-card:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transform: translateY(-2px);
     border-color: var(--blue);
+}
+
+.day-card:focus {
+    outline: 2px solid var(--blue);
+    outline-offset: 2px;
+}
+
+.day-card.today:not(.active-day) {
+    border-color: var(--blue);
+    background-color: rgba(59, 130, 246, 0.1);
+    color: var(--blue);
 }
 
 .day-card.active-day {
@@ -60,6 +73,20 @@
     font-size: 24px;
     margin: 0.5rem 0;
     font-weight: 700;
+    transition: color 0.2s ease;
+    color: var(--text-primary);
+}
+
+.day-card.today:not(.active-day) .date-number {
+    color: var(--blue);
+}
+
+.day-card.active-day .date-number {
+    color: var(--white-color);
+}
+
+.day-card:hover:not(.active-day) .date-number {
+    color: var(--blue);
 }
 
 .day-card .no-appointments {

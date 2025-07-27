@@ -69,24 +69,24 @@ const Appointment = () => {
                 <p>จัดการและดูตารางนัดหมายผู้ป่วย</p>
             </header>
             <div className="tabs-container">
-                <button
+                <span
                     className={`tab-button ${activeTab === 'today' ? 'active' : ''}`}
                     onClick={() => setActiveTab('today')}
                 >
                     วันนี้
-                </button>
-                <button
+                </span>
+                <span
                     className={`tab-button ${activeTab === 'week' ? 'active' : ''}`}
                     onClick={() => setActiveTab('week')}
                 >
                     รายสัปดาห์
-                </button>
-                <button
+                </span>
+                <span
                     className={`tab-button ${activeTab === 'month' ? 'active' : ''}`}
                     onClick={() => setActiveTab('month')}
                 >
                     รายเดือน
-                </button>
+                </span>
             </div>
             <main className="tab-content">
                 {renderContent()}

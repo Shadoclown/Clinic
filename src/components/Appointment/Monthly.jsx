@@ -1,25 +1,101 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../style/Appointment/monthly.css';
 
 const MonthlyView = () => {
     const daysOfWeek = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
-    const daysInMonth = [
-        29, 30, 1, 2, 3, 4, 5,
-        6, 7, 8, 9, 10, 11, 12,
-        13, 14, 15, 16, 17, 18, 19,
-        20, 21, 22, 23, 24, 25, 26,
-        27, 28, 29, 30, 31, 1, 2
+    const monthNames = [
+        'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
+        'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
     ];
-    const today = 27;
+
+    const [currentDate, setCurrentDate] = useState(new Date());
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const today = new Date();
+
+    // Generate calendar days for current month
+    const generateCalendarDays = () => {
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth();
+        
+        // First day of the month
+        const firstDay = new Date(year, month, 1);
+        // Last day of the month
+        const lastDay = new Date(year, month + 1, 0);
+        // First day of the week for the first day of month
+        const startDay = firstDay.getDay();
+        // Number of days in month
+        const daysInMonth = lastDay.getDate();
+        
+        const calendarDays = [];
+        
+        // Add previous month's trailing days
+        const prevMonth = new Date(year, month - 1, 0);
+        for (let i = startDay - 1; i >= 0; i--) {
+            const day = prevMonth.getDate() - i;
+            calendarDays.push({
+                date: new Date(year, month - 1, day),
+                isOtherMonth: true
+            });
+        }
+        
+        // Add current month's days
+        for (let day = 1; day <= daysInMonth; day++) {
+            calendarDays.push({
+                date: new Date(year, month, day),
+                isOtherMonth: false
+            });
+        }
+        
+        // Add next month's leading days to complete the grid
+        const remainingDays = 42 - calendarDays.length; // 6 weeks * 7 days
+        for (let day = 1; day <= remainingDays; day++) {
+            calendarDays.push({
+                date: new Date(year, month + 1, day),
+                isOtherMonth: true
+            });
+        }
+        
+        return calendarDays;
+    };
+
+    const calendarDays = generateCalendarDays();
+
+    const navigateMonth = (direction) => {
+        setCurrentDate(prevDate => {
+            const newDate = new Date(prevDate);
+            newDate.setMonth(prevDate.getMonth() + direction);
+            return newDate;
+        });
+    };
+
+    const handleDayClick = (date) => {
+        setSelectedDate(date);
+        // If clicking on other month day, navigate to that month
+        if (date.getMonth() !== currentDate.getMonth()) {
+            setCurrentDate(new Date(date));
+        }
+    };
+
+    const isToday = (date) => {
+        return date.toDateString() === today.toDateString();
+    };
+
+    const isSelected = (date) => {
+        return date.toDateString() === selectedDate.toDateString();
+    };
+
+    const formatSelectedDate = () => {
+        return `${selectedDate.getDate()}/${selectedDate.getMonth() + 1}/${selectedDate.getFullYear() + 543}`;
+    };
 
     return (
         <div className="month-view">
             <div className="view-header month-header">
                 <h3>ตารางนัดรายเดือน</h3>
                 <div className="month-navigation">
-                    <button>{'<'}</button>
-                    <span>กรกฎาคม 2568</span>
-                    <button>{'>'}</button>
+                    <button onClick={() => navigateMonth(-1)} aria-label="Previous month">{'<'}</button>
+                    <span>{monthNames[currentDate.getMonth()]} {currentDate.getFullYear() + 543}</span>
+                    <button onClick={() => navigateMonth(1)} aria-label="Next month">{'>'}</button>
                 </div>
             </div>
             <div className="calendar-container">
@@ -28,15 +104,26 @@ const MonthlyView = () => {
                         {daysOfWeek.map(day => <div key={day}>{day}</div>)}
                     </div>
                     <div className="calendar-body">
-                        {daysInMonth.map((day, index) => (
-                            <div key={index} className={`calendar-day ${day === today ? 'active-day' : ''} ${index < 2 || index > 32 ? 'other-month' : ''}`}>
-                                {day}
+                        {calendarDays.map((dayObj, index) => (
+                            <div 
+                                key={index} 
+                                className={`calendar-day 
+                                    ${dayObj.isOtherMonth ? 'other-month' : ''} 
+                                    ${isSelected(dayObj.date) ? 'active-day' : ''} 
+                                    ${isToday(dayObj.date) ? 'today' : ''}
+                                `}
+                                onClick={() => handleDayClick(dayObj.date)}
+                                tabIndex={0}
+                                role="button"
+                                aria-label={`Select ${dayObj.date.getDate()}`}
+                            >
+                                {dayObj.date.getDate()}
                             </div>
                         ))}
                     </div>
                 </div>
                 <div className="daily-appointments">
-                    <h4>นัดหมายวันที่ 27/7/2568</h4>
+                    <h4>นัดหมายวันที่ {formatSelectedDate()}</h4>
                     <p>ไม่มีนัดหมายในวันนี้</p>
                 </div>
             </div>
