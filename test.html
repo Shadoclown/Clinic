@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone Camera Form</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        #image-input-label {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        #image-input-label:hover {
+            background-color: #0056b3;
+        }
+        #image-input {
+            display: none; /* Hide the default input */
+        }
+        #image-preview {
+            margin-top: 20px;
+            max-width: 100%;
+            max-height: 50vh;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Upload an Image</h1>
+        <p>Take a picture or select one from your phone's gallery.</p>
+        
+        <!-- The form input is hidden and triggered by the label -->
+        <label for="image-input" id="image-input-label">Select Image</label>
+        <input type="file" id="image-input" accept="image/*" capture="environment">
+        
+        <!-- The selected image will be displayed here -->
+        <img id="image-preview" src="" alt="Image preview">
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const imageInput = document.getElementById('image-input');
+            const imagePreview = document.getElementById('image-preview');
+
+            imageInput.addEventListener('change', (event) => {
+                // Get the selected file
+                const file = event.target.files[0];
+
+                if (file) {
+                    // Create a URL for the file to use as the image source
+                    const reader = new FileReader();
+                    
+                    reader.onload = (e) => {
+                        imagePreview.src = e.target.result;
+                    };
+                    
+                    // Read the file as a data URL
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

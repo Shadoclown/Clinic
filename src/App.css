@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+    /* sidebar */
+    --sidebar-bg: #f4f4f4;
+    --line-color: #b1b1b1;
+    --text-color: #000;
+    --spacing: 20px;
+}
+
+/* App layout */
+.app-container {
+    display: flex;
+    min-height: 100vh;
+    width: 100vw;
+}
+
+.content {
+    flex: 1;
+    background-color: #f8fafc;
+    overflow-x: auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .content {
+        margin-left: 0;
+    }
+}
