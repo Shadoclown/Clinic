@@ -1,0 +1,137 @@
+/* --- Today View --- */
+.today-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0 1rem 0;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.today-header h3 { 
+    margin: 0; 
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.today-header span { 
+    font-size: 14px; 
+    color: var(--text-secondary);
+    background-color: var(--light-gray);
+    padding: 5px 15px;
+    border-radius: 6px;
+}
+
+.appointment-card {
+    background: var(--white-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    display: grid;
+    grid-template-columns: 1.2fr 1.2fr 1fr;
+    gap: 1.5rem;
+    align-items: start;
+    transition: all 0.2s ease;
+}
+
+.appointment-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.appointment-card p {
+    margin: 0 0 0.75rem 0;
+    font-size: 14px;
+    color: var(--dark-gray);
+}
+
+.appointment-card p strong {
+    color: var(--text-color);
+}
+
+.appointment-card hr {
+    border: none;
+    border-top: 1px solid var(--light-gray);
+    margin: 1rem 0;
+}
+
+.card-left .patient-name {
+    font-weight: bold;
+    font-size: 16px;
+    color: var(--text-color);
+}
+
+.card-left .time {
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.card-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1rem;
+}
+
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.status-waiting {
+    background-color: var(--status-waiting-bg);
+    color: var(--status-waiting-text);
+    border: 1px solid var(--status-waiting-text);
+}
+
+.status-checked-in {
+    background-color: var(--status-checked-in-bg);
+    color: var(--status-checked-in-text);
+    border: 1px solid var(--status-checked-in-text);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: auto;
+}
+
+.action-buttons button {
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+}
+
+.action-buttons button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-details {
+    background-color: var(--white-color);
+    color: var(--text-color);
+}
+
+.btn-details:hover {
+    background-color: var(--blue);
+    color: var(--white-color);
+    border-color: var(--blue);
+}
+
+.btn-edit {
+    background-color: var(--light-gray);
+    color: var(--text-color);
+}
+
+.btn-edit:hover {
+    background-color: var(--orange);
+    color: var(--white-color);
+    border-color: var(--orange);
+}

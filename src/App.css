@@ -5,11 +5,37 @@
 }
 
 :root {
-    /* sidebar */
-    --sidebar-bg: #f4f4f4;
+    /* Main colors */
+    --primary-color: #00ACED;
+    --primary-bg: #f4f4f4;
+    --secondary-bg: #f8fafc;
+    --light-gray: #f0f2f5;
+    --medium-gray: #e4e6eb;
+    --dark-gray: #65676b;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --text-muted: #374151;
+    --text-color: #333;
+    --white-color: #ffffff;
+    --border-color: #dcdfe3;
     --line-color: #b1b1b1;
-    --text-color: #000;
     --spacing: 20px;
+    
+    /* Action colors */
+    --blue: #3b82f6;
+    --blue-hover: #2563eb;
+    --orange: #f59e0b;
+    --green: #10b981;
+    
+    /* Status colors */
+    --status-waiting-bg: #fffbe6;
+    --status-waiting-text: var(--orange);
+    --status-checked-in-bg: #e6f7ec;
+    --status-checked-in-text: var(--green);
+    --status-pending-bg: #fef3c7;
+    --status-pending-text: #92400e;
+    --status-completed-bg: #d1fae5;
+    --status-completed-text: #065f46;
 }
 
 /* App layout */

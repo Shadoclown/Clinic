@@ -1,0 +1,198 @@
+/* --- Month View --- */
+.month-view .view-header {
+    margin-bottom: 24px;
+}
+
+.month-view .view-header h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.month-header .month-navigation {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.month-navigation button {
+    background: var(--white-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: var(--text-primary);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+}
+
+.month-navigation button:hover {
+    background-color: var(--blue);
+    color: var(--white-color);
+    border-color: var(--blue);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+}
+
+.month-navigation span {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 16px;
+    background: none;
+    min-width: 140px;
+    text-align: center;
+}
+
+.calendar-container {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.calendar {
+    background: var(--white-color);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-color);
+    width: 350px;
+    flex-shrink: 0;
+}
+
+.calendar-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background-color: var(--light-gray);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.calendar-header div {
+    padding: 8px 4px;
+    font-weight: 600;
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+}
+
+.calendar-body {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background: var(--white-color);
+}
+
+.calendar-day {
+    padding: 8px 4px;
+    font-weight: 500;
+    text-align: center;
+    border-right: 1px solid var(--light-gray);
+    border-bottom: 1px solid var(--light-gray);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    font-size: 14px;
+}
+
+.calendar-day:nth-child(7n) {
+    border-right: none;
+}
+
+.calendar-day:hover {
+    background-color: var(--light-gray);
+    color: var(--blue);
+}
+
+.calendar-day.other-month {
+    color: var(--medium-gray);
+    background-color: rgba(244, 244, 244, 0.5);
+    opacity: 0.6;
+}
+
+.calendar-day.other-month:hover {
+    background-color: var(--medium-gray);
+    transform: none;
+}
+
+.calendar-day.active-day {
+    background: var(--blue);
+    color: var(--white-color);
+    font-weight: 700;
+    box-shadow: inset 0 0 0 2px var(--blue-hover);
+}
+
+.calendar-day.active-day:hover {
+    background: var(--blue-hover);
+}
+
+/* Add appointment indicators */
+.calendar-day.has-appointments::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    background-color: var(--orange);
+    border-radius: 50%;
+}
+
+.calendar-day.active-day.has-appointments::after {
+    background-color: var(--white-color);
+}
+
+.daily-appointments {
+    background: var(--white-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    flex: 1;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+    min-height: 280px;
+}
+
+.daily-appointments:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.daily-appointments h4 {
+    margin: 0 0 1rem 0;
+    color: var(--text-primary);
+    font-size: 16px;
+    font-weight: 600;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.daily-appointments p {
+    color: var(--text-secondary);
+    font-style: italic;
+    margin: 0;
+    padding: 1rem 0;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* Add today highlight */
+.calendar-day.today:not(.active-day) {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: var(--blue);
+    font-weight: 600;
+    border: 1px solid var(--blue);
+}
+
+.calendar-day.today:not(.active-day):hover {
+    background-color: rgba(59, 130, 246, 0.2);
+}

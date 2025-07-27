@@ -1,0 +1,73 @@
+/* --- Week View --- */
+.week-view .view-header {
+    margin-bottom: 24px;
+}
+
+.week-view .view-header h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.week-view .view-header span {
+    font-size: 14px;
+    color: var(--text-secondary);
+    background-color: var(--light-gray);
+    padding: 5px 15px;
+    border-radius: 6px;
+}
+
+.week-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1rem;
+}
+
+.day-card {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    background: var(--white-color);
+}
+
+.day-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    border-color: var(--blue);
+}
+
+.day-card.active-day {
+    border-color: var(--primary-color);
+    background: linear-gradient(135deg, var(--blue) 0%, var(--blue-hover) 100%);
+    color: var(--white-color);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.day-card.active-day:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+}
+
+.day-card p {
+    margin: 0;
+    font-weight: bold;
+}
+
+.day-card .date-number {
+    font-size: 24px;
+    margin: 0.5rem 0;
+    font-weight: 700;
+}
+
+.day-card .no-appointments {
+    font-size: 12px;
+    color: var(--dark-gray);
+    font-weight: normal;
+}
+
+.day-card.active-day .no-appointments {
+    color: rgba(255, 255, 255, 0.8);
+}
