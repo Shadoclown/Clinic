@@ -7,35 +7,46 @@ const TodayView = ({ appointments }) => (
             <h3>รายการนัดหมายวันนี้</h3>
             <span>{appointments.length} รายการ</span>
         </div>
-        {appointments.map(app => (
-            <div key={app.id} className="appointment-card">
-                <div className="card-left">
-                    <p className="time">🕒 {app.time}  {app.id}</p>
-                    <p className="patient-name">👤 {app.patientName}</p>
-                    <p className="phone">📞 {app.phone}</p>
-                    {/* <p className="location">📍 {app.location}</p> */}
-                    <hr />
-                    <p className="notes"><strong>หมายเหตุ:</strong> {app.notes}</p>
-                </div>
-                <div className="card-center">
-                    <p><strong>บริการ:</strong> {app.service}</p>
-                    {/* <p><strong>แพทย์:</strong> {app.doctor}</p> */}
-                    {/* <p><strong>ระยะเวลา:</strong> {app.duration}</p> */}
-                    <p><strong>ราคา:</strong> {app.price}</p>
-                </div>
-                <div className="card-right">
-                    <span className={`status-badge status-${app.status === 'รอตรวจ' ? 'waiting' : 'checked-in'}`}>
-                        {app.status}
-                    </span>
-                    <div className="action-buttons">
-                        <div className="button-group">
+        
+        <table className="thai-clinic-table">
+            <thead>
+                <tr>
+                    <th>เวลา</th>
+                    <th>ชื่อผู้ป่วย</th>
+                    <th>โทรศัพท์</th>
+                    <th>บริการ</th>
+                    <th>ราคา</th>
+                    <th>หมายเหตุ</th>
+                    <th>สถานะ</th>
+                    <th>การดำเนินการ</th>
+                </tr>
+            </thead>
+            <tbody>
+                {appointments.map(app => (
+                    <tr key={app.id}>
+                        <td className="appointment-time-cell">
+                            <div className="appointment-time">
+                                <span className="time">{app.time}</span>
+                            </div>
+                        </td>
+                        <td>{app.patientName}</td>
+                        <td>{app.phone}</td>
+                        <td>{app.service}</td>
+                        <td>{app.price}</td>
+                        <td>{app.notes}</td>
+                        <td>
+                            <span className={`status-pill status-${app.status === 'รอตรวจ' ? 'รอตรวจ' : 'เข้าตรวจแล้ว'}`}>
+                                {app.status}
+                            </span>
+                        </td>
+                        <td className="table-actions">
                             <button className="action-btn view-btn">ดูรายละเอียด</button>
                             <button className="action-btn edit-btn">แก้ไข</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        ))}
+                        </td>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
     </div>
 );
 

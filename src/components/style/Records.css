@@ -30,29 +30,53 @@ body {
   color: var(--text-primary);
 }
 
+.records-header p {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
 .btn-primary {
   background-color: var(--c-brand);
   color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: var(--radius);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition-base);
+  box-shadow: var(--shadow);
 }
 .btn-primary:hover {
   background-color: var(--blue-hover);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-1px);
 }
 
 /* --- Content Card --- */
 .records-content-card {
   background-color: var(--white-color);
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   padding: 24px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow);
+  transition: var(--transition-base);
+}
+
+.records-content-card:hover {
+  box-shadow: var(--shadow-lg);
 }
 
 .card-header {
   margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
 .card-header h2 {
-  margin: 0 0 16px 0;
-  font-size: 20px;
+  margin: 0;
+  font-size: var(--fs-h2);
   font-weight: 600;
   color: var(--text-primary);
 }
@@ -60,6 +84,8 @@ body {
 /* --- Search Bar --- */
 .search-container {
   position: relative;
+  flex: 1;
+  max-width: 480px;
 }
 
 .search-container .search-icon {
@@ -77,22 +103,27 @@ body {
   border-radius: var(--radius);
   font-family: var(--font-family);
   font-size: 1rem;
-  background-color: #f9fafb;
+  background-color: var(--light-gray);
+  transition: var(--transition-quick);
 }
 .search-container input:focus {
   outline: none;
   border-color: var(--c-brand);
-  box-shadow: 0 0 0 2px rgba(3, 169, 244, 0.2);
+  box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.2);
+  background-color: var(--white-color);
 }
 
 /* --- Table Styles --- */
 .table-wrapper {
   overflow-x: auto;
+  border-radius: var(--radius);
+  background-color: var(--white-color);
 }
 
 .records-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   white-space: nowrap;
 }
 
@@ -100,34 +131,53 @@ body {
 .records-table td {
   padding: 16px;
   text-align: left;
-  border-bottom: 1px solid var(--c-border);
 }
 
 .records-table th {
-  color: var(--c-text-secondary);
-  font-size: 0.875rem;
+  position: sticky;
+  top: 0;
+  background-color: var(--light-gray);
+  color: var(--text-secondary);
+  font-size: var(--fs-small);
   font-weight: 500;
   text-transform: uppercase;
 }
 
+.records-table th:first-child {
+  border-top-left-radius: var(--radius);
+}
+
+.records-table th:last-child {
+  border-top-right-radius: var(--radius);
+}
+
+.records-table tr {
+  border-bottom: 1px solid var(--line-color);
+  transition: var(--transition-quick);
+}
+
+.records-table tr:last-child {
+  border-bottom: none;
+}
+
 .records-table tbody tr:hover {
-  background-color: #f7f9fa;
+  background-color: var(--c-bg-body);
 }
 
 /* --- Pill/Tag Styles --- */
 .pill {
   padding: 6px 14px;
   border-radius: 16px;
-  font-size: 0.875rem;
+  font-size: var(--fs-xs);
   font-weight: 500;
   display: inline-block;
   text-align: center;
 }
 
 .type-pill {
-  background-color: var(--c-bg-card);
-  border: 1px solid var(--c-border);
-  color: var(--c-text-secondary);
+  background-color: var(--light-gray);
+  border: 1px solid var(--medium-gray);
+  color: var(--text-secondary);
 }
 
 /* --- Action Buttons --- */
@@ -141,12 +191,12 @@ body {
 .action-btn {
   padding: 6px 12px;
   border: 1px solid;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  font-size: 0.75rem;
+  font-size: var(--fs-xs);
   font-weight: 500;
   font-family: var(--font-family);
-  transition: all 0.2s ease;
+  transition: var(--transition-quick);
   background: var(--white-color);
   min-width: 65px;
   text-align: center;
@@ -159,8 +209,13 @@ body {
 }
 
 .view-btn {
-  color: var(--c-brand);
-  border-color: var(--c-brand);
+  color: var(--blue);
+  border-color: var(--blue);
+}
+
+.view-btn:hover {
+  background-color: var(--blue);
+  color: var(--white-color);
 }
 
 .edit-btn {
@@ -183,7 +238,7 @@ body {
   color: var(--white-color);
 }
 
-/* Status Pills - Simplified */
+/* Status Pills - Enhanced */
 .status-completed { 
   background-color: var(--c-success-bg); 
   color: var(--c-success); 
@@ -205,15 +260,10 @@ body {
 /* Type Pills */
 .type-pill {
   background-color: var(--light-gray);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--c-border);
   color: var(--text-secondary);
   padding: 4px 8px;
   border-radius: 12px;
-  font-size: 0.75rem;
+  font-size: var(--fs-xs);
   font-weight: 500;
-}
-
-/* Remove old icon button styles */
-.icon-btn {
-  display: none;
 }

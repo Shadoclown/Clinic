@@ -6,7 +6,7 @@ import '../style/Records.css'; // Import Records CSS for table styling
 const monthlyAppointments = [
     {
         id: 'CN001',
-        date: new Date(2025, 0, 15), // January 15, 2025
+        date: new Date(2025, 6, 15), // January 15, 2025
         time: '08:30',
         patientName: 'นางสาว สมใจ ใจดี',
         service: 'ตรวจสุขภาพทั่วไป',
@@ -15,7 +15,7 @@ const monthlyAppointments = [
     },
     {
         id: 'CN002',
-        date: new Date(2025, 0, 15), // January 15, 2025
+        date: new Date(2025, 6, 15), // January 15, 2025
         time: '09:00',
         patientName: 'นาย วินัย สะบาย',
         service: 'ฉีดวัคซีน',
@@ -24,7 +24,7 @@ const monthlyAppointments = [
     },
     {
         id: 'CN003',
-        date: new Date(2025, 0, 18), // January 18, 2025
+        date: new Date(2025, 6, 18), // January 18, 2025
         time: '09:30',
         patientName: 'นางสมหญิง โรงเย็น',
         service: 'ตรวจหู คอ จมูก',
@@ -33,7 +33,7 @@ const monthlyAppointments = [
     },
     {
         id: 'CN004',
-        date: new Date(2025, 0, 20), // January 20, 2025
+        date: new Date(2025, 6, 20), // January 20, 2025
         time: '10:00',
         patientName: 'นาย สมศักดิ์ มั่นคง',
         service: 'ตรวจเลือด',
@@ -42,7 +42,7 @@ const monthlyAppointments = [
     },
     {
         id: 'CN005',
-        date: new Date(2025, 0, 22), // January 22, 2025
+        date: new Date(2025, 6, 22), // January 22, 2025
         time: '14:30',
         patientName: 'นางสาว มาลี ดวงดี',
         service: 'ตรวจฟัน',
@@ -209,7 +209,7 @@ const MonthlyView = () => {
             <div className="monthly-overview">
                 <h3>ภาพรวมนัดหมายประจำเดือน ({currentMonthAppointments.length} รายการ)</h3>
                 <div className="table-wrapper">
-                    <table className="records-table">
+                    <table className="thai-clinic-table">
                         <thead>
                             <tr>
                                 <th>วันที่</th>
@@ -230,22 +230,18 @@ const MonthlyView = () => {
                                     <td>{appointment.service}</td>
                                     <td>{appointment.doctor}</td>
                                     <td>
-                                        <span className={`pill ${
-                                            appointment.status === 'confirmed' ? 'status-completed' : 
-                                            appointment.status === 'pending' ? 'status-pending' : 'status-inprogress'
+                                        <span className={`status-pill status-${
+                                            appointment.status === 'confirmed' ? 'เสร็จสิ้น' : 
+                                            appointment.status === 'pending' ? 'รอตรวจ' : 'กำลังดำเนินการ'
                                         }`}>
                                             {appointment.status === 'confirmed' ? 'ยืนยันแล้ว' : 
                                              appointment.status === 'pending' ? 'รอยืนยัน' : 'เสร็จสิ้น'}
                                         </span>
                                     </td>
-                                    <td>
-                                        <div className="action-buttons">
-                                            <div className="button-group">
-                                                <button className="action-btn view-btn">ดูรายละเอียด</button>
-                                                <button className="action-btn edit-btn">แก้ไข</button>
-                                            </div>
-                                            <button className="action-btn delete-btn">ยกเลิก</button>
-                                        </div>
+                                    <td className="table-actions">
+                                        <button className="action-btn view-btn">ดูรายละเอียด</button>
+                                        <button className="action-btn edit-btn">แก้ไข</button>
+                                        <button className="action-btn delete-btn">ยกเลิก</button>
                                     </td>
                                 </tr>
                             ))}

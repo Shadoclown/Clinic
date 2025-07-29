@@ -29,14 +29,17 @@
     color: var(--white-color);
     border: none;
     padding: 12px 24px;
-    border-radius: 8px;
+    border-radius: var(--radius);
     font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: var(--transition-base);
+    box-shadow: var(--shadow);
 }
 
 .add-button:hover {
     background-color: var(--blue-hover);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-1px);
 }
 
 /* Stats Grid */
@@ -49,15 +52,30 @@
 
 .stat-card {
     background: var(--white-color);
-    border-radius: 12px;
+    border-radius: var(--radius);
     padding: 24px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow);
     border-left: 4px solid;
+    transition: var(--transition-base);
 }
 
-.stat-card.blue { border-left-color: var(--blue); }
-.stat-card.orange { border-left-color: var(--orange); }
-.stat-card.green { border-left-color: var(--green); }
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.stat-card.blue { 
+    border-left-color: var(--blue); 
+    background-image: linear-gradient(to right, rgba(66, 133, 244, 0.05), transparent);
+}
+.stat-card.orange { 
+    border-left-color: var(--orange); 
+    background-image: linear-gradient(to right, rgba(251, 188, 4, 0.05), transparent);
+}
+.stat-card.green { 
+    border-left-color: var(--green); 
+    background-image: linear-gradient(to right, rgba(52, 168, 83, 0.05), transparent);
+}
 
 .stat-content {
     display: flex;
@@ -66,7 +84,7 @@
 }
 
 .stat-text h3 {
-    font-size: 14px;
+    font-size: var(--fs-small);
     color: var(--text-secondary);
     margin: 0 0 8px 0;
     font-weight: 500;
@@ -76,33 +94,49 @@
     font-size: 32px;
     font-weight: 700;
     color: var(--text-primary);
-    margin-bottom: 4px;
+    margin-bottom: 8px;
 }
 
 .stat-change {
-    font-size: 12px;
+    font-size: var(--fs-xs);
     color: var(--green);
     margin: 0;
+    background-color: var(--c-success-bg);
+    padding: 4px 8px;
+    border-radius: 12px;
+    display: inline-block;
 }
 
 .stat-icon {
-    font-size: 32px;
-    opacity: 0.7;
+    font-size: 36px;
+    opacity: 0.8;
+    background-color: rgba(0, 0, 0, 0.04);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Content Grid */
 .content-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 24px;
+    display: flex;
 }
+
 
 /* Appointments Section */
 .appointments-section {
     background: var(--white-color);
-    border-radius: 12px;
+    border-radius: var(--radius);
     padding: 24px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    box-shadow: var(--shadow);
+    transition: var(--transition-base);
+}
+
+.appointments-section:hover {
+    box-shadow: var(--shadow-lg);
 }
 
 .section-header {
@@ -110,10 +144,12 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line-color);
 }
 
 .section-header h2 {
-    font-size: 20px;
+    font-size: var(--fs-h2);
     font-weight: 600;
     color: var(--text-primary);
     margin: 0;
@@ -123,10 +159,16 @@
     background: var(--light-gray);
     border: none;
     padding: 8px 16px;
-    border-radius: 6px;
-    color: var(--text-muted);
+    border-radius: var(--radius);
+    color: var(--text-secondary);
     cursor: pointer;
-    font-size: 14px;
+    font-size: var(--fs-small);
+    transition: var(--transition-base);
+}
+
+.calendar-btn:hover {
+    background-color: var(--medium-gray);
+    color: var(--text-primary);
 }
 
 .appointments-list {
@@ -140,101 +182,189 @@
     align-items: center;
     gap: 16px;
     padding: 16px;
-    border: 1px solid var(--medium-gray);
-    border-radius: 8px;
-    transition: box-shadow 0.2s;
+    border: 1px solid var(--line-color);
+    border-radius: var(--radius);
+    transition: var(--transition-base);
+    background-color: var(--white-color);
 }
 
 .appointment-item:hover {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--blue-light);
+    transform: translateY(-2px);
 }
 
 .appointment-time {
     min-width: 60px;
+    background-color: var(--blue-light);
+    height: 60px;
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .time {
     font-weight: 600;
-    color: var(--text-muted);
+    color: var(--blue);
+    font-size: var(--fs-body);
+}
+
+.appointment-layout {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .appointment-details {
-    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .appointment-details h4 {
-    margin: 0 0 4px 0;
+    margin: 0 0 8px 0;
     color: var(--text-primary);
-    font-size: 16px;
+    font-size: var(--fs-body);
 }
 
 .appointment-details p {
     margin: 0;
     color: var(--text-secondary);
-    font-size: 14px;
+    font-size: var(--fs-small);
+}
+
+.appointment-details span {
+    font-weight: bolder;
+}
+
+.appointment-status {
+    display: flex;
+    align-items: center;
 }
 
 .status {
-    padding: 4px 12px;
+    padding: 6px 12px;
     border-radius: 20px;
-    font-size: 12px;
+    font-size: var(--fs-xs);
     font-weight: 500;
 }
 
 .status.pending {
-    background-color: var(--status-pending-bg);
-    color: var(--status-pending-text);
+    background-color: var(--status-waiting-bg);
+    color: var(--status-waiting-text);
 }
 
 .status.completed {
-    background-color: var(--status-completed-bg);
-    color: var(--status-completed-text);
+    background-color: var(--status-checked-in-bg);
+    color: var(--status-checked-in-text);
 }
 
-/* Quick Actions Section */
-.quick-actions-section {
-    background: var(--white-color);
-    border-radius: 12px;
-    padding: 24px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+/* Appointment Table Styles */
+.appointments-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 12px;
 }
 
-.quick-actions-section h2 {
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin: 0 0 24px 0;
-}
-
-.quick-actions-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.quick-action-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 16px;
-    border: 1px solid var(--medium-gray);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.quick-action-item:hover {
-    background-color: var(--light-gray);
-    border-color: var(--blue);
-}
-
-.action-icon {
-    font-size: 20px;
-}
-
-.action-name {
-    color: var(--text-muted);
+.appointments-table thead th {
+    text-align: left;
+    color: var(--text-secondary);
     font-weight: 500;
+    font-size: var(--fs-small);
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--line-color);
+}
+
+.appointment-row {
+    background-color: var(--white-color);
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    transition: var(--transition-base);
+}
+
+.appointment-row:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+.appointment-row td {
+    padding: 16px;
+    border-top: 1px solid var(--line-color);
+    border-bottom: 1px solid var(--line-color);
+}
+
+.appointment-row td:first-child {
+    border-left: 1px solid var(--line-color);
+    border-top-left-radius: var(--radius);
+    border-bottom-left-radius: var(--radius);
+}
+
+.appointment-row td:last-child {
+    border-right: 1px solid var(--line-color);
+    border-top-right-radius: var(--radius);
+    border-bottom-right-radius: var(--radius);
+}
+
+.appointment-row:hover td {
+    border-color: var(--blue-light);
+}
+
+.appointment-time-cell {
+    width: 100px;
+}
+
+.appointment-time {
+    background-color: var(--blue-light);
+    border-radius: var(--radius);
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.appointment-name-cell {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.appointment-issue-cell {
+    color: var(--text-secondary);
+    font-size: var(--fs-small);
+}
+
+.appointment-actions-cell {
+    display: flex;
+    gap: 8px;
+}
+
+.view-button, .edit-button {
+    background-color: var(--light-gray);
+    border: none;
+    padding: 6px 12px;
+    border-radius: var(--radius);
+    font-size: var(--fs-xs);
+    cursor: pointer;
+    transition: var(--transition-base);
+}
+
+.view-button {
+    background-color: var(--blue-light);
+    color: var(--blue);
+}
+
+.view-button:hover {
+    background-color: var(--blue);
+    color: white;
+}
+
+.edit-button {
+    background-color: var(--light-gray);
+    color: var(--text-secondary);
+}
+
+.edit-button:hover {
+    background-color: var(--medium-gray);
+    color: var(--text-primary);
 }
 
 /* Responsive */

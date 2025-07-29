@@ -85,24 +85,40 @@ function Home() {
                         <button className="calendar-btn">📅 ลิงวันหนด</button>
                     </div>
                     
-                    <div className="appointments-list">
-                        {appointments.map((appointment, index) => (
-                            <div key={index} className="appointment-item">
-                                <div className="appointment-time">
-                                    <span className="time">{appointment.time}</span>
-                                </div>
-                                <div className="appointment-details">
-                                    <h4>{appointment.name}</h4>
-                                    <p>{appointment.issue}</p>
-                                </div>
-                                <div className="appointment-status">
-                                    <span className={`status ${appointment.status === 'เข้าตรวจแล้ว' ? 'completed' : 'pending'}`}>
-                                        {appointment.status}
-                                    </span>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+                    <table className="appointments-table thai-clinic-table">
+                        <thead>
+                            <tr>
+                                <th>เวลา</th>
+                                <th>ชื่อผู้ป่วย</th>
+                                <th>หมายเหตุ</th>
+                                <th>สถานะ</th>
+                                <th>การดำเนินการ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {appointments.map((appointment, index) => (
+                                <tr key={index}>
+                                    <td className="appointment-time-cell">
+                                        <div className="appointment-time">
+                                            <span className="time">{appointment.time}</span>
+                                        </div>
+                                    </td>
+                                    <td className="appointment-name-cell">{appointment.name}</td>
+                                    <td className="appointment-issue-cell">{appointment.issue}</td>
+                                    <td className="appointment-status-cell">
+                                        <span className={`status-pill status-${appointment.status}`}>
+                                            {appointment.status}
+                                        </span>
+                                    </td>
+                                    <td className="table-actions">
+                                        <button className="action-btn view-btn">ดูรายละเอียด</button>
+                                        <button className="action-btn edit-btn">แก้ไข</button>
+                                        <button className="action-btn delete-btn">ยกเลิก</button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

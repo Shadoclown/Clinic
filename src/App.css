@@ -5,72 +5,91 @@
 }
 
 :root {
-    /* Primary Brand Color - Single Muted Blue */
-    --primary-color: #64748b;
-    --c-brand: #64748b;
-    --blue: #64748b;
-    --blue-hover: #475569;
+    /* Primary Brand Colors - Refreshed Blue Palette */
+    --primary-color: #4285f4;
+    --c-brand: #4285f4;
+    --blue: #4285f4;
+    --blue-hover: #3367d6;
+    --blue-light: #d2e3fc;
     
-    /* Minimal Accent Colors - Single Shade Each */
-    --c-success: #6b7280;
-    --c-error: #6b7280;
-    --c-warning: #6b7280;
-    --c-neutral: #6b7280;
+    /* Secondary Brand Colors */
+    --secondary-color: #34a853;
+    --tertiary-color: #fbbc04;
+    --accent-color: #ea4335;
     
-    /* Status Colors - Very Minimal */
-    --c-success-bg: #f8fafc;
-    --c-error-bg: #f8fafc;
-    --c-warning-bg: #f8fafc;
-    --c-neutral-bg: #f8fafc;
+    /* Status Colors - Meaningful & Accessible */
+    --c-success: #34a853;
+    --c-error: #ea4335;
+    --c-warning: #fbbc04;
+    --c-neutral: #5f6368;
     
-    /* Background Colors - Pure and Minimal */
+    --c-success-bg: #e6f4ea;
+    --c-error-bg: #fce8e6;
+    --c-warning-bg: #fef7e0;
+    --c-neutral-bg: #f1f3f4;
+    
+    /* Background Colors */
     --primary-bg: #ffffff;
-    --secondary-bg: #f9fafb;
-    --c-bg-body: #ffffff;
+    --secondary-bg: #f8f9fa;
+    --c-bg-body: #f8f9fa;
     --c-bg-card: #ffffff;
     --white-color: #ffffff;
     
-    /* Text Colors - Simplified Hierarchy */
-    --text-primary: #111827;
-    --text-secondary: #6b7280;
-    --text-muted: #9ca3af;
-    --text-color: #111827;
-    --c-text-primary: #111827;
-    --c-text-secondary: #6b7280;
-    --dark-gray: #6b7280;
+    /* Text Colors - Clear Hierarchy */
+    --text-primary: #202124;
+    --text-secondary: #5f6368;
+    --text-muted: #80868b;
+    --text-color: #202124;
+    --c-text-primary: #202124;
+    --c-text-secondary: #5f6368;
+    --dark-gray: #3c4043;
     
-    /* Gray Scale - Minimal */
-    --light-gray: #f9fafb;
-    --medium-gray: #e5e7eb;
-    --border-color: #e5e7eb;
-    --c-border: #d1d5db;
-    --line-color: #9ca3af;
+    /* Gray Scale - Refined */
+    --light-gray: #f1f3f4;
+    --medium-gray: #dadce0;
+    --border-color: #dadce0;
+    --c-border: #dadce0;
+    --line-color: #e8eaed;
     
-    /* Status Colors - Consistent Single Shades */
-    --status-waiting-bg: #f8fafc;
-    --status-waiting-text: #6b7280;
-    --status-checked-in-bg: #f8fafc;
-    --status-checked-in-text: #6b7280;
-    --status-pending-bg: #f8fafc;
-    --status-pending-text: #6b7280;
-    --status-completed-bg: #f8fafc;
-    --status-completed-text: #6b7280;
-    --c-inprogress: #64748b;
-    --c-inprogress-bg: #f1f5f9;
-    --c-pending: #6b7280;
-    --c-pending-bg: #f8fafc;
+    /* Status Colors for Various States */
+    --status-waiting-bg: #fef7e0;
+    --status-waiting-text: #b06000;
+    --status-checked-in-bg: #e6f4ea;
+    --status-checked-in-text: #137333;
+    --status-pending-bg: #e8f0fe;
+    --status-pending-text: #1967d2;
+    --status-completed-bg: #f1f3f4;
+    --status-completed-text: #3c4043;
+    --c-inprogress: #1967d2;
+    --c-inprogress-bg: #e8f0fe;
+    --c-pending: #b06000;
+    --c-pending-bg: #fef7e0;
+    
+    /* Additional Colors */
+    --orange: #fbbc04;
+    --green: #34a853;
     
     /* Typography */
     --font-family: 'Sarabun', sans-serif;
     --fs-h1: 2rem;
+    --fs-h2: 1.5rem;
+    --fs-h3: 1.25rem;
     --fs-body: 1rem;
-    --fs-small: 0.9rem;
+    --fs-small: 0.875rem;
+    --fs-xs: 0.75rem;
     
     /* Sizing & Spacing */
     --spacing: 24px;
     --radius: 8px;
-    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --radius-sm: 4px;
+    --radius-lg: 12px;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-xl: 0 8px 24px rgba(0, 0, 0, 0.12);
+    
+    /* Transitions */
+    --transition-quick: all 0.15s ease;
+    --transition-base: all 0.25s ease;
 }
 
 /* App layout */
@@ -78,12 +97,184 @@
     display: flex;
     min-height: 100vh;
     width: 100vw;
+    background-color: var(--c-bg-body);
 }
 
 .content {
     flex: 1;
     background-color: var(--secondary-bg);
     overflow-x: auto;
+}
+
+/* Button Styles */
+button {
+    cursor: pointer;
+    font-family: var(--font-family);
+    transition: var(--transition-base);
+}
+
+.btn-primary {
+    background-color: var(--c-brand);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: var(--radius);
+    font-weight: 500;
+    box-shadow: var(--shadow);
+}
+
+.btn-primary:hover {
+    background-color: var(--blue-hover);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-1px);
+}
+
+/* Card Styles */
+.card {
+    background-color: var(--c-bg-card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    transition: var(--transition-base);
+}
+
+.card:hover {
+    box-shadow: var(--shadow-lg);
+}
+
+/* Shared Table Styles */
+.thai-clinic-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 12px;
+}
+
+.thai-clinic-table thead th {
+    text-align: left;
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: var(--fs-small);
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--line-color);
+}
+
+.thai-clinic-table tbody tr {
+    background-color: var(--white-color);
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    transition: var(--transition-base);
+}
+
+.thai-clinic-table tbody tr:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+.thai-clinic-table tbody td {
+    padding: 16px;
+    border-top: 1px solid var(--line-color);
+    border-bottom: 1px solid var(--line-color);
+}
+
+.thai-clinic-table tbody td:first-child {
+    border-left: 1px solid var(--line-color);
+    border-top-left-radius: var(--radius);
+    border-bottom-left-radius: var(--radius);
+}
+
+.thai-clinic-table tbody td:last-child {
+    border-right: 1px solid var(--line-color);
+    border-top-right-radius: var(--radius);
+    border-bottom-right-radius: var(--radius);
+}
+
+.thai-clinic-table tbody tr:hover td {
+    border-color: var(--blue-light);
+}
+
+/* Status Pills for Tables */
+.thai-clinic-table .status-pill {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: var(--fs-xs);
+    font-weight: 500;
+    display: inline-block;
+    text-align: center;
+}
+
+.thai-clinic-table .status-รอตรวจ,
+.thai-clinic-table .status-pending,
+.thai-clinic-table .status-รอดำเนินการ {
+    background-color: var(--status-waiting-bg);
+    color: var(--status-waiting-text);
+}
+
+.thai-clinic-table .status-เข้าตรวจแล้ว,
+.thai-clinic-table .status-completed,
+.thai-clinic-table .status-เสร็จสิ้น {
+    background-color: var(--status-checked-in-bg);
+    color: var(--status-checked-in-text);
+}
+
+.thai-clinic-table .status-inprogress,
+.thai-clinic-table .status-กำลังดำเนินการ {
+    background-color: var(--status-pending-bg);
+    color: var(--status-pending-text);
+}
+
+/* Table Action Buttons */
+.thai-clinic-table .table-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-start;
+}
+
+.thai-clinic-table .action-btn {
+    padding: 6px 12px;
+    border: 1px solid;
+    border-radius: var(--radius-sm);
+    font-size: var(--fs-xs);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition-base);
+    background: var(--white-color);
+    min-width: 65px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.thai-clinic-table .action-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
+}
+
+.thai-clinic-table .view-btn {
+    color: var(--c-brand);
+    border-color: var(--c-brand);
+}
+
+.thai-clinic-table .view-btn:hover {
+    background-color: var(--c-brand);
+    color: var(--white-color);
+}
+
+.thai-clinic-table .edit-btn {
+    color: var(--c-neutral);
+    border-color: var(--c-neutral);
+}
+
+.thai-clinic-table .edit-btn:hover {
+    background-color: var(--c-neutral);
+    color: var(--white-color);
+}
+
+.thai-clinic-table .delete-btn {
+    color: var(--c-error);
+    border-color: var(--c-error);
+}
+
+.thai-clinic-table .delete-btn:hover {
+    background-color: var(--c-error);
+    color: var(--white-color);
 }
 
 /* Responsive */

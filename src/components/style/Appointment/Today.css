@@ -16,35 +16,41 @@
 }
 
 .today-header span { 
-    font-size: 14px; 
-    color: var(--text-secondary);
-    background-color: var(--light-gray);
-    padding: 5px 15px;
-    border-radius: 6px;
+    font-size: 14px;
+    color: var(--white-color);
+    background-color: var(--c-brand);
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-weight: 500;
 }
 
 .appointment-card {
     background: var(--white-color);
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: var(--radius);
     padding: 1.5rem;
     margin-bottom: 1rem;
     display: grid;
     grid-template-columns: 1.2fr 1.2fr 1fr;
     gap: 1.5rem;
     align-items: start;
-    transition: all 0.2s ease;
+    transition: var(--transition-base);
+    box-shadow: var(--shadow);
 }
 
 .appointment-card:hover {
     box-shadow: var(--shadow-lg);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    border-color: var(--blue-light);
 }
 
 .appointment-card p {
     margin: 0 0 0.75rem 0;
-    font-size: 14px;
+    font-size: var(--fs-small);
     color: var(--dark-gray);
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .appointment-card p strong {
@@ -65,59 +71,67 @@
 
 .card-left .time {
     font-weight: bold;
-    color: var(--text-color);
+    color: var(--c-brand);
+    background-color: var(--blue-light);
+    padding: 4px 10px;
+    border-radius: 4px;
+    display: inline-block;
 }
 
 .card-right {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 1rem;
+    justify-content: space-between;
+    height: 100%;
 }
 
 .status-badge {
-    padding: 6px 12px;
-    border-radius: 12px;
-    font-weight: bold;
-    font-size: 12px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: var(--fs-xs);
+    display: inline-block;
+    text-align: center;
+    box-shadow: var(--shadow);
 }
 
-/* Status Badges - Direct Colors */
+/* Status Badges - Enhanced Colors */
 .status-waiting {
-    background-color: #fefce8;
-    color: #d97706;
-    border: 1px solid #d97706;
+    background-color: var(--status-waiting-bg);
+    color: var(--status-waiting-text);
+    border: 1px solid #fbbc04;
 }
 
 .status-checked-in {
-    background-color: #f0fdf4;
-    color: #059669;
-    border: 1px solid #059669;
+    background-color: var(--status-checked-in-bg);
+    color: var(--status-checked-in-text);
+    border: 1px solid #34a853;
 }
 
 .action-buttons {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     width: 100%;
-    gap: 6px;
+    gap: 8px;
     margin-top: auto;
 }
 
 .action-buttons .button-group {
     display: flex;
-    gap: 6px;
+    gap: 8px;
 }
 
 .action-btn {
     padding: 6px 12px;
     border: 1px solid;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     cursor: pointer;
-    font-size: 0.75rem;
+    font-size: var(--fs-xs);
     font-weight: 500;
     font-family: var(--font-family);
-    transition: all 0.2s ease;
+    transition: var(--transition-quick);
     background: var(--white-color);
     min-width: 65px;
     text-align: center;
@@ -129,28 +143,67 @@
     box-shadow: var(--shadow);
 }
 
-/* Action Buttons - Direct Colors */
+/* Action Buttons - Enhanced Colors */
 .view-btn {
-  color: #1e40af;
-  border-color: #1e40af;
+  color: var(--c-brand);
+  border-color: var(--c-brand);
 }
 
 .view-btn:hover {
-  background-color: #1e40af;
+  background-color: var(--c-brand);
   color: #ffffff;
 }
 
 .edit-btn {
-  color: #6b7280;
-  border-color: #6b7280;
+  color: var(--c-neutral);
+  border-color: var(--c-neutral);
 }
 
 .edit-btn:hover {
-  background-color: #6b7280;
+  background-color: var(--c-neutral);
   color: #ffffff;
 }
 
-/* Remove old button styles */
-.btn-details, .btn-edit {
-    display: none;
+/* Enhanced Icons */
+.card-left p:first-child {
+    margin-bottom: 12px;
+}
+
+.card-center p strong {
+    display: inline-block;
+    min-width: 60px;
+}
+
+/* Media queries */
+@media (max-width: 992px) {
+    .appointment-card {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .card-right {
+        grid-column: span 2;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 12px;
+        margin-top: 12px;
+        border-top: 1px solid var(--light-gray);
+    }
+}
+
+@media (max-width: 576px) {
+    .appointment-card {
+        grid-template-columns: 1fr;
+    }
+    
+    .card-right {
+        grid-column: 1;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
+    .action-buttons {
+        justify-content: flex-start;
+    }
 }

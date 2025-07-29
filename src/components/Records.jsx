@@ -112,7 +112,7 @@ const MedicalRecords = () => {
                 </div>
 
                 <div className="table-wrapper">
-                    <table className="records-table">
+                    <table className="records-table thai-clinic-table">
                         <thead>
                             <tr>
                                 <th>HN</th>
@@ -136,8 +136,12 @@ const MedicalRecords = () => {
                                     <td>{record.diagnosis}</td>
                                     <td>{record.doctor}</td>
                                     <td><TypePill type={record.type} /></td>
-                                    <td><StatusPill status={record.status} /></td>
-                                    <td><ActionButtons /></td>
+                                    <td><span className={`status-pill status-${record.status}`}>{record.status}</span></td>
+                                    <td className="table-actions">
+                                        <button className="action-btn view-btn">ดูรายละเอียด</button>
+                                        <button className="action-btn edit-btn">แก้ไข</button>
+                                        <button className="action-btn delete-btn">ลบ</button>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
