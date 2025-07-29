@@ -1,0 +1,358 @@
+/* --- Global Styles & Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;700&display=swap');
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  background-color: var(--c-bg-body);
+  color: var(--c-text-secondary);
+}
+
+/* --- Page Layout (matching appointment structure) --- */
+.dashboard-container {
+  padding: 24px;
+  background-color: var(--secondary-bg);
+  min-height: 100vh;
+  width: 100%;
+}
+
+.dashboard-header {
+  margin-bottom: 32px;
+}
+
+.dashboard-header h1 {
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 8px 0;
+}
+
+.dashboard-header p {
+  font-size: 16px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* --- Summary Section --- */
+.summary-section {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.summary-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--c-bg-card);
+  padding: 20px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: all 0.2s ease;
+}
+
+.summary-card:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lg);
+}
+
+.summary-info .summary-value {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--c-text-primary);
+}
+
+.summary-info .summary-label {
+  font-size: 0.9rem;
+  color: var(--c-text-secondary);
+}
+
+.summary-icon {
+  font-size: 1.5rem;
+  padding: 12px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- Beds Grid Layout --- */
+.beds-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* --- Bed Card --- */
+.bed-card {
+  background-color: var(--bg-color, var(--c-bg-card));
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  border-top: 4px solid var(--border-color, var(--c-neutral));
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.bed-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Bed Card Statuses - Direct Colors */
+.bed-card.occupied { 
+  --border-color: #dc2626; 
+  --bg-color: #fef2f2; 
+}
+.bed-card.available { 
+  --border-color: #059669; 
+  --bg-color: #f0fdf4; 
+}
+.bed-card.cleaning { 
+  --border-color: #d97706; 
+  --bg-color: #fefce8; 
+}
+.bed-card.maintenance { 
+  --border-color: #6b7280; 
+  --bg-color: #f9fafb; 
+}
+
+.bed-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 16px 8px 16px;
+  position: relative;
+}
+
+.bed-card-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--c-text-primary);
+}
+
+.status-tag {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #fff;
+}
+
+/* Status Tags - Direct Colors */
+.status-tag.occupied { background-color: #dc2626; }
+.status-tag.available { background-color: #059669; }
+.status-tag.cleaning { 
+  background-color: #d97706; 
+  color: #ffffff; 
+}
+.status-tag.maintenance { background-color: #6b7280; }
+
+.bed-card-body {
+  flex-grow: 1;
+  padding: 8px 16px;
+}
+
+.bed-card-footer {
+  padding: 16px;
+}
+
+/* --- Patient Details --- */
+.patient-details p {
+  margin: 4px 0;
+  font-size: var(--fs-small);
+  display: flex;
+  align-items: center;
+  color: var(--c-text-primary);
+}
+
+.patient-details .cn-text {
+  margin-left: 20px;
+  color: var(--c-text-secondary);
+}
+
+.patient-details .detail-icon {
+  margin-right: 8px;
+  color: var(--c-text-secondary);
+  font-size: 0.9rem;
+}
+
+.service-info {
+  margin-top: 12px;
+  padding-top: 8px;
+  border-top: 1px solid var(--light-gray);
+}
+
+.service-info .service-label {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--c-text-secondary);
+  font-weight: 500;
+}
+
+.service-info .service-name {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1e40af;
+}
+
+/* --- Empty Bed View --- */
+.empty-bed-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 150px;
+  color: #ced4da;
+}
+
+.empty-bed-view .empty-bed-icon {
+  font-size: 3rem;
+  margin-bottom: 8px;
+  opacity: 0.7;
+}
+
+.empty-bed-view p {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--c-text-secondary);
+  opacity: 0.8;
+}
+
+/* --- Buttons --- */
+.btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  font-size: var(--fs-small);
+  font-family: var(--font-family);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: auto;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-start { 
+  background-color: #1e40af; 
+  color: #fff; 
+}
+.btn-start:hover { 
+  background-color: #1d4ed8; 
+}
+
+.btn-finish { 
+  background-color: #ffffff; 
+  color: #dc2626; 
+  border-color: #dc2626; 
+}
+.btn-finish:hover { 
+  background-color: #dc2626;
+  color: #fff;
+}
+
+.btn-finish-cleaning, .btn-finish-maintenance {
+  background-color: #f1f3f5;
+  color: var(--c-text-secondary);
+  border-color: var(--c-border);
+}
+.btn-finish-cleaning:hover, .btn-finish-maintenance:hover { 
+  background-color: #6b7280;
+  color: #ffffff;
+}
+
+/* --- Action Buttons (matching Records page) --- */
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.action-buttons .button-group {
+  display: flex;
+  gap: 6px;
+}
+
+.action-btn {
+  padding: 6px 12px;
+  border: 1px solid;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 500;
+  font-family: var(--font-family);
+  transition: all 0.2s ease;
+  background: var(--white-color);
+  min-width: 65px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.action-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+.view-btn {
+  color: #1e40af;
+  border-color: #1e40af;
+}
+
+.view-btn:hover {
+  background-color: #1e40af;
+  color: #ffffff;
+}
+
+.edit-btn {
+  color: #6b7280;
+  border-color: #6b7280;
+}
+
+.edit-btn:hover {
+  background-color: #6b7280;
+  color: #ffffff;
+}
+
+.delete-btn {
+  color: #dc2626;
+  border-color: #dc2626;
+}
+
+.delete-btn:hover {
+  background-color: #dc2626;
+  color: #ffffff;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 992px) {
+  .summary-section, .beds-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .summary-section, .beds-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .dashboard-container {
+    padding: 16px;
+  }
+}

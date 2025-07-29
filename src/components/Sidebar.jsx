@@ -8,13 +8,7 @@ function Sidebar() {
         { name: 'หน้าหลัก', icon: '🏠', path: '/' },
         { name: 'ตารางนัด', icon: '📅', path: '/appointments'},
         { name: 'ห้องตรวจ', icon: '🩺', path: '/examination' },
-        { name: 'เวชระเบียน', icon: '📋', path: '/medical-records' },
-        { name: 'ห้องยาและการชำระ', icon: '💊', path: '/pharmacy-payment' },
-        { name: 'รับเลข', icon: '🎫', path: '/queue' },
-        { name: 'คลังคลินิก', icon: '📦', path: '/inventory' },
-        { name: 'สถิติ', icon: '📊', path: '/statistics' },
-        { name: 'รายงาน', icon: '📄', path: '/reports' },
-        { name: 'ผู้ดูแลระบบ', icon: '👥', path: '/admin' },
+        { name: 'เวชระเบียน', icon: '📋', path: '/Records' },
         { name: 'ตั้งค่า', icon: '⚙️', path: '/settings' },
     ]
 

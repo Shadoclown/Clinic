@@ -36,9 +36,9 @@
 }
 
 .day-card:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transform: translateY(-2px);
-    border-color: var(--blue);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-1px);
+    border-color: var(--c-brand);
 }
 
 .day-card:focus {
@@ -47,21 +47,21 @@
 }
 
 .day-card.today:not(.active-day) {
-    border-color: var(--blue);
-    background-color: rgba(59, 130, 246, 0.1);
-    color: var(--blue);
+    border-color: var(--c-brand);
+    background-color: var(--c-inprogress-bg);
+    color: var(--c-brand);
 }
 
 .day-card.active-day {
-    border-color: var(--primary-color);
-    background: linear-gradient(135deg, var(--blue) 0%, var(--blue-hover) 100%);
+    border-color: var(--c-brand);
+    background: var(--c-brand);
     color: var(--white-color);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    box-shadow: var(--shadow-lg);
 }
 
 .day-card.active-day:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 16px rgba(59, 130, 246, 0.2);
 }
 
 .day-card p {
@@ -78,7 +78,7 @@
 }
 
 .day-card.today:not(.active-day) .date-number {
-    color: var(--blue);
+    color: var(--c-brand);
 }
 
 .day-card.active-day .date-number {
@@ -86,7 +86,7 @@
 }
 
 .day-card:hover:not(.active-day) .date-number {
-    color: var(--blue);
+    color: var(--c-brand);
 }
 
 .day-card .no-appointments {

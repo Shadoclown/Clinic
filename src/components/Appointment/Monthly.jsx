@@ -1,5 +1,64 @@
 import React, { useState } from 'react';
 import '../style/Appointment/monthly.css';
+import '../style/Records.css'; // Import Records CSS for table styling
+
+// Mock appointments data for the month
+const monthlyAppointments = [
+    {
+        id: 'CN001',
+        date: new Date(2025, 0, 15), // January 15, 2025
+        time: '08:30',
+        patientName: 'นางสาว สมใจ ใจดี',
+        service: 'ตรวจสุขภาพทั่วไป',
+        doctor: 'นพ.สมชาย ใจดี',
+        status: 'confirmed'
+    },
+    {
+        id: 'CN002',
+        date: new Date(2025, 0, 15), // January 15, 2025
+        time: '09:00',
+        patientName: 'นาย วินัย สะบาย',
+        service: 'ฉีดวัคซีน',
+        doctor: 'พว.สมหญิง ใจเย็น',
+        status: 'pending'
+    },
+    {
+        id: 'CN003',
+        date: new Date(2025, 0, 18), // January 18, 2025
+        time: '09:30',
+        patientName: 'นางสมหญิง โรงเย็น',
+        service: 'ตรวจหู คอ จมูก',
+        doctor: 'นพ.วิชาญ เก่งกาจ',
+        status: 'confirmed'
+    },
+    {
+        id: 'CN004',
+        date: new Date(2025, 0, 20), // January 20, 2025
+        time: '10:00',
+        patientName: 'นาย สมศักดิ์ มั่นคง',
+        service: 'ตรวจเลือด',
+        doctor: 'นพ.สมชาย ใจดี',
+        status: 'completed'
+    },
+    {
+        id: 'CN005',
+        date: new Date(2025, 0, 22), // January 22, 2025
+        time: '14:30',
+        patientName: 'นางสาว มาลี ดวงดี',
+        service: 'ตรวจฟัน',
+        doctor: 'ทพ.สุรศักดิ์ ยิ้มใส',
+        status: 'confirmed'
+    },
+    {
+        id: 'CN006',
+        date: new Date(2025, 0, 25), // January 25, 2025
+        time: '11:15',
+        patientName: 'นาย ประสิทธิ์ เก่งกาจ',
+        service: 'ตรวจตา',
+        doctor: 'นพ.วิทยา มองแจ่ม',
+        status: 'pending'
+    }
+];
 
 const MonthlyView = () => {
     const daysOfWeek = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
@@ -88,6 +147,23 @@ const MonthlyView = () => {
         return `${selectedDate.getDate()}/${selectedDate.getMonth() + 1}/${selectedDate.getFullYear() + 543}`;
     };
 
+    // Filter appointments for current month
+    const getMonthlyAppointments = () => {
+        return monthlyAppointments.filter(appointment => {
+            return appointment.date.getMonth() === currentDate.getMonth() &&
+                   appointment.date.getFullYear() === currentDate.getFullYear();
+        });
+    };
+
+    // Check if a date has appointments
+    const hasAppointments = (date) => {
+        return monthlyAppointments.some(apt => 
+            apt.date.toDateString() === date.toDateString()
+        );
+    };
+
+    const currentMonthAppointments = getMonthlyAppointments();
+
     return (
         <div className="month-view">
             <div className="view-header month-header">
@@ -111,6 +187,7 @@ const MonthlyView = () => {
                                     ${dayObj.isOtherMonth ? 'other-month' : ''} 
                                     ${isSelected(dayObj.date) ? 'active-day' : ''} 
                                     ${isToday(dayObj.date) ? 'today' : ''}
+                                    ${hasAppointments(dayObj.date) ? 'has-appointments' : ''}
                                 `}
                                 onClick={() => handleDayClick(dayObj.date)}
                                 tabIndex={0}
@@ -125,6 +202,55 @@ const MonthlyView = () => {
                 <div className="daily-appointments">
                     <h4>นัดหมายวันที่ {formatSelectedDate()}</h4>
                     <p>ไม่มีนัดหมายในวันนี้</p>
+                </div>
+            </div>
+
+            {/* Monthly Appointments Overview - Table Layout */}
+            <div className="monthly-overview">
+                <h3>ภาพรวมนัดหมายประจำเดือน ({currentMonthAppointments.length} รายการ)</h3>
+                <div className="table-wrapper">
+                    <table className="records-table">
+                        <thead>
+                            <tr>
+                                <th>วันที่</th>
+                                <th>เวลา</th>
+                                <th>ชื่อผู้ป่วย</th>
+                                <th>บริการ</th>
+                                <th>แพทย์</th>
+                                <th>สถานะ</th>
+                                <th>การดำเนินการ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {currentMonthAppointments.map(appointment => (
+                                <tr key={appointment.id}>
+                                    <td>{appointment.date.getDate()}/{appointment.date.getMonth() + 1}/{appointment.date.getFullYear() + 543}</td>
+                                    <td>{appointment.time}</td>
+                                    <td>{appointment.patientName}</td>
+                                    <td>{appointment.service}</td>
+                                    <td>{appointment.doctor}</td>
+                                    <td>
+                                        <span className={`pill ${
+                                            appointment.status === 'confirmed' ? 'status-completed' : 
+                                            appointment.status === 'pending' ? 'status-pending' : 'status-inprogress'
+                                        }`}>
+                                            {appointment.status === 'confirmed' ? 'ยืนยันแล้ว' : 
+                                             appointment.status === 'pending' ? 'รอยืนยัน' : 'เสร็จสิ้น'}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div className="action-buttons">
+                                            <div className="button-group">
+                                                <button className="action-btn view-btn">ดูรายละเอียด</button>
+                                                <button className="action-btn edit-btn">แก้ไข</button>
+                                            </div>
+                                            <button className="action-btn delete-btn">ยกเลิก</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

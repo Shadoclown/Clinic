@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Sidebar from './components/sidebar'
 import Home from './components/Home'
 import Appointment from './components/Appointment/Appointment'
+import Examination from './components/Examination'
+import Records from './components/Records'
 import './App.css'
 
 function App() {
@@ -14,6 +16,8 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/appointments" element={<Appointment />} />
+                        <Route path="/examination" element={<Examination />} />
+                        <Route path="/records" element={<Records />} />
                     </Routes>
                 </div>
             </div>

@@ -104,19 +104,6 @@ function Home() {
                         ))}
                     </div>
                 </div>
-
-                {/* Quick Actions Section */}
-                <div className="quick-actions-section">
-                    <h2>การดำเนินการด่วน</h2>
-                    <div className="quick-actions-list">
-                        {quickActions.map((action, index) => (
-                            <div key={index} className="quick-action-item">
-                                <span className="action-icon">{action.icon}</span>
-                                <span className="action-name">{action.name}</span>
-                            </div>
-                        ))}
-                    </div>
-                </div>
             </div>
         </div>
     )

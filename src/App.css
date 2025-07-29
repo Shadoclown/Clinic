@@ -1,41 +1,76 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 :root {
-    /* Main colors */
-    --primary-color: #00ACED;
-    --primary-bg: #f4f4f4;
-    --secondary-bg: #f8fafc;
-    --light-gray: #f0f2f5;
-    --medium-gray: #e4e6eb;
-    --dark-gray: #65676b;
-    --text-primary: #1f2937;
-    --text-secondary: #6b7280;
-    --text-muted: #374151;
-    --text-color: #333;
+    /* Primary Brand Color - Single Muted Blue */
+    --primary-color: #64748b;
+    --c-brand: #64748b;
+    --blue: #64748b;
+    --blue-hover: #475569;
+    
+    /* Minimal Accent Colors - Single Shade Each */
+    --c-success: #6b7280;
+    --c-error: #6b7280;
+    --c-warning: #6b7280;
+    --c-neutral: #6b7280;
+    
+    /* Status Colors - Very Minimal */
+    --c-success-bg: #f8fafc;
+    --c-error-bg: #f8fafc;
+    --c-warning-bg: #f8fafc;
+    --c-neutral-bg: #f8fafc;
+    
+    /* Background Colors - Pure and Minimal */
+    --primary-bg: #ffffff;
+    --secondary-bg: #f9fafb;
+    --c-bg-body: #ffffff;
+    --c-bg-card: #ffffff;
     --white-color: #ffffff;
-    --border-color: #dcdfe3;
-    --line-color: #b1b1b1;
-    --spacing: 20px;
     
-    /* Action colors */
-    --blue: #3b82f6;
-    --blue-hover: #2563eb;
-    --orange: #f59e0b;
-    --green: #10b981;
+    /* Text Colors - Simplified Hierarchy */
+    --text-primary: #111827;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
+    --text-color: #111827;
+    --c-text-primary: #111827;
+    --c-text-secondary: #6b7280;
+    --dark-gray: #6b7280;
     
-    /* Status colors */
-    --status-waiting-bg: #fffbe6;
-    --status-waiting-text: var(--orange);
-    --status-checked-in-bg: #e6f7ec;
-    --status-checked-in-text: var(--green);
-    --status-pending-bg: #fef3c7;
-    --status-pending-text: #92400e;
-    --status-completed-bg: #d1fae5;
-    --status-completed-text: #065f46;
+    /* Gray Scale - Minimal */
+    --light-gray: #f9fafb;
+    --medium-gray: #e5e7eb;
+    --border-color: #e5e7eb;
+    --c-border: #d1d5db;
+    --line-color: #9ca3af;
+    
+    /* Status Colors - Consistent Single Shades */
+    --status-waiting-bg: #f8fafc;
+    --status-waiting-text: #6b7280;
+    --status-checked-in-bg: #f8fafc;
+    --status-checked-in-text: #6b7280;
+    --status-pending-bg: #f8fafc;
+    --status-pending-text: #6b7280;
+    --status-completed-bg: #f8fafc;
+    --status-completed-text: #6b7280;
+    --c-inprogress: #64748b;
+    --c-inprogress-bg: #f1f5f9;
+    --c-pending: #6b7280;
+    --c-pending-bg: #f8fafc;
+    
+    /* Typography */
+    --font-family: 'Sarabun', sans-serif;
+    --fs-h1: 2rem;
+    --fs-body: 1rem;
+    --fs-small: 0.9rem;
+    
+    /* Sizing & Spacing */
+    --spacing: 24px;
+    --radius: 8px;
+    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 /* App layout */
@@ -47,7 +82,7 @@
 
 .content {
     flex: 1;
-    background-color: #f8fafc;
+    background-color: var(--secondary-bg);
     overflow-x: auto;
 }
 

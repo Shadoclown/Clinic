@@ -13,14 +13,14 @@ const TodayView = ({ appointments }) => (
                     <p className="time">🕒 {app.time}  {app.id}</p>
                     <p className="patient-name">👤 {app.patientName}</p>
                     <p className="phone">📞 {app.phone}</p>
-                    <p className="location">📍 {app.location}</p>
+                    {/* <p className="location">📍 {app.location}</p> */}
                     <hr />
                     <p className="notes"><strong>หมายเหตุ:</strong> {app.notes}</p>
                 </div>
                 <div className="card-center">
                     <p><strong>บริการ:</strong> {app.service}</p>
-                    <p><strong>แพทย์:</strong> {app.doctor}</p>
-                    <p><strong>ระยะเวลา:</strong> {app.duration}</p>
+                    {/* <p><strong>แพทย์:</strong> {app.doctor}</p> */}
+                    {/* <p><strong>ระยะเวลา:</strong> {app.duration}</p> */}
                     <p><strong>ราคา:</strong> {app.price}</p>
                 </div>
                 <div className="card-right">
@@ -28,8 +28,10 @@ const TodayView = ({ appointments }) => (
                         {app.status}
                     </span>
                     <div className="action-buttons">
-                        <button className="btn-details">ดูละเอียด</button>
-                        <button className="btn-edit">แก้ไข</button>
+                        <div className="button-group">
+                            <button className="action-btn view-btn">ดูรายละเอียด</button>
+                            <button className="action-btn edit-btn">แก้ไข</button>
+                        </div>
                     </div>
                 </div>
             </div>

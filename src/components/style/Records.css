@@ -1,0 +1,219 @@
+/* --- Global Styles & Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;700&display=swap');
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  background-color: var(--c-bg-body);
+  color: var(--c-text-primary);
+}
+
+/* --- Page Layout & Header --- */
+.records-page-container {
+  padding: 24px;
+  background-color: var(--secondary-bg);
+  min-height: 100vh;
+  width: 100%;
+}
+
+.records-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.records-header h1 {
+  margin: 0 0 8px 0;
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.btn-primary {
+  background-color: var(--c-brand);
+  color: white;
+}
+.btn-primary:hover {
+  background-color: var(--blue-hover);
+}
+
+/* --- Content Card --- */
+.records-content-card {
+  background-color: var(--white-color);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  margin-bottom: 24px;
+}
+
+.card-header h2 {
+  margin: 0 0 16px 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* --- Search Bar --- */
+.search-container {
+  position: relative;
+}
+
+.search-container .search-icon {
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+  color: var(--c-text-secondary);
+}
+
+.search-container input {
+  width: 100%;
+  padding: 12px 16px 12px 48px;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  font-family: var(--font-family);
+  font-size: 1rem;
+  background-color: #f9fafb;
+}
+.search-container input:focus {
+  outline: none;
+  border-color: var(--c-brand);
+  box-shadow: 0 0 0 2px rgba(3, 169, 244, 0.2);
+}
+
+/* --- Table Styles --- */
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.records-table {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap;
+}
+
+.records-table th,
+.records-table td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--c-border);
+}
+
+.records-table th {
+  color: var(--c-text-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.records-table tbody tr:hover {
+  background-color: #f7f9fa;
+}
+
+/* --- Pill/Tag Styles --- */
+.pill {
+  padding: 6px 14px;
+  border-radius: 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: inline-block;
+  text-align: center;
+}
+
+.type-pill {
+  background-color: var(--c-bg-card);
+  border: 1px solid var(--c-border);
+  color: var(--c-text-secondary);
+}
+
+/* --- Action Buttons --- */
+.action-buttons {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.action-btn {
+  padding: 6px 12px;
+  border: 1px solid;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 500;
+  font-family: var(--font-family);
+  transition: all 0.2s ease;
+  background: var(--white-color);
+  min-width: 65px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.action-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+.view-btn {
+  color: var(--c-brand);
+  border-color: var(--c-brand);
+}
+
+.edit-btn {
+  color: var(--c-neutral);
+  border-color: var(--c-neutral);
+}
+
+.edit-btn:hover {
+  background-color: var(--c-neutral);
+  color: var(--white-color);
+}
+
+.delete-btn {
+  color: var(--c-error);
+  border-color: var(--c-error);
+}
+
+.delete-btn:hover {
+  background-color: var(--c-error);
+  color: var(--white-color);
+}
+
+/* Status Pills - Simplified */
+.status-completed { 
+  background-color: var(--c-success-bg); 
+  color: var(--c-success); 
+  border: 1px solid var(--c-success);
+}
+
+.status-inprogress { 
+  background-color: var(--c-inprogress-bg); 
+  color: var(--c-inprogress); 
+  border: 1px solid var(--c-inprogress);
+}
+
+.status-pending { 
+  background-color: var(--c-pending-bg); 
+  color: var(--c-pending); 
+  border: 1px solid var(--c-pending);
+}
+
+/* Type Pills */
+.type-pill {
+  background-color: var(--light-gray);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* Remove old icon button styles */
+.icon-btn {
+  display: none;
+}
