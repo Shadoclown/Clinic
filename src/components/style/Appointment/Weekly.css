@@ -47,14 +47,14 @@
 }
 
 .day-card.today:not(.active-day) {
-    border-color: var(--c-brand);
-    background-color: var(--c-inprogress-bg);
-    color: var(--c-brand);
+    border: 2px solid var(--blue);
+    /* background-color: var(--blue); */
+    /* color: var(--white-color); */
 }
 
 .day-card.active-day {
     border-color: var(--c-brand);
-    background: var(--c-brand);
+    background: var(--c-inprogress  );
     color: var(--white-color);
     box-shadow: var(--shadow-lg);
 }

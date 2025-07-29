@@ -1,64 +1,10 @@
 import React, { useState } from 'react';
 import '../style/Appointment/monthly.css';
 import '../style/Records.css'; // Import Records CSS for table styling
+import { getMonthlyAppointments } from '../../utils/patientData';
 
-// Mock appointments data for the month
-const monthlyAppointments = [
-    {
-        id: 'CN001',
-        date: new Date(2025, 6, 15), // January 15, 2025
-        time: '08:30',
-        patientName: 'นางสาว สมใจ ใจดี',
-        service: 'ตรวจสุขภาพทั่วไป',
-        doctor: 'นพ.สมชาย ใจดี',
-        status: 'confirmed'
-    },
-    {
-        id: 'CN002',
-        date: new Date(2025, 6, 15), // January 15, 2025
-        time: '09:00',
-        patientName: 'นาย วินัย สะบาย',
-        service: 'ฉีดวัคซีน',
-        doctor: 'พว.สมหญิง ใจเย็น',
-        status: 'pending'
-    },
-    {
-        id: 'CN003',
-        date: new Date(2025, 6, 18), // January 18, 2025
-        time: '09:30',
-        patientName: 'นางสมหญิง โรงเย็น',
-        service: 'ตรวจหู คอ จมูก',
-        doctor: 'นพ.วิชาญ เก่งกาจ',
-        status: 'confirmed'
-    },
-    {
-        id: 'CN004',
-        date: new Date(2025, 6, 20), // January 20, 2025
-        time: '10:00',
-        patientName: 'นาย สมศักดิ์ มั่นคง',
-        service: 'ตรวจเลือด',
-        doctor: 'นพ.สมชาย ใจดี',
-        status: 'completed'
-    },
-    {
-        id: 'CN005',
-        date: new Date(2025, 6, 22), // January 22, 2025
-        time: '14:30',
-        patientName: 'นางสาว มาลี ดวงดี',
-        service: 'ตรวจฟัน',
-        doctor: 'ทพ.สุรศักดิ์ ยิ้มใส',
-        status: 'confirmed'
-    },
-    {
-        id: 'CN006',
-        date: new Date(2025, 0, 25), // January 25, 2025
-        time: '11:15',
-        patientName: 'นาย ประสิทธิ์ เก่งกาจ',
-        service: 'ตรวจตา',
-        doctor: 'นพ.วิทยา มองแจ่ม',
-        status: 'pending'
-    }
-];
+// Get monthly appointments from our utility
+const monthlyAppointments = getMonthlyAppointments();
 
 const MonthlyView = () => {
     const daysOfWeek = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
@@ -155,14 +101,17 @@ const MonthlyView = () => {
         });
     };
 
-    // Check if a date has appointments
+    // Check if a date has appointments - updated to use our data
     const hasAppointments = (date) => {
         return monthlyAppointments.some(apt => 
             apt.date.toDateString() === date.toDateString()
         );
     };
 
-    const currentMonthAppointments = getMonthlyAppointments();
+    const currentMonthAppointments = getMonthlyAppointments().filter(appointment => {
+        return appointment.date.getMonth() === currentDate.getMonth() &&
+               appointment.date.getFullYear() === currentDate.getFullYear();
+    });
 
     return (
         <div className="month-view">
@@ -219,6 +168,7 @@ const MonthlyView = () => {
                                 <th>แพทย์</th>
                                 <th>สถานะ</th>
                                 <th>การดำเนินการ</th>
+                                <th>ยกเลิก</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -241,7 +191,9 @@ const MonthlyView = () => {
                                     <td className="table-actions">
                                         <button className="action-btn view-btn">ดูรายละเอียด</button>
                                         <button className="action-btn edit-btn">แก้ไข</button>
-                                        <button className="action-btn delete-btn">ยกเลิก</button>
+                                    </td>
+                                    <td className='cancel-action'>
+                                        <button className="action-btn cancel-btn">ยกเลิก</button>
                                     </td>
                                 </tr>
                             ))}

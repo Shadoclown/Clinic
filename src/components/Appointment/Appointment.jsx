@@ -1,51 +1,12 @@
 import React, { useState } from 'react';
-import TodayView from './today';
-import WeeklyView from './weekly';
-import MonthlyView from './monthly';
+import TodayView from './Today';
+import WeeklyView from './Weekly';
+import MonthlyView from './Monthly';
 import '../style/Appointment/Appointment.css';
+import { getTodayAppointments } from '../../utils/patientData';
 
-// Mock Data for Appointments
-const appointmentsData = [
-    {
-        id: 'CN001',
-        time: '08:30',
-        patientName: 'นางสาว สมใจ ใจดี',
-        phone: '081-234-5678',
-        location: 'ห้องตรวจ 1',
-        service: 'ตรวจสุขภาพทั่วไป',
-        doctor: 'นพ.สมชาย ใจดี',
-        duration: '30 นาที',
-        price: '500 บาท',
-        notes: 'ผู้ป่วยใหม่ มีอาการไอเรื้อรังเล็กน้อย',
-        status: 'รอตรวจ'
-    },
-    {
-        id: 'CN002',
-        time: '09:00',
-        patientName: 'นาย วินัย สะบาย',
-        phone: '082-345-6789',
-        location: 'ห้องฉีดยา',
-        service: 'ฉีดวัคซีน',
-        doctor: 'พว.สมหญิง ใจเย็น',
-        duration: '15 นาที',
-        price: '300 บาท',
-        notes: 'ฉีดวัคซีนไข้หวัดใหญ่',
-        status: 'เช็คอินแล้ว'
-    },
-    {
-        id: 'CN003',
-        time: '09:30',
-        patientName: 'นางสมหญิง โรงเย็น',
-        phone: '083-456-7890',
-        location: 'ห้องตรวจ 2',
-        service: 'ตรวจหู คอ จมูก',
-        doctor: 'นพ.วิชาญ เก่งกาจ',
-        duration: '20 นาที',
-        price: '450 บาท',
-        notes: 'มีอาการเจ็บคอ',
-        status: 'รอตรวจ'
-    },
-];
+// Get appointment data from our utility
+const appointmentsData = getTodayAppointments();
 
 const Appointment = () => {
     const [activeTab, setActiveTab] = useState('today');

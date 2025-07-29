@@ -1,49 +1,9 @@
 import React from 'react';
 import './style/Records.css';
+import { getAllMedicalRecords } from '../utils/patientData';
 
-// --- Mock Data for the Table ---
-const medicalRecordsData = [
-    {
-        hn: 'HN001234',
-        patientName: 'นางสาว สมศรี ใจดี',
-        date: '29/1/2567',
-        time: '09:30',
-        diagnosis: 'หวัด ไข้',
-        doctor: 'นพ.สมชาย แพทย์ดี',
-        type: 'ตรวจรักษา',
-        status: 'เสร็จสิ้น',
-    },
-    {
-        hn: 'HN001235',
-        patientName: 'นาย วิชัย สุขสบาย',
-        date: '29/1/2567',
-        time: '10:15',
-        diagnosis: 'ความดันโลหิตสูง',
-        doctor: 'นพ.สุรชัย หัตถกรรม',
-        type: 'ติดตาม',
-        status: 'กำลังดำเนินการ',
-    },
-    {
-        hn: 'HN001236',
-        patientName: 'นางมาลี ดอกไม้',
-        date: '29/1/2567',
-        time: '11:00',
-        diagnosis: 'เบาหวาน',
-        doctor: 'นพ.สมชาย แพทย์ดี',
-        type: 'ปรึกษา',
-        status: 'รอดำเนินการ',
-    },
-    {
-        hn: 'HN001237',
-        patientName: 'นาย ประยุทธ สีเทา',
-        date: '28/1/2567',
-        time: '14:30',
-        diagnosis: 'ปวดหลัง',
-        doctor: 'นพ.วิชัย กระดูกดี',
-        type: 'ตรวจรักษา',
-        status: 'เสร็จสิ้น',
-    },
-];
+// Get medical records data from our utility
+const medicalRecordsData = getAllMedicalRecords();
 
 // --- Reusable Components ---
 
@@ -62,17 +22,6 @@ const StatusPill = ({ status }) => {
 const TypePill = ({ type }) => (
     <span className="pill type-pill">{type}</span>
 );
-
-const ActionButtons = () => (
-    <div className="action-buttons">
-        <div className="button-group">
-            <button className="action-btn view-btn">ดูรายละเอียด</button>
-            <button className="action-btn edit-btn">แก้ไข</button>
-        </div>
-        <button className="action-btn delete-btn">ลบ</button>
-    </div>
-);
-
 
 // --- Main Page Component ---
 
@@ -124,26 +73,41 @@ const MedicalRecords = () => {
                                 <th>ประเภท</th>
                                 <th>สถานะ</th>
                                 <th>การดำเนินการ</th>
+                                <th>ยกเลิก</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {filteredRecords.map((record) => (
-                                <tr key={record.hn}>
-                                    <td>{record.hn}</td>
-                                    <td>{record.patientName}</td>
-                                    <td>{record.date}</td>
-                                    <td>{record.time}</td>
-                                    <td>{record.diagnosis}</td>
-                                    <td>{record.doctor}</td>
-                                    <td><TypePill type={record.type} /></td>
-                                    <td><span className={`status-pill status-${record.status}`}>{record.status}</span></td>
-                                    <td className="table-actions">
-                                        <button className="action-btn view-btn">ดูรายละเอียด</button>
-                                        <button className="action-btn edit-btn">แก้ไข</button>
-                                        <button className="action-btn delete-btn">ลบ</button>
+                            {filteredRecords.length === 0 ? (
+                                <tr>
+                                    <td colSpan="10" className="no-records">
+                                        ไม่มีข้อมูลเวชระเบียน
                                     </td>
                                 </tr>
-                            ))}
+                            ) : (
+                                filteredRecords.map((record, index) => (
+                                    <tr key={index}>
+                                        <td>{record.hn}</td>
+                                        <td>{record.patientName}</td>
+                                        <td>{record.date}</td>
+                                        <td>{record.time}</td>
+                                        <td>{record.diagnosis}</td>
+                                        <td>{record.doctor}</td>
+                                        <td><span className="pill type-pill">{record.type}</span></td>
+                                        <td><span className={`status-pill status-${record.status === 'เสร็จสิ้น' ? 'completed' : 
+                                                record.status === 'กำลังดำเนินการ' ? 'inprogress' : 'pending'}`}>
+                                                {record.status}
+                                            </span>
+                                        </td>
+                                        <td className="table-actions">
+                                            <button className="action-btn view-btn">ดูรายละเอียด</button>
+                                            <button className="action-btn edit-btn">แก้ไข</button>
+                                        </td>
+                                        <td className='cancel-action'>
+                                            <button className="action-btn cancel-btn">ยกเลิก</button>
+                                        </td>
+                                    </tr>
+                                ))
+                            )}
                         </tbody>
                     </table>
                 </div>

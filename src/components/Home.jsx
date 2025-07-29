@@ -1,43 +1,41 @@
 import React from 'react'
 import './style/Home.css'
+import { getClinicStats, getTodayAppointments } from '../utils/patientData';
 
 function Home() {
+    // Get data from our utility functions
+    const clinicStats = getClinicStats();
+    const todayAppointments = getTodayAppointments();
+    
     const stats = [
         { 
             title: 'ผู้ป่วยใหม่', 
-            value: '24', 
+            value: clinicStats.newPatients, 
             change: '+12% จากเมื่อวาน', 
             icon: '👥',
             color: 'blue'
         },
         { 
-            title: 'นัดหมายของเมื่อ', 
-            value: '8', 
+            title: 'นัดหมายของวันนี้', 
+            value: clinicStats.dailyAppointments, 
             change: '3 นัดครึ่งวัน', 
             icon: '📅',
             color: 'orange'
         },
         { 
             title: 'รายได้วันนี้', 
-            value: '฿12,450', 
+            value: `฿${clinicStats.revenue}`, 
             change: '+8.2% จากเมื่อวาน', 
             icon: '💰',
             color: 'green'
         },
         { 
-            title: 'เซียงต์โร่งาน', 
-            value: '6/9', 
-            change: '3 เซียงว่าง', 
-            icon: '📊',
+            title: 'เตียงที่ใช้งาน', 
+            value: clinicStats.bedsOccupied, 
+            change: '2 เตียงไม่ว่าง', 
+            icon: '🛏️',
             color: 'blue'
         }
-    ]
-
-    const appointments = [
-        { time: '09:30', name: 'นางสาว สมใจ โลดี', issue: 'ตรวจสุขภาพท่าที่ปี', status: 'รอตรวจ' },
-        { time: '10:00', name: 'นาย วิชิต สมชาย', issue: 'ฉีดวัคซีน', status: 'เข้าตรวจแล้ว' },
-        { time: '10:30', name: 'นางสมหญิง โจเซ็น', issue: 'ตรวจหู คอ จมูก', status: 'รอตรวจ' },
-        { time: '11:00', name: 'เด็กชาย โจดี ก็สบุ', issue: 'ตรวจสุขภาพเด็ก', status: 'รอตรวจ' }
     ]
 
     const quickActions = [
@@ -82,7 +80,6 @@ function Home() {
                 <div className="appointments-section">
                     <div className="section-header">
                         <h2>นัดหมายวันนี้</h2>
-                        <button className="calendar-btn">📅 ลิงวันหนด</button>
                     </div>
                     
                     <table className="appointments-table thai-clinic-table">
@@ -93,30 +90,41 @@ function Home() {
                                 <th>หมายเหตุ</th>
                                 <th>สถานะ</th>
                                 <th>การดำเนินการ</th>
+                                <th>ยกเลิก</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {appointments.map((appointment, index) => (
-                                <tr key={index}>
-                                    <td className="appointment-time-cell">
-                                        <div className="appointment-time">
-                                            <span className="time">{appointment.time}</span>
-                                        </div>
-                                    </td>
-                                    <td className="appointment-name-cell">{appointment.name}</td>
-                                    <td className="appointment-issue-cell">{appointment.issue}</td>
-                                    <td className="appointment-status-cell">
-                                        <span className={`status-pill status-${appointment.status}`}>
-                                            {appointment.status}
-                                        </span>
-                                    </td>
-                                    <td className="table-actions">
-                                        <button className="action-btn view-btn">ดูรายละเอียด</button>
-                                        <button className="action-btn edit-btn">แก้ไข</button>
-                                        <button className="action-btn delete-btn">ยกเลิก</button>
+                            {todayAppointments.length === 0 ? (
+                                <tr>
+                                    <td colSpan="6" style={{textAlign: 'center', padding: '20px'}}>
+                                        ไม่พบข้อมูลนัดหมาย
                                     </td>
                                 </tr>
-                            ))}
+                            ) : (
+                                todayAppointments.map((appointment, index) => (
+                                    <tr key={index}>
+                                        <td className="appointment-time-cell">
+                                            <div className="appointment-time">
+                                                <span className="time">{appointment.time}</span>
+                                            </div>
+                                        </td>
+                                        <td className="appointment-name-cell">{appointment.patientName}</td>
+                                        <td className="appointment-issue-cell">{appointment.notes || appointment.service}</td>
+                                        <td className="appointment-status-cell">
+                                            <span className={`status-pill status-${appointment.status}`}>
+                                                {appointment.status}
+                                            </span>
+                                        </td>
+                                        <td className="table-actions">
+                                            <button className="action-btn view-btn">ดูรายละเอียด</button>
+                                            <button className="action-btn edit-btn">แก้ไข</button>
+                                        </td>
+                                        <td className="cancel-action">
+                                            <button className="action-btn delete-btn">ยกเลิก</button>
+                                        </td>
+                                    </tr>
+                                ))
+                            )}
                         </tbody>
                     </table>
                 </div>

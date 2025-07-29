@@ -1,11 +1,10 @@
-/* --- Global Styles & Fonts --- */
 @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;700&display=swap');
 
 body {
   margin: 0;
   font-family: var(--font-family);
-  background-color: var(--c-bg-body);
-  color: var(--c-text-primary);
+  background-color: var(--secondary-bg);
+  color: var(--text-primary);
 }
 
 /* --- Page Layout & Header --- */
@@ -36,7 +35,7 @@ body {
 }
 
 .btn-primary {
-  background-color: var(--c-brand);
+  background-color: var(--blue);
   color: white;
   border: none;
   padding: 12px 24px;
@@ -93,13 +92,13 @@ body {
   top: 50%;
   left: 16px;
   transform: translateY(-50%);
-  color: var(--c-text-secondary);
+  color: var(--text-secondary);
 }
 
 .search-container input {
   width: 100%;
   padding: 12px 16px 12px 48px;
-  border: 1px solid var(--c-border);
+  border: 1px solid var(--medium-gray);
   border-radius: var(--radius);
   font-family: var(--font-family);
   font-size: 1rem;
@@ -108,61 +107,12 @@ body {
 }
 .search-container input:focus {
   outline: none;
-  border-color: var(--c-brand);
+  border-color: var(--blue);
   box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.2);
   background-color: var(--white-color);
 }
 
-/* --- Table Styles --- */
-.table-wrapper {
-  overflow-x: auto;
-  border-radius: var(--radius);
-  background-color: var(--white-color);
-}
-
-.records-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  white-space: nowrap;
-}
-
-.records-table th,
-.records-table td {
-  padding: 16px;
-  text-align: left;
-}
-
-.records-table th {
-  position: sticky;
-  top: 0;
-  background-color: var(--light-gray);
-  color: var(--text-secondary);
-  font-size: var(--fs-small);
-  font-weight: 500;
-  text-transform: uppercase;
-}
-
-.records-table th:first-child {
-  border-top-left-radius: var(--radius);
-}
-
-.records-table th:last-child {
-  border-top-right-radius: var(--radius);
-}
-
-.records-table tr {
-  border-bottom: 1px solid var(--line-color);
-  transition: var(--transition-quick);
-}
-
-.records-table tr:last-child {
-  border-bottom: none;
-}
-
-.records-table tbody tr:hover {
-  background-color: var(--c-bg-body);
-}
+/* Table styles have been moved to Table.css */
 
 /* --- Pill/Tag Styles --- */
 .pill {
@@ -188,61 +138,13 @@ body {
   justify-content: center;
 }
 
-.action-btn {
-  padding: 6px 12px;
-  border: 1px solid;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  font-size: var(--fs-xs);
-  font-weight: 500;
-  font-family: var(--font-family);
-  transition: var(--transition-quick);
-  background: var(--white-color);
-  min-width: 65px;
-  text-align: center;
-  white-space: nowrap;
-}
-
-.action-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: var(--shadow);
-}
-
-.view-btn {
-  color: var(--blue);
-  border-color: var(--blue);
-}
-
-.view-btn:hover {
-  background-color: var(--blue);
-  color: var(--white-color);
-}
-
-.edit-btn {
-  color: var(--c-neutral);
-  border-color: var(--c-neutral);
-}
-
-.edit-btn:hover {
-  background-color: var(--c-neutral);
-  color: var(--white-color);
-}
-
-.delete-btn {
-  color: var(--c-error);
-  border-color: var(--c-error);
-}
-
-.delete-btn:hover {
-  background-color: var(--c-error);
-  color: var(--white-color);
-}
+/* Button styles have been moved to Table.css */
 
 /* Status Pills - Enhanced */
 .status-completed { 
   background-color: var(--c-success-bg); 
   color: var(--c-success); 
-  border: 1px solid var(--c-success);
+  border: 1px solid var(--green);
 }
 
 .status-inprogress { 
@@ -260,7 +162,7 @@ body {
 /* Type Pills */
 .type-pill {
   background-color: var(--light-gray);
-  border: 1px solid var(--c-border);
+  border: 1px solid var(--medium-gray);
   color: var(--text-secondary);
   padding: 4px 8px;
   border-radius: 12px;

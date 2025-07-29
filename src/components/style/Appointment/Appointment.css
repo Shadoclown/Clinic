@@ -33,12 +33,17 @@
     margin-bottom: 24px;
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow);
-    min-width: 340px;
+    min-width: 400px;
+    gap: 10px;
 }
 
 .tab-button {
     all: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 10px 25px;
+    height: 40px;
     border-radius: var(--radius-sm);
     cursor: pointer;
     font-size: var(--fs-small);
@@ -50,7 +55,7 @@
 }
 
 .tab-button.active {
-    background-color: var(--c-brand);
+    background-color: var(--c-inprogress);
     color: var(--white-color);
     box-shadow: var(--shadow);
 }

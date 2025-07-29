@@ -48,6 +48,30 @@
         "number": "1234567890123",
         "validUntil": "2025-12-31"
       },
+      "appointments": [
+        {
+          "id": "A001",
+          "date": "2025-01-29",
+          "time": "09:30",
+          "doctor": "นพ.สมชาย แพทย์ดี",
+          "service": "ตรวจสุขภาพประจำปี",
+          "notes": "ผู้ป่วยแจ้งมีอาการไอเล็กน้อย",
+          "status": "รอตรวจ",
+          "price": 500
+        }
+      ],
+      "medicalRecords": [
+        {
+          "id": "MR001",
+          "date": "2024-12-15",
+          "time": "10:30",
+          "diagnosis": "ภูมิแพ้ตามฤดูกาล",
+          "doctor": "นพ.สมชาย แพทย์ดี",
+          "treatment": "จ่ายยาแก้แพ้ Loratadine 10mg",
+          "type": "ตรวจรักษา",
+          "status": "เสร็จสิ้น"
+        }
+      ],
       "registrationDate": "2024-01-15",
       "lastVisit": "2025-01-29",
       "status": "active"
@@ -100,6 +124,30 @@
         "number": "9876543210987",
         "validUntil": "2025-12-31"
       },
+      "appointments": [
+        {
+          "id": "A002",
+          "date": "2025-01-29",
+          "time": "10:15",
+          "doctor": "นพ.สุรชัย หัตถกรรม",
+          "service": "ติดตามอาการความดันโลหิตสูง",
+          "notes": "ตรวจติดตามทุก 3 เดือน",
+          "status": "เข้าตรวจแล้ว",
+          "price": 400
+        }
+      ],
+      "medicalRecords": [
+        {
+          "id": "MR002",
+          "date": "2025-01-29",
+          "time": "10:15",
+          "diagnosis": "ความดันโลหิตสูง",
+          "doctor": "นพ.สุรชัย หัตถกรรม",
+          "treatment": "เพิ่มยา Amlodipine เป็น 10mg",
+          "type": "ติดตาม",
+          "status": "กำลังดำเนินการ"
+        }
+      ],
       "registrationDate": "2023-06-10",
       "lastVisit": "2025-01-29",
       "status": "active"
@@ -152,6 +200,30 @@
         "number": "1357924680135",
         "validUntil": "2025-12-31"
       },
+      "appointments": [
+        {
+          "id": "A003",
+          "date": "2025-01-29",
+          "time": "11:00",
+          "doctor": "นพ.สมชาย แพทย์ดี",
+          "service": "ปรึกษาอาการภูมิแพ้",
+          "notes": "มีอาการแพ้ฝุ่นบ่อยในช่วงนี้",
+          "status": "รอตรวจ",
+          "price": 450
+        }
+      ],
+      "medicalRecords": [
+        {
+          "id": "MR003",
+          "date": "2025-01-29",
+          "time": "11:00",
+          "diagnosis": "ภูมิแพ้ฝุ่นละออง",
+          "doctor": "นพ.สมชาย แพทย์ดี",
+          "treatment": "แนะนำใช้เครื่องฟอกอากาศและให้ยาแก้แพ้",
+          "type": "ปรึกษา",
+          "status": "รอดำเนินการ"
+        }
+      ],
       "registrationDate": "2024-03-20",
       "lastVisit": "2025-01-29",
       "status": "active"
@@ -204,119 +276,45 @@
         "number": "2468135790246",
         "validUntil": "2025-12-31"
       },
+      "appointments": [
+        {
+          "id": "A004",
+          "date": "2025-01-29",
+          "time": "14:30",
+          "doctor": "นพ.วิชัย กระดูกดี",
+          "service": "ตรวจสุขภาพทั่วไป",
+          "notes": "",
+          "status": "รอตรวจ",
+          "price": 500
+        }
+      ],
+      "medicalRecords": [
+        {
+          "id": "MR004",
+          "date": "2024-12-28",
+          "time": "14:30",
+          "diagnosis": "ปวดหลัง",
+          "doctor": "นพ.วิชัย กระดูกดี",
+          "treatment": "จ่ายยาแก้ปวด และแนะนำการออกกำลังกาย",
+          "type": "ตรวจรักษา",
+          "status": "เสร็จสิ้น"
+        }
+      ],
       "registrationDate": "2024-08-05",
-      "lastVisit": "2025-01-27",
-      "status": "active"
-    },
-    {
-      "id": "PT005",
-      "hn": "HN001238",
-      "cn": "CN005",
-      "personalInfo": {
-        "firstName": "วินัย",
-        "lastName": "สะบาย",
-        "fullName": "นาย วินัย สะบาย",
-        "titleTh": "นาย",
-        "titleEn": "Mr.",
-        "gender": "male",
-        "dateOfBirth": "1988-07-18",
-        "age": 36,
-        "nationality": "ไทย",
-        "religion": "พุทธ",
-        "maritalStatus": "แต่งงาน",
-        "occupation": "วิศวกร"
-      },
-      "contactInfo": {
-        "phone": "085-678-9012",
-        "email": "winai.sabai@engineering.com",
-        "emergencyContact": {
-          "name": "นาง นิภา สะบาย",
-          "relationship": "ภรรยา",
-          "phone": "085-678-9013"
-        },
-        "address": {
-          "street": "456/78 หมู่บ้านนาคร",
-          "subdistrict": "บางนา",
-          "district": "บางนา",
-          "province": "กรุงเทพมหานคร",
-          "postalCode": "10260"
-        }
-      },
-      "medicalInfo": {
-        "bloodType": "A-",
-        "allergies": ["ยาแก้ปวด NSAIDs"],
-        "chronicDiseases": [],
-        "currentMedications": [],
-        "height": 175,
-        "weight": 70,
-        "bmi": 22.9
-      },
-      "insurance": {
-        "type": "ประกันสังคม",
-        "number": "1122334455667",
-        "validUntil": "2025-12-31"
-      },
-      "registrationDate": "2024-11-12",
-      "lastVisit": "2025-01-25",
-      "status": "active"
-    },
-    {
-      "id": "PT006",
-      "hn": "HN001239",
-      "cn": "CN006",
-      "personalInfo": {
-        "firstName": "สมหญิง",
-        "lastName": "โรงเย็น",
-        "fullName": "นาง สมหญิง โรงเย็น",
-        "titleTh": "นาง",
-        "titleEn": "Mrs.",
-        "gender": "female",
-        "dateOfBirth": "1970-11-25",
-        "age": 54,
-        "nationality": "ไทย",
-        "religion": "พุทธ",
-        "maritalStatus": "แต่งงาน",
-        "occupation": "แม่บ้าน"
-      },
-      "contactInfo": {
-        "phone": "086-789-0123",
-        "email": "somying.rongyen@email.com",
-        "emergencyContact": {
-          "name": "นาย สมศักดิ์ โรงเย็น",
-          "relationship": "สามี",
-          "phone": "086-789-0124"
-        },
-        "address": {
-          "street": "321/65 ซอยลาดมะขาม",
-          "subdistrict": "ลาดมะขาม",
-          "district": "วังทองหลาง",
-          "province": "กรุงเทพมหานคร",
-          "postalCode": "10310"
-        }
-      },
-      "medicalInfo": {
-        "bloodType": "B-",
-        "allergies": [],
-        "chronicDiseases": ["เบาหวาน", "ไขมันในเลือดสูง"],
-        "currentMedications": ["Metformin 500mg", "Atorvastatin 20mg"],
-        "height": 155,
-        "weight": 65,
-        "bmi": 27.1
-      },
-      "insurance": {
-        "type": "ประกันสุขภาพถ้วนหน้า",
-        "number": "9988776655443",
-        "validUntil": "2025-12-31"
-      },
-      "registrationDate": "2022-04-18",
-      "lastVisit": "2025-01-28",
+      "lastVisit": "2024-12-28",
       "status": "active"
     }
   ],
   "metadata": {
-    "totalPatients": 6,
+    "totalPatients": 4,
     "lastUpdated": "2025-01-29T10:30:00.000Z",
     "version": "1.0",
-    "description": "Patient database for clinic management system"
+    "description": "Patient database for clinic management system",
+    "clinicStats": {
+      "newPatients": 24,
+      "dailyAppointments": 8,
+      "revenue": 12450,
+      "bedsOccupied": "2/8"
+    }
   }
 }
