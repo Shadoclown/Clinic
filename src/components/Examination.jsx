@@ -117,7 +117,6 @@ const BedCard = ({ bed }) => {
     };
 
     const statusInfo = getStatusInfo();
-    const [showTimer, setShowTimer] = useState(false);
 
     return (
         <div className={`bed-card ${statusInfo.className}`}>
@@ -138,7 +137,7 @@ const BedCard = ({ bed }) => {
                                 <p className="service-name">{bed.patient.service}</p>
                             </div>
                         </div>
-                        {showTimer && <TimerControl initialMinutes={parseInt(bed.patient.duration) || 15} />}
+                        <TimerControl initialMinutes={parseInt(bed.patient.duration) || 15} />
                     </>
                 ) : (
                     <>
@@ -146,7 +145,7 @@ const BedCard = ({ bed }) => {
                             <span className="empty-bed-icon">🛏️</span>
                             <p>ไม่มีผู้ป่วย</p>
                         </div>
-                        {showTimer && <TimerControl initialMinutes={15} />}
+                        {/* Timer removed for available beds */}
                     </>
                 )}
             </div>
@@ -154,12 +153,13 @@ const BedCard = ({ bed }) => {
                 {bed.status === 'occupied' && (
                     <>
                         <button className="btn btn-finish">เสร็จสิ้นการตรวจ</button>
-                        <button className="btn btn-timer" onClick={() => setShowTimer(!showTimer)}>
-                            {showTimer ? 'ซ่อนจับเวลา' : 'แสดงจับเวลา'}
-                        </button>
                     </>
                 )}
-                {bed.status === 'available' && <button className="btn btn-start">เริ่มตรวจผู้ป่วย</button>}
+                {bed.status === 'available' && (
+                    <button className="btn btn-start" style={{ display: 'block', width: '100%', padding: '10px', backgroundColor: '#4CAF50', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
+                        เริ่มตรวจผู้ป่วย
+                    </button>
+                )}
             </div>
         </div>
     );

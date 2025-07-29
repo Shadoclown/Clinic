@@ -348,6 +348,17 @@ body {
   box-shadow: var(--shadow-lg);
 }
 
+.btn-timer {
+  background-color: #f0f8ff; /* Light blue background */
+  color: var(--blue);
+  border: 1px solid var(--blue);
+  margin-top: 5px;
+}
+
+.btn-timer:hover {
+  background-color: var(--blue-light);
+}
+
 /* Button Colors - Enhanced */
 .btn-start { 
   background-color: var(--c-brand); 
