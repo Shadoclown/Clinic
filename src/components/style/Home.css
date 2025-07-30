@@ -1,29 +1,5 @@
+@import '../../styles/variable.css';
 @import './Table.css';
-
-:root {
-    /* Define color variables for consistency */
-    --primary-bg: #f4f7fa;
-    --secondary-bg: #f8f9fa;
-    --white-color: #ffffff;
-    --text-primary: #2c3e50;
-    --text-secondary: #7f8c8d;
-    --line-color: #e0e0e0;
-
-    --blue: #4285f4;
-    --blue-hover: #357ae8;
-    --orange: #fbbc04;
-    --green: #34a853;
-    --c-success-bg: rgba(52, 168, 83, 0.1);
-
-    --radius: 8px;
-    --shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.1);
-    --transition-base: all 0.2s ease-in-out;
-
-    --fs-h2: 20px;
-    --fs-small: 14px;
-    --fs-xs: 12px;
-}
 
 .home-container {
     padding: 24px;

@@ -1,70 +1,9 @@
+@import './styles/variable.css';
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-:root {
-    /* Primary Colors */
-    --blue: #4285f4;
-    --green: #34a853;
-    --orange: #fbbc04;
-    --red: #ea4335;
-    
-    /* Brand Colors - Removed vars defined with vars */
-    --blue-hover: #3367d6;
-    --blue-light: #d2e3fc;
-    
-    /* Status Colors */
-    --c-neutral: #5f6368;
-    --c-success-bg: #e6f4ea;
-    --c-error-bg: #fce8e6;
-    --c-warning-bg: #fef7e0;
-    --c-neutral-bg: #f1f3f4;
-    
-    /* Background Colors */
-    --white-color: #ffffff;
-    --secondary-bg: #f8f9fa;
-    
-    /* Text Colors */
-    --text-primary: #202124;
-    --text-secondary: #5f6368;
-    --text-muted: #80868b;
-    --dark-gray: #3c4043;
-    
-    /* Gray Scale */
-    --light-gray: #f1f3f4;
-    --medium-gray: #dadce0;
-    --line-color: #e8eaed;
-    
-    /* Status Colors for UI States */
-    --c-pending: #b06000;
-    --c-inprogress: #1967d2;
-    --c-pending-bg: #fef7e0;
-    --c-inprogress-bg: #e8f0fe;
-    --status-checked-in-text: #137333;
-    
-    /* Typography */
-    --font-family: 'Sarabun', sans-serif;
-    --fs-h1: 2rem;
-    --fs-h2: 1.5rem;
-    --fs-h3: 1.25rem;
-    --fs-body: 1rem;
-    --fs-small: 0.875rem;
-    --fs-xs: 0.75rem;
-    
-    /* Sizing & Spacing */
-    --spacing: 24px;
-    --radius: 8px;
-    --radius-sm: 4px;
-    --radius-lg: 12px;
-    --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.08);
-    --shadow-xl: 0 8px 24px rgba(0, 0, 0, 0.12);
-    
-    /* Transitions */
-    --transition-quick: all 0.15s ease;
-    --transition-base: all 0.25s ease;
 }
 
 /* App layout */
