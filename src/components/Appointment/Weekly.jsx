@@ -1,151 +1,149 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import '../style/Appointment/Weekly.css';
 import { getMonthlyAppointments } from '../../utils/patientData';
 
-const WeeklyView = () => {
-    const days = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'];
-    const [selectedDate, setSelectedDate] = useState(new Date());
-    const today = new Date();
-    const currentDayIndex = today.getDay();
-    
-    // Get all appointments data
-    const allAppointments = getMonthlyAppointments();
+// --- Helper Constants & Functions ---
+const DAYS_OF_WEEK = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'];
+const formatDateKey = (date) => date.toDateString();
+const toThaiYear = (date) => date.getFullYear() + 543;
 
-    // Generate week dates dynamically
-    const getWeekDates = () => {
-        const weekStart = new Date(selectedDate);
-        weekStart.setDate(selectedDate.getDate() - selectedDate.getDay());
-        
+// --- Sub-Components ---
+
+const WeeklyViewHeader = ({ dateRange }) => (
+    <div className="view-header">
+        <h3>ตารางนัดรายสัปดาห์</h3>
+        <span>{dateRange}</span>
+    </div>
+);
+
+const DayCard = ({ day, date, count, isSelected, isToday, onClick }) => (
+    <div
+        className={`day-card ${isSelected ? 'active-day' : ''} ${isToday ? 'today' : ''}`}
+        onClick={() => onClick(date)}
+        tabIndex={0}
+        role="button"
+        aria-label={`Select ${day} ${date.getDate()}`}
+    >
+        <p>{day}</p>
+        <p className="date-number">{date.getDate()}</p>
+        <p className={count > 0 ? 'has-appointments' : 'no-appointments'}>
+            {count > 0 ? `${count} นัดหมาย` : 'ไม่มีนัดหมาย'}
+        </p>
+    </div>
+);
+
+const AppointmentsForDayTable = ({ appointments, selectedDate }) => {
+    const formattedDate = `${selectedDate.getDate()}/${selectedDate.getMonth() + 1}/${toThaiYear(selectedDate)}`;
+
+    return (
+        <div className="daily-appointments-table">
+            <h3>นัดหมายวันที่ {formattedDate}</h3>
+            <div className="table-wrapper">
+                <table className="thai-clinic-table">
+                    <thead>
+                        <tr>
+                            <th>เวลา</th>
+                            <th>ชื่อผู้ป่วย</th>
+                            <th>โทรศัพท์</th>
+                            <th>บริการ</th>
+                            <th>หมายเหตุ</th>
+                            <th>คอร์ส</th>
+                            <th>จำนวนครั้ง</th>
+                            <th>การดำเนินการ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {appointments.length === 0 ? (
+                            <tr>
+                                <td colSpan="8" className="no-data-cell">ไม่พบข้อมูลนัดหมาย</td>
+                            </tr>
+                        ) : (
+                            appointments.map((appt, index) => (
+                                <tr key={index}>
+                                    <td className="appointment-time-cell">
+                                        <div className="appointment-time"><span className="time">{appt.time}</span></div>
+                                    </td>
+                                    <td>{appt.patientName}</td>
+                                    <td>{appt.phone}</td>
+                                    <td>{appt.service}</td>
+                                    <td>{appt.notes || '-'}</td>
+                                    <td>{appt.course[0]}</td>
+                                    <td>{`${appt.course[1]}/${appt.course[2]}`}</td>
+                                    <td className="table-actions">
+                                        <button className="action-btn view-btn">ดูรายละเอียด</button>
+                                        <button className="action-btn edit-btn">แก้ไข</button>
+                                    </td>
+                                </tr>
+                            ))
+                        )}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    );
+};
+
+// --- Main WeeklyView Component ---
+
+const WeeklyView = () => {
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const today = useMemo(() => new Date(), []);
+
+    // Memoize the grouping of appointments by date for performance
+    const appointmentsByDate = useMemo(() => {
+        const appointments = getMonthlyAppointments();
+        const grouped = new Map();
+        appointments.forEach(appt => {
+            const key = formatDateKey(appt.date);
+            if (!grouped.has(key)) {
+                grouped.set(key, []);
+            }
+            grouped.get(key).push(appt);
+        });
+        return grouped;
+    }, []);
+
+    // Memoize the calculation of week dates
+    const weekDates = useMemo(() => {
+        const startOfWeek = new Date(selectedDate);
+        startOfWeek.setDate(selectedDate.getDate() - selectedDate.getDay());
         return Array.from({ length: 7 }).map((_, i) => {
-            const date = new Date(weekStart);
-            date.setDate(weekStart.getDate() + i);
+            const date = new Date(startOfWeek);
+            date.setDate(startOfWeek.getDate() + i);
             return date;
         });
-    };
+    }, [selectedDate]);
 
-    const weekDates = getWeekDates();
-    
-    // Format date range for header
-    const formatDateRange = () => {
+    const formattedDateRange = useMemo(() => {
         const start = weekDates[0];
         const end = weekDates[6];
-        const startFormatted = `${start.getDate()}/${start.getMonth() + 1}/${start.getFullYear() + 543}`;
-        const endFormatted = `${end.getDate()}/${end.getMonth() + 1}/${end.getFullYear() + 543}`;
-        return `${startFormatted} - ${endFormatted}`;
-    };
-
-    const handleDayClick = (date) => {
-        setSelectedDate(date);
-    };
-
-    const isToday = (date) => {
-        return date.toDateString() === today.toDateString();
-    };
-
-    const isSelected = (date) => {
-        return date.toDateString() === selectedDate.toDateString();
-    };
-
-    // Get appointments for selected date
-    const getAppointmentsForSelectedDate = () => {
-        return allAppointments.filter(appointment => 
-            appointment.date.toDateString() === selectedDate.toDateString()
-        );
-    };
-
-    // Get count of appointments for a specific date
-    const getAppointmentCountForDate = (date) => {
-        return allAppointments.filter(appointment => 
-            appointment.date.toDateString() === date.toDateString()
-        ).length;
-    };
-
-    // Selected day's appointments
-    const selectedDayAppointments = getAppointmentsForSelectedDate();
-
-    // Format date for display
-    const formatSelectedDate = () => {
-        return `${selectedDate.getDate()}/${selectedDate.getMonth() + 1}/${selectedDate.getFullYear() + 543}`;
-    };
+        return `${start.getDate()}/${start.getMonth() + 1}/${toThaiYear(start)} - ${end.getDate()}/${end.getMonth() + 1}/${toThaiYear(end)}`;
+    }, [weekDates]);
+    
+    const selectedDayAppointments = appointmentsByDate.get(formatDateKey(selectedDate)) || [];
 
     return (
         <div className="week-view">
-            <div className="view-header">
-                <h3>ตารางนัดรายสัปดาห์</h3>
-                <span>{formatDateRange()}</span>
-            </div>
+            <WeeklyViewHeader dateRange={formattedDateRange} />
+            
             <div className="week-grid">
-                {days.map((day, index) => {
-                    const date = weekDates[index];
-                    const appointmentCount = getAppointmentCountForDate(date);
-                    return (
-                        <div 
-                            key={day} 
-                            className={`day-card ${isSelected(date) ? 'active-day' : ''} ${isToday(date) ? 'today' : ''}`}
-                            onClick={() => handleDayClick(date)}
-                            tabIndex={0}
-                            role="button"
-                            aria-label={`Select ${day} ${date.getDate()}`}
-                        >
-                            <p>{day}</p>
-                            <p className="date-number">{date.getDate()}</p>
-                            <p className={appointmentCount > 0 ? 'has-appointments' : 'no-appointments'}>
-                                {appointmentCount > 0 ? `${appointmentCount} นัดหมาย` : 'ไม่มีนัดหมาย'}
-                            </p>
-                        </div>
-                    );
-                })}
+                {weekDates.map((date, index) => (
+                    <DayCard
+                        key={index}
+                        day={DAYS_OF_WEEK[index]}
+                        date={date}
+                        count={(appointmentsByDate.get(formatDateKey(date)) || []).length}
+                        isSelected={formatDateKey(date) === formatDateKey(selectedDate)}
+                        isToday={formatDateKey(date) === formatDateKey(today)}
+                        onClick={setSelectedDate}
+                    />
+                ))}
             </div>
 
-            {/* Daily appointments table for selected day */}
-            <div className="daily-appointments-table">
-                <h3>นัดหมายวันที่ {formatSelectedDate()}</h3>
-                <div className="table-wrapper">
-                    <table className="thai-clinic-table">
-                        <thead>
-                            <tr>
-                                <th>เวลา</th>
-                                <th>ชื่อผู้ป่วย</th>
-                                <th>โทรศัพท์</th>
-                                <th>บริการ</th>
-                                <th>หมายเหตุ</th>
-                                <th>คอร์ส</th>
-                                <th>จำนวนครั้ง</th>
-                                <th>การดำเนินการ</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {selectedDayAppointments.length === 0 ? (
-                                <tr>
-                                    <td colSpan="8" style={{textAlign: 'center', padding: '20px'}}>
-                                        ไม่พบข้อมูลนัดหมาย
-                                    </td>
-                                </tr>
-                            ) : (
-                                selectedDayAppointments.map((appointment, index) => (
-                                    <tr key={index}>
-                                        <td className="appointment-time-cell">
-                                            <div className="appointment-time">
-                                                <span className="time">{appointment.time}</span>
-                                            </div>
-                                        </td>
-                                        <td>{appointment.patientName}</td>
-                                        <td>{appointment.phone}</td>
-                                        <td>{appointment.service}</td>
-                                        <td>{appointment.notes || '-'}</td>
-                                        <td>{appointment.course[0]}</td>
-                                        <td>{appointment.course[1]}/{appointment.course[2]}</td>
-                                        <td className="table-actions">
-                                            <button className="action-btn view-btn">ดูรายละเอียด</button>
-                                            <button className="action-btn edit-btn">แก้ไข</button>
-                                        </td>
-                                    </tr>
-                                ))
-                            )}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            <AppointmentsForDayTable
+                appointments={selectedDayAppointments}
+                selectedDate={selectedDate}
+            />
         </div>
     );
 };
