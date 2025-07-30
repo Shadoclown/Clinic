@@ -1,14 +1,70 @@
+/* --- Base Sidebar Styles (Mobile-First) --- */
 .sidebar {
     width: 260px;
     min-height: 100vh;
     background-color: var(--white-color);
     border-right: 1px solid var(--line-color);
-    box-shadow: var(--shadow);
-    transition: var(--transition-base);
-    z-index: 10;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
 }
 
-/* header */
+.sidebar.is-open {
+    transform: translateX(0);
+    box-shadow: var(--shadow-lg);
+}
+
+/* --- Mobile Toggle & Close Buttons --- */
+.sidebar-toggle {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 1001;
+    background: var(--white-color);
+    border: 1px solid var(--line-color);
+    border-radius: var(--radius);
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 20px;
+    box-shadow: var(--shadow);
+    color: var(--text-secondary);
+}
+
+/* NEW: Styles for the close button inside the sidebar */
+.sidebar-close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 4px;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+
+.sidebar-close-btn:hover {
+    color: var(--red);
+}
+
+/* --- Mobile Overlay --- */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+
+/* --- Sidebar Header & Menu (Unchanged) --- */
 .sidebar-header {
     display: flex;
     align-items: center;
@@ -16,7 +72,6 @@
     padding: 24px 16px;
     margin-bottom: 24px;
     border-bottom: 1px solid var(--line-color);
-    color: var(--text-primary);
 }
 
 .logo-image img { 
@@ -26,12 +81,6 @@
     object-fit: cover;
     box-shadow: var(--shadow);
     border: 2px solid var(--blue-light);
-}
-
-.logo-name { 
-    display: flex; 
-    flex-direction: column; 
-    gap: 4px; 
 }
 
 .logo-name h2 {
@@ -47,7 +96,6 @@
     font-weight: 500;
 }
 
-/* menu */
 .side-menu { padding: 0 16px; }
 .side-menu ul { list-style: none; padding: 0; margin: 0; }
 .side-menu li { margin-bottom: 8px; }
@@ -84,39 +132,25 @@
     font-size: 18px;
 }
 
-/* Mobile responsive */
-@media (max-width: 768px) {
-    .sidebar {
-        width: 260px;
-        position: fixed;
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
-    }
-    
-    .sidebar.mobile-open {
-        transform: translateX(0);
-    }
-    
-    .sidebar-toggle {
-        display: none;
-    }
-    
-    .mobile-toggle {
-        position: fixed;
-        top: 20px;
-        left: 20px;
-        z-index: 1002;
-        background: var(--primary-bg);
-        border: 1px solid var(--line-color);
-        border-radius: var(--radius);
-        padding: 8px;
-        cursor: pointer;
-        box-shadow: var(--shadow);
-    }
+.toggle-close {
+    display: none; /* Hide the toggle button on desktop */
 }
 
-@media (max-width: 768px) {
-    .sidebar-overlay.active {
-        display: block;
+
+/* --- Desktop Styles (Tablet and above) --- */
+@media (min-width: 768px) {
+    /* Hide all mobile-only elements */
+    .sidebar-toggle,
+    .sidebar-overlay,
+    .sidebar-close-btn { /* Hide the new close button on desktop */
+        display: none;
+    }
+
+    /* Make the sidebar permanently visible */
+    .sidebar {
+        position: static;
+        transform: none;
+        box-shadow: none;
+        border-right: 1px solid var(--line-color);
     }
 }
