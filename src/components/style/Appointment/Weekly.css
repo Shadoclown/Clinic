@@ -113,8 +113,23 @@
     color: var(--text-secondary);
 }
 
-@media (max-width: 992px) {
+@media (max-width: 768px) {
+    .view-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
     .week-grid {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .day-card .day-name {
+        font-size: 12px;
+    }
+    .day-card .date-number {
+        font-size: 18px;
+    }
+    .day-card .no-appointments,
+    .day-card .has-appointments {
+        font-size: 10px;
     }
 }

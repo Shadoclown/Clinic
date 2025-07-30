@@ -105,3 +105,18 @@
     border-radius: var(--radius);
     font-weight: 500;
 }
+
+@media (max-width: 768px) {
+    .view-header h3 {
+        font-size: 20px;
+    }
+    .tabs-container {
+        min-width: 88vw;
+    }
+    .tab-button {
+        font-size: var(--fs-xs);
+    }
+    .tab-content {
+        padding: 5px;
+    }
+}

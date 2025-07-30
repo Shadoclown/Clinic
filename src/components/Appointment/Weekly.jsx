@@ -24,7 +24,7 @@ const DayCard = ({ day, date, count, isSelected, isToday, onClick }) => (
         role="button"
         aria-label={`Select ${day} ${date.getDate()}`}
     >
-        <p>{day}</p>
+        <p className='day-name'>{day}</p>
         <p className="date-number">{date.getDate()}</p>
         <p className={count > 0 ? 'has-appointments' : 'no-appointments'}>
             {count > 0 ? `${count} นัดหมาย` : 'ไม่มีนัดหมาย'}

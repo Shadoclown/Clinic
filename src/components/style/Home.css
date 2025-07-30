@@ -155,8 +155,30 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-    .content-grid,
-    .stats-grid {
-        grid-template-columns: 1fr;
+    .header-text h1{
+        font-size: 30px;
     }
+    .header-text p {
+        font-size: 14px;
+    }
+    .add-button {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .stat-text h3 {
+        font-size: 14px;
+    }
+    .stat-icon {
+        display: none;
+    }
+    .stat-value {
+        font-size: 25px;
+    }
+
+    
 }

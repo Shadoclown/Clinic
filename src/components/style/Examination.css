@@ -139,81 +139,82 @@ body {
 /* --- Beds Grid Layout --- */
 .beds-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+  margin: 0 auto;
+  max-width: 1600px;
 }
 
 /* --- Bed Card --- */
 .bed-card {
   background-color: var(--bg-color, var(--c-bg-card));
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
   border-top: 4px solid var(--border-color, var(--c-neutral));
-  transition: var(--transition-base);
+  transition: all 0.3s ease;
   overflow: hidden;
   height: 100%;
+  position: relative;
+}
+
+.bed-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
 }
 
 /* Bed Card Statuses - Enhanced Colors */
 .bed-card.occupied { 
   --border-color: var(--red); 
   --bg-color: #ffffff; 
-  background-image: linear-gradient(to bottom, rgba(234, 67, 53, 0.05), transparent);
+  background-image: linear-gradient(to bottom, rgba(234, 67, 53, 0.05), rgba(234, 67, 53, 0.02));
 }
 .bed-card.available { 
   --border-color: var(--green); 
   --bg-color: #ffffff;
-  background-image: linear-gradient(to bottom, rgba(52, 168, 83, 0.05), transparent);
+  background-image: linear-gradient(to bottom, rgba(52, 168, 83, 0.05), rgba(52, 168, 83, 0.02));
 }
 
 .bed-card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 16px 8px 16px;
+  padding: 20px 20px 12px 20px;
   position: relative;
 }
 
 .bed-card-header h3 {
   margin: 0;
-  font-size: var(--fs-h3);
+  font-size: 1.25rem;
   font-weight: 600;
   color: var(--c-text-primary);
 }
 
-/* Default styling for status tag - removing gray */
+/* Default styling for status tag */
 .status-tag {
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: var(--fs-xs);
-  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
   color: white;
-}
-
-/* Status Tags - Only keeping necessary colors */
-.status-tag.occupied { 
-  background-color: #ea4335; 
-}
-.status-tag.available { 
-  background-color: #34a853; 
+  letter-spacing: 0.3px;
 }
 
 .bed-card-body {
   flex-grow: 1;
-  padding: 12px 16px;
+  padding: 16px 20px;
 }
 
 .bed-card-footer {
-  padding: 16px;
+  padding: 20px;
   margin-top: auto;
 }
 
 /* --- Patient Details --- */
 .patient-details p {
-  margin: 8px 0;
-  font-size: var(--fs-small);
+  margin: 10px 0;
+  font-size: 0.95rem;
   display: flex;
   align-items: center;
   color: var(--c-text-primary);
@@ -491,6 +492,23 @@ input.timer-time {
   .summary-section {
     grid-template-columns: repeat(2, 1fr);
   }
+  
+  .beds-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  
+  .bed-card-header {
+    padding: 16px 16px 10px 16px;
+  }
+  
+  .bed-card-body {
+    padding: 12px 16px;
+  }
+  
+  .bed-card-footer {
+    padding: 16px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -509,16 +527,22 @@ input.timer-time {
   }
   
   .beds-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
   }
   
   .summary-section {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
   
   .quick-actions {
     flex-direction: column;
     align-items: stretch;
+  }
+  
+  .patient-details p {
+    font-size: 0.9rem;
   }
 }
 
@@ -529,5 +553,23 @@ input.timer-time {
   
   .dashboard-container {
     padding: 16px;
+  }
+  
+  .bed-card {
+    border-radius: 12px;
+    margin-bottom: 16px;
+  }
+  
+  .bed-card-header {
+    padding: 14px 16px 8px 16px;
+  }
+  
+  .bed-card-header h3 {
+    font-size: 1.1rem;
+  }
+  
+  .status-tag {
+    padding: 4px 10px;
+    font-size: 0.7rem;
   }
 }

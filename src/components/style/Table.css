@@ -175,3 +175,20 @@
   background-color: var(--red);
   color: var(--white-color);
 }
+
+@media (max-width: 768px) {
+
+    .appointments-section, .today-view {
+        overflow: auto;
+    }
+    .appointments-section table, .thai-clinic-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .appointments-section table tbody, .today-view table tbody {
+        font-size: 12px;
+    }
+    .appointment-time .time {
+        font-size: 12px;
+    }
+}
