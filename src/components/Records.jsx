@@ -108,4 +108,4 @@ const MedicalRecords = () => {
     );
 };
 
-export export default MedicalRecords;
+export default MedicalRecords;
