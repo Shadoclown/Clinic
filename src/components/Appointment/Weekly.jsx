@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../style/Appointment/weekly.css';
+import '../style/Appointment/Weekly.css';
 
 const WeeklyView = () => {
     const days = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'];

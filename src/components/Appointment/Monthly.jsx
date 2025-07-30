@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../style/Appointment/monthly.css';
+import '../style/Appointment/Monthly.css';
 import '../style/Records.css'; // Import Records CSS for table styling
 import { getMonthlyAppointments } from '../../utils/patientData';
 
