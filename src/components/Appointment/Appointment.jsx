@@ -5,52 +5,52 @@ import MonthlyView from './Monthly';
 import '../style/Appointment/Appointment.css';
 import { getTodayAppointments } from '../../utils/patientData';
 
-// Get appointment data from our utility
-const appointmentsData = getTodayAppointments();
+// A simple header component for reusability
+const PageHeader = ({ title, subtitle }) => (
+    <header className="page-header">
+        <h1>{title}</h1>
+        <p>{subtitle}</p>
+    </header>
+);
+
+// Configuration for the different views/tabs
+const tabConfig = [
+    { id: 'today', label: 'วันนี้', Component: TodayView },
+    { id: 'week', label: 'รายสัปดาห์', Component: WeeklyView },
+    { id: 'month', label: 'รายเดือน', Component: MonthlyView }
+];
 
 const Appointment = () => {
     const [activeTab, setActiveTab] = useState('today');
 
-    const renderContent = () => {
-        switch (activeTab) {
-            case 'week':
-                return <WeeklyView />;
-            case 'month':
-                return <MonthlyView />;
-            case 'today':
-            default:
-                return <TodayView appointments={appointmentsData} />;
-        }
-    };
+    // Fetch data inside the component
+    const appointmentsData = getTodayAppointments();
+
+    // Find the component to render based on the active tab
+    const ActiveComponent = tabConfig.find(tab => tab.id === activeTab)?.Component;
 
     return (
         <div className="appointment-page">
-            <header className="page-header">
-                <h1>ตารางนัดหมาย</h1>
-                <p>จัดการและดูตารางนัดหมายผู้ป่วย</p>
-            </header>
+            <PageHeader title="ตารางนัดหมาย" subtitle="จัดการและดูตารางนัดหมายผู้ป่วย" />
+
+            {/* Tab Navigation */}
             <div className="tabs-container">
-                <span
-                    className={`tab-button ${activeTab === 'today' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('today')}
-                >
-                    วันนี้
-                </span>
-                <span
-                    className={`tab-button ${activeTab === 'week' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('week')}
-                >
-                    รายสัปดาห์
-                </span>
-                <span
-                    className={`tab-button ${activeTab === 'month' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('month')}
-                >
-                    รายเดือน
-                </span>
+                {tabConfig.map(tab => (
+                    <button
+                        key={tab.id}
+                        className={`tab-button ${activeTab === tab.id ? 'active' : ''}`}
+                        onClick={() => setActiveTab(tab.id)}
+                    >
+                        {tab.label}
+                    </button>
+                ))}
             </div>
+
+            {/* Content Area */}
             <main className="tab-content">
-                {renderContent()}
+                {ActiveComponent && (
+                    <ActiveComponent appointments={appointmentsData} />
+                )}
             </main>
         </div>
     );

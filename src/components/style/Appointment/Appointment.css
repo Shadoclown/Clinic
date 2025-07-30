@@ -23,12 +23,11 @@
     margin: 0;
 }
 
-/* --- Tabs --- */
+/* --- Tabs Navigation --- */
 .tabs-container {
     background-color: var(--light-gray);
     border-radius: var(--radius);
     padding: 4px;
-    width: auto;
     display: inline-flex;
     margin-bottom: 24px;
     border: 1px solid var(--border-color);
@@ -38,7 +37,10 @@
 }
 
 .tab-button {
+    /* Reset button styles */
     all: unset;
+    box-sizing: border-box; 
+    
     display: flex;
     align-items: center;
     justify-content: center;
@@ -54,17 +56,18 @@
     flex: 1;
 }
 
+.tab-button:hover:not(.active) {
+    background-color: var(--white-color);
+    color: var(--blue);
+}
+
 .tab-button.active {
-    background-color: var(--c-inprogress);
+    background-color: var(--blue); /* Using consistent variable */
     color: var(--white-color);
     box-shadow: var(--shadow);
 }
 
-.tab-button:hover:not(.active) {
-    background-color: var(--white-color);
-    color: var(--c-brand);
-}
-
+/* --- Tab Content Area --- */
 .tab-content {
     background-color: var(--white-color);
     border-radius: var(--radius-lg);
@@ -77,6 +80,7 @@
     box-shadow: var(--shadow-lg);
 }
 
+/* --- Shared Header within Tab Content --- */
 .view-header {
     display: flex;
     justify-content: space-between;
@@ -100,27 +104,4 @@
     padding: 6px 12px;
     border-radius: var(--radius);
     font-weight: 500;
-}
-
-/* Add button */
-.add-appointment-btn {
-    background-color: var(--c-brand);
-    color: var(--white-color);
-    border: none;
-    padding: 12px 24px;
-    border-radius: var(--radius);
-    font-weight: 500;
-    cursor: pointer;
-    transition: var(--transition-base);
-    box-shadow: var(--shadow);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin: 24px 0;
-}
-
-.add-appointment-btn:hover {
-    background-color: var(--blue-hover);
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-lg);
 }
