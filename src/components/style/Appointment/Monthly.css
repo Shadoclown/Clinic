@@ -1,6 +1,14 @@
-/* --- Month View --- */
+/* --- Month View Container --- */
+.month-view {
+    /* Main container styling */
+}
+
+/* --- Calendar Header & Navigation --- */
 .month-view .view-header {
     margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .month-view .view-header h3 {
@@ -33,9 +41,9 @@
 }
 
 .month-navigation button:hover {
-    background-color: var(--c-brand);
+    background-color: var(--blue);
     color: var(--white-color);
-    border-color: var(--c-brand);
+    border-color: var(--blue);
     transform: translateY(-1px);
     box-shadow: var(--shadow);
 }
@@ -44,17 +52,18 @@
     font-weight: 600;
     color: var(--text-primary);
     font-size: 16px;
-    background: none;
     min-width: 140px;
     text-align: center;
 }
 
+/* --- Calendar and Daily Appointments Layout --- */
 .calendar-container {
     display: flex;
     gap: 2rem;
     margin-top: 1.5rem;
 }
 
+/* --- Calendar Component --- */
 .calendar {
     background: var(--white-color);
     border-radius: 8px;
@@ -77,22 +86,20 @@
     font-weight: 600;
     text-align: center;
     font-size: 12px;
-    color: var(--text-muted);
-    letter-spacing: 0.5px;
+    color: var(--text-secondary);
 }
 
 .calendar-body {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    background: var(--white-color);
 }
 
 .calendar-day {
     padding: 8px 4px;
     font-weight: 500;
     text-align: center;
-    border-right: 1px solid var(--light-gray);
-    border-bottom: 1px solid var(--light-gray);
+    border-right: 1px solid var(--line-color);
+    border-bottom: 1px solid var(--line-color);
     cursor: pointer;
     transition: all 0.2s ease;
     position: relative;
@@ -110,29 +117,28 @@
 
 .calendar-day:hover {
     background-color: var(--light-gray);
-    color: var(--c-brand);
+    color: var(--blue);
 }
 
 .calendar-day.other-month {
-    color: var(--medium-gray);
-    background-color: rgba(244, 244, 244, 0.5);
+    color: var(--text-secondary);
     opacity: 0.6;
 }
 
 .calendar-day.other-month:hover {
-    background-color: var(--medium-gray);
-    transform: none;
+    background-color: inherit;
+    cursor: default;
 }
 
-.calendar-day.today:not(.active-day) {
-    background-color: var(--c-inprogress-bg);
-    color: var(--c-brand);
+.calendar-day.today {
+    background-color: var(--blue-light-bg);
+    color: var(--blue);
     font-weight: 600;
-    border: 1px solid var(--c-brand);
+    border: 1px solid var(--blue);
 }
 
 .calendar-day.active-day {
-    background: var(--c-inprogress);
+    background: var(--blue);
     color: var(--white-color);
     font-weight: 700;
     box-shadow: inset 0 0 0 2px var(--blue-hover);
@@ -142,7 +148,6 @@
     background: var(--blue-hover);
 }
 
-/* Add appointment indicators */
 .calendar-day.has-appointments::after {
     content: '';
     position: absolute;
@@ -151,7 +156,7 @@
     transform: translateX(-50%);
     width: 4px;
     height: 4px;
-    background-color: var(--c-warning);
+    background-color: var(--orange);
     border-radius: 50%;
 }
 
@@ -159,6 +164,7 @@
     background-color: var(--white-color);
 }
 
+/* --- Daily Appointments Panel --- */
 .daily-appointments {
     background: var(--white-color);
     border: 1px solid var(--border-color);
@@ -167,7 +173,7 @@
     flex: 1;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: all 0.2s ease;
-    min-height: 280px;
+    min-height: 280px; /* From original CSS */
 }
 
 .daily-appointments:hover {
@@ -192,19 +198,7 @@
     font-size: 14px;
 }
 
-/* Add today highlight */
-.calendar-day.today:not(.active-day) {
-    background-color: rgba(59, 130, 246, 0.1);
-    color: var(--blue);
-    font-weight: 600;
-    border: 1px solid var(--blue);
-}
-
-.calendar-day.today:not(.active-day):hover {
-    background-color: rgba(59, 130, 246, 0.2);
-}
-
-/* Monthly Overview Section - Table Layout */
+/* --- Monthly Overview Table --- */
 .monthly-overview {
     margin-top: 2rem;
     background: var(--white-color);
@@ -223,123 +217,12 @@
     border-bottom: 1px solid var(--light-gray);
 }
 
-/* Remove card-based layout, use table instead */
-.appointments-grid {
-    display: none; /* Hide the old card layout */
-}
-
-/* Custom scrollbar for horizontal scroll */
-.appointments-grid::-webkit-scrollbar {
-    height: 8px;
-}
-
-.appointments-grid::-webkit-scrollbar-track {
-    background: var(--light-gray);
-    border-radius: 4px;
-}
-
-.appointments-grid::-webkit-scrollbar-thumb {
-    background: var(--medium-gray);
-    border-radius: 4px;
-}
-
-.appointments-grid::-webkit-scrollbar-thumb:hover {
-    background: var(--dark-gray);
-}
-
-/* Date Section */
-.appointment-date {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--white-color);
-    border-radius: 6px;
-    padding: 0.5rem 0.75rem;
-    border: 1px solid var(--border-color);
-}
-
-.appointment-date .date-number {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    line-height: 1;
-}
-
-.appointment-date .date-time {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    font-weight: 500;
-}
-
-/* Details Section */
-.appointment-details {
-    flex: 1;
-}
-
-.appointment-details h5 {
-    margin: 0 0 0.5rem 0;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.appointment-details .service {
-    margin: 0 0 0.5rem 0;
-    font-size: 0.85rem;
-    color: var(--blue);
-    font-weight: 500;
-}
-
-.appointment-details .doctor {
-    margin: 0;
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-}
-
-/* Status Section */
-.appointment-status {
-    display: flex;
-    justify-content: center;
-    margin-top: auto;
-}
-
-.appointment-status .status-badge {
-    padding: 6px 12px;
-    border-radius: 12px;
-    font-size: 0.75rem;
-    font-weight: 500;
-    text-align: center;
-    white-space: nowrap;
-    width: 100%;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .appointments-grid {
-        gap: 0.75rem;
+/* --- Responsive Adjustments --- */
+@media (max-width: 992px) {
+    .calendar-container {
+        flex-direction: column;
     }
-    
-    .appointment-overview-card {
-        min-width: 240px;
-        max-width: 240px;
-        padding: 0.75rem;
-    }
-    
-    .appointment-date .date-number {
-        font-size: 1.25rem;
-    }
-    
-    .appointment-details h5 {
-        font-size: 0.9rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .appointment-overview-card {
-        min-width: 200px;
-        max-width: 200px;
+    .calendar {
+        width: 100%;
     }
 }

@@ -1,194 +1,209 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import '../style/Appointment/Monthly.css';
-import '../style/Records.css'; // Import Records CSS for table styling
+import '../style/Records.css'; // For shared table styles
 import { getMonthlyAppointments } from '../../utils/patientData';
 
-// Get monthly appointments from our utility
-const monthlyAppointments = getMonthlyAppointments();
+// --- Helper Constants & Functions ---
+const DAYS_OF_WEEK = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+const MONTH_NAMES = [
+    'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
+    'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
+];
+
+const toThaiYear = (date) => date.getFullYear() + 543;
+const formatDateKey = (date) => date.toDateString();
+
+// --- Sub-Components ---
+
+const CalendarHeader = ({ currentDate, onNavigate }) => (
+    <div className="view-header month-header">
+        <h3>ตารางนัดรายเดือน</h3>
+        <div className="month-navigation">
+            <button onClick={() => onNavigate(-1)} aria-label="Previous month">{'<'}</button>
+            <span>{`${MONTH_NAMES[currentDate.getMonth()]} ${toThaiYear(currentDate)}`}</span>
+            <button onClick={() => onNavigate(1)} aria-label="Next month">{'>'}</button>
+        </div>
+    </div>
+);
+
+const CalendarGrid = ({ days, selectedDate, today, appointmentsByDate, onDayClick }) => (
+    <div className="calendar">
+        <div className="calendar-header">
+            {DAYS_OF_WEEK.map(day => <div key={day}>{day}</div>)}
+        </div>
+        <div className="calendar-body">
+            {days.map(({ date, isOtherMonth }, index) => {
+                const isSelected = formatDateKey(date) === formatDateKey(selectedDate);
+                const isToday = formatDateKey(date) === formatDateKey(today);
+                const hasAppointments = appointmentsByDate.has(formatDateKey(date));
+
+                const classNames = [
+                    'calendar-day',
+                    isOtherMonth ? 'other-month' : '',
+                    isSelected ? 'active-day' : '',
+                    isToday ? 'today' : '',
+                    hasAppointments ? 'has-appointments' : ''
+                ].filter(Boolean).join(' ');
+
+                return (
+                    <div
+                        key={index}
+                        className={classNames}
+                        onClick={() => onDayClick(date)}
+                        tabIndex={0}
+                        role="button"
+                        aria-label={`Select ${date.getDate()}`}
+                    >
+                        {date.getDate()}
+                    </div>
+                );
+            })}
+        </div>
+    </div>
+);
+
+const DailyAppointments = ({ date, appointments }) => {
+    const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${toThaiYear(date)}`;
+    return (
+        <div className="daily-appointments">
+            <h4>นัดหมายวันที่ {formattedDate}</h4>
+            {appointments.length === 0 ? (
+                <p>ไม่มีนัดหมายในวันนี้</p>
+            ) : (
+                <ul>
+                    {/* Placeholder for daily appointment list */}
+                </ul>
+            )}
+        </div>
+    );
+};
+
+const MonthlyOverviewTable = ({ appointments }) => (
+    <div className="monthly-overview">
+        <h3>ภาพรวมนัดหมายประจำเดือน ({appointments.length} รายการ)</h3>
+        <div className="table-wrapper">
+            <table className="thai-clinic-table">
+                <thead>
+                    <tr>
+                        <th>วันที่</th>
+                        <th>เวลา</th>
+                        <th>ชื่อผู้ป่วย</th>
+                        <th>บริการ</th>
+                        <th>คอร์ส</th>
+                        <th>จำนวนครั้ง</th>
+                        <th>การดำเนินการ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {appointments.length > 0 ? appointments.map(appt => (
+                        <tr key={appt.id}>
+                            <td>{`${appt.date.getDate()}/${appt.date.getMonth() + 1}/${toThaiYear(appt.date)}`}</td>
+                            <td>{appt.time}</td>
+                            <td>{appt.patientName}</td>
+                            <td>{appt.service}</td>
+                            <td>{appt.course[0]}</td>
+                            <td>{`${appt.course[1]}/${appt.course[2]}`}</td>
+                            <td className="table-actions">
+                                <button className="action-btn view-btn">ดูรายละเอียด</button>
+                                <button className="action-btn edit-btn">แก้ไข</button>
+                            </td>
+                        </tr>
+                    )) : (
+                        <tr>
+                            <td colSpan="7" style={{ textAlign: 'center' }}>ไม่มีนัดหมายในเดือนนี้</td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
+        </div>
+    </div>
+);
+
+
+// --- Main MonthlyView Component ---
 
 const MonthlyView = () => {
-    const daysOfWeek = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
-    const monthNames = [
-        'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
-        'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
-    ];
-
     const [currentDate, setCurrentDate] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const today = new Date();
-
-    // Generate calendar days for current month
-    const generateCalendarDays = () => {
-        const year = currentDate.getFullYear();
-        const month = currentDate.getMonth();
-        
-        // First day of the month
-        const firstDay = new Date(year, month, 1);
-        // Last day of the month
-        const lastDay = new Date(year, month + 1, 0);
-        // First day of the week for the first day of month
-        const startDay = firstDay.getDay();
-        // Number of days in month
-        const daysInMonth = lastDay.getDate();
-        
-        const calendarDays = [];
-        
-        // Add previous month's trailing days
-        const prevMonth = new Date(year, month - 1, 0);
-        for (let i = startDay - 1; i >= 0; i--) {
-            const day = prevMonth.getDate() - i;
-            calendarDays.push({
-                date: new Date(year, month - 1, day),
-                isOtherMonth: true
-            });
-        }
-        
-        // Add current month's days
-        for (let day = 1; day <= daysInMonth; day++) {
-            calendarDays.push({
-                date: new Date(year, month, day),
-                isOtherMonth: false
-            });
-        }
-        
-        // Add next month's leading days to complete the grid
-        const remainingDays = 42 - calendarDays.length; // 6 weeks * 7 days
-        for (let day = 1; day <= remainingDays; day++) {
-            calendarDays.push({
-                date: new Date(year, month + 1, day),
-                isOtherMonth: true
-            });
-        }
-        
-        return calendarDays;
-    };
-
-    const calendarDays = generateCalendarDays();
+    const today = useMemo(() => new Date(), []);
+    
+    // Memoize the raw appointment data to prevent re-fetching
+    const allAppointments = useMemo(() => getMonthlyAppointments(), []);
 
     const navigateMonth = (direction) => {
-        setCurrentDate(prevDate => {
-            const newDate = new Date(prevDate);
-            newDate.setMonth(prevDate.getMonth() + direction);
+        setCurrentDate(prev => {
+            const newDate = new Date(prev.getFullYear(), prev.getMonth() + direction, 1);
             return newDate;
         });
     };
 
     const handleDayClick = (date) => {
         setSelectedDate(date);
-        // If clicking on other month day, navigate to that month
         if (date.getMonth() !== currentDate.getMonth()) {
-            setCurrentDate(new Date(date));
+            setCurrentDate(new Date(date.getFullYear(), date.getMonth(), 1));
         }
     };
 
-    const isToday = (date) => {
-        return date.toDateString() === today.toDateString();
-    };
+    // Memoize the calendar grid days to avoid recalculating on every render
+    const calendarDays = useMemo(() => {
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth();
+        const firstDayOfMonth = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        
+        const days = [];
+        // Add previous month's days
+        for (let i = firstDayOfMonth; i > 0; i--) {
+            days.push({ date: new Date(year, month, 1 - i), isOtherMonth: true });
+        }
+        // Add current month's days
+        for (let i = 1; i <= daysInMonth; i++) {
+            days.push({ date: new Date(year, month, i), isOtherMonth: false });
+        }
+        // Add next month's days to fill the grid
+        while (days.length % 7 !== 0) {
+            days.push({ date: new Date(year, month, daysInMonth + (days.length - daysInMonth) + 1), isOtherMonth: true });
+        }
+        return days;
+    }, [currentDate]);
 
-    const isSelected = (date) => {
-        return date.toDateString() === selectedDate.toDateString();
-    };
-
-    const formatSelectedDate = () => {
-        return `${selectedDate.getDate()}/${selectedDate.getMonth() + 1}/${selectedDate.getFullYear() + 543}`;
-    };
-
-    // Filter appointments for current month
-    const getMonthlyAppointments = () => {
-        return monthlyAppointments.filter(appointment => {
-            return appointment.date.getMonth() === currentDate.getMonth() &&
-                   appointment.date.getFullYear() === currentDate.getFullYear();
-        });
-    };
-
-    // Check if a date has appointments - updated to use our data
-    const hasAppointments = (date) => {
-        return monthlyAppointments.some(apt => 
-            apt.date.toDateString() === date.toDateString()
+    // Memoize filtered appointments for the current month and a map for quick lookups
+    const { currentMonthAppointments, appointmentsByDate } = useMemo(() => {
+        const currentMonth = currentDate.getMonth();
+        const currentYear = currentDate.getFullYear();
+        
+        const filtered = allAppointments.filter(appt => 
+            appt.date.getMonth() === currentMonth && appt.date.getFullYear() === currentYear
         );
-    };
+        
+        const dateMap = new Map();
+        allAppointments.forEach(appt => {
+            dateMap.set(formatDateKey(appt.date), true);
+        });
 
-    const currentMonthAppointments = getMonthlyAppointments().filter(appointment => {
-        return appointment.date.getMonth() === currentDate.getMonth() &&
-               appointment.date.getFullYear() === currentDate.getFullYear();
-    });
+        return { currentMonthAppointments: filtered, appointmentsByDate: dateMap };
+    }, [currentDate, allAppointments]);
+
+    const appointmentsForSelectedDay = useMemo(() => {
+        return allAppointments.filter(appt => formatDateKey(appt.date) === formatDateKey(selectedDate));
+    }, [selectedDate, allAppointments]);
 
     return (
         <div className="month-view">
-            <div className="view-header month-header">
-                <h3>ตารางนัดรายเดือน</h3>
-                <div className="month-navigation">
-                    <button onClick={() => navigateMonth(-1)} aria-label="Previous month">{'<'}</button>
-                    <span>{monthNames[currentDate.getMonth()]} {currentDate.getFullYear() + 543}</span>
-                    <button onClick={() => navigateMonth(1)} aria-label="Next month">{'>'}</button>
-                </div>
-            </div>
+            <CalendarHeader currentDate={currentDate} onNavigate={navigateMonth} />
+            
             <div className="calendar-container">
-                <div className="calendar">
-                    <div className="calendar-header">
-                        {daysOfWeek.map(day => <div key={day}>{day}</div>)}
-                    </div>
-                    <div className="calendar-body">
-                        {calendarDays.map((dayObj, index) => (
-                            <div 
-                                key={index} 
-                                className={`calendar-day 
-                                    ${dayObj.isOtherMonth ? 'other-month' : ''} 
-                                    ${isSelected(dayObj.date) ? 'active-day' : ''} 
-                                    ${isToday(dayObj.date) ? 'today' : ''}
-                                    ${hasAppointments(dayObj.date) ? 'has-appointments' : ''}
-                                `}
-                                onClick={() => handleDayClick(dayObj.date)}
-                                tabIndex={0}
-                                role="button"
-                                aria-label={`Select ${dayObj.date.getDate()}`}
-                            >
-                                {dayObj.date.getDate()}
-                            </div>
-                        ))}
-                    </div>
-                </div>
-                <div className="daily-appointments">
-                    <h4>นัดหมายวันที่ {formatSelectedDate()}</h4>
-                    <p>ไม่มีนัดหมายในวันนี้</p>
-                </div>
+                <CalendarGrid 
+                    days={calendarDays}
+                    selectedDate={selectedDate}
+                    today={today}
+                    appointmentsByDate={appointmentsByDate}
+                    onDayClick={handleDayClick}
+                />
+                <DailyAppointments date={selectedDate} appointments={appointmentsForSelectedDay} />
             </div>
 
-            {/* Monthly Appointments Overview - Table Layout */}
-            <div className="monthly-overview">
-                <h3>ภาพรวมนัดหมายประจำเดือน ({currentMonthAppointments.length} รายการ)</h3>
-                <div className="table-wrapper">
-                    <table className="thai-clinic-table">
-                        <thead>
-                            <tr>
-                                <th>วันที่</th>
-                                <th>เวลา</th>
-                                <th>ชื่อผู้ป่วย</th>
-                                <th>บริการ</th>
-                                <th>คอร์ส</th>
-                                <th>จำนวนครั้ง</th>
-                                <th>การดำเนินการ</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {currentMonthAppointments.map(appointment => (
-                                <tr key={appointment.id}>
-                                    <td>{appointment.date.getDate()}/{appointment.date.getMonth() + 1}/{appointment.date.getFullYear() + 543}</td>
-                                    <td>{appointment.time}</td>
-                                    <td>{appointment.patientName}</td>
-                                    <td>{appointment.service}</td>
-                                    <td>{appointment.course[0]}</td>
-                                    <td>{appointment.course[1]}/{appointment.course[2]}</td>
-                                    <td className="table-actions">
-                                        <button className="action-btn view-btn">ดูรายละเอียด</button>
-                                        <button className="action-btn edit-btn">แก้ไข</button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            <MonthlyOverviewTable appointments={currentMonthAppointments} />
         </div>
     );
 };
