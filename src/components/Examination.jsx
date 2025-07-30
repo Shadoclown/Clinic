@@ -10,8 +10,8 @@ const bedData = getBedData();
 const SummaryCard = ({ icon, value, label, color }) => (
     <div className="summary-card">
         <div className="summary-info">
-            <span className="summary-value">{value}</span>
             <span className="summary-label">{label}</span>
+            <span className="summary-value">{value}</span>
         </div>
         <div className="summary-icon" style={{ backgroundColor: color }}>
             {icon}
@@ -219,7 +219,7 @@ const ExaminationDashboard = () => {
                 <SummaryCard icon="🛏️" value={summaryStats.totalBeds} label="เตียงทั้งหมด" color="rgba(3, 169, 244, 0.1)" />
                 <SummaryCard icon="👤" value={summaryStats.occupiedBeds} label="มีผู้ป่วย" color="rgba(239, 83, 80, 0.1)" />
                 <SummaryCard icon="✅" value={summaryStats.availableBeds} label="พร้อมใช้งาน" color="rgba(102, 187, 106, 0.1)" />
-                <SummaryCard icon="📊" value={`${summaryStats.utilizationRate}%`} label="อัตราการใช้งาน" color="rgba(204, 204, 204, 0.2)" />
+                {/* <SummaryCard icon="📊" value={`${summaryStats.utilizationRate}%`} label="อัตราการใช้งาน" color="rgba(204, 204, 204, 0.2)" /> */}
             </section>
 
             {filteredBeds.length > 0 ? (
@@ -238,14 +238,6 @@ const ExaminationDashboard = () => {
                     </div>
                 </div>
             )}
-            
-            <footer className="dashboard-footer">
-                <div className="quick-actions">
-                    <button className="btn btn-secondary">ตั้งค่าเตียง</button>
-                    <button className="btn btn-secondary">รายงาน</button>
-                    <button className="btn btn-primary">+ เพิ่มเตียงใหม่</button>
-                </div>
-            </footer>
         </div>
     );
 };
