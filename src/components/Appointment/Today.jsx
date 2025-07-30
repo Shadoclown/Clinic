@@ -17,9 +17,9 @@ const TodayView = ({ appointments = [] }) => (
                     <th>โทรศัพท์</th>
                     <th>บริการ</th>
                     <th>หมายเหตุ</th>
-                    <th>สถานะ</th>
+                    <th>ประเภท</th>
+                    <th>จำนวนครั้ง</th>
                     <th>การดำเนินการ</th>
-                    <th>ยกเลิก</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,17 +34,11 @@ const TodayView = ({ appointments = [] }) => (
                         <td>{app.phone}</td>
                         <td>{app.service}</td>
                         <td>{app.notes}</td>
-                        <td>
-                            <span className={`status-pill status-${app.status === 'รอตรวจ' ? 'รอตรวจ' : 'เข้าตรวจแล้ว'}`}>
-                                {app.status}
-                            </span>
-                        </td>
+                        <td>{app.course[0]}</td>
+                        <td>{app.course[1]}/{app.course[2]}</td>
                         <td className="table-actions">
                             <button className="action-btn view-btn">ดูรายละเอียด</button>
                             <button className="action-btn edit-btn">แก้ไข</button>
-                        </td>
-                        <td className='cancel-action'>
-                            <button className="action-btn cancel-btn">ยกเลิก</button>
                         </td>
                     </tr>
                 ))}
@@ -61,3 +55,4 @@ const TodayView = ({ appointments = [] }) => (
 );
 
 export default TodayView;
+

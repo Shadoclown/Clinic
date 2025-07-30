@@ -1,320 +1,80 @@
-{
-  "patients": [
-    {
-      "id": "PT001",
-      "hn": "HN001234",
-      "cn": "CN001",
-      "personalInfo": {
-        "firstName": "สุดา",
-        "lastName": "มาลัย",
-        "fullName": "นางสาว สุดา มาลัย",
-        "titleTh": "นางสาว",
-        "titleEn": "Ms.",
-        "gender": "female",
-        "dateOfBirth": "1990-05-15",
-        "age": 34,
-        "nationality": "ไทย",
-        "religion": "พุทธ",
-        "maritalStatus": "โสด",
-        "occupation": "พนักงานบริษัท"
-      },
-      "contactInfo": {
-        "phone": "081-234-5678",
-        "email": "suda.malai@email.com",
-        "emergencyContact": {
-          "name": "นาง สมหญิง มาลัย",
-          "relationship": "แม่",
-          "phone": "081-234-5679"
-        },
-        "address": {
-          "street": "123/45 หมู่บ้านสวนสน",
-          "subdistrict": "ลาดพร้าว",
-          "district": "ลาดพร้าว",
-          "province": "กรุงเทพมหานคร",
-          "postalCode": "10230"
-        }
-      },
-      "medicalInfo": {
-        "bloodType": "A+",
-        "allergies": ["ยาปฏิชีวนะเพนิซิลิน", "อาหารทะเล"],
-        "chronicDiseases": [],
-        "currentMedications": [],
-        "height": 165,
-        "weight": 55,
-        "bmi": 20.2
-      },
-      "insurance": {
-        "type": "ประกันสังคม",
-        "number": "1234567890123",
-        "validUntil": "2025-12-31"
-      },
-      "appointments": [
-        {
-          "id": "A001",
-          "date": "2025-01-29",
-          "time": "09:30",
-          "doctor": "นพ.สมชาย แพทย์ดี",
-          "service": "ตรวจสุขภาพประจำปี",
-          "notes": "ผู้ป่วยแจ้งมีอาการไอเล็กน้อย",
-          "status": "รอตรวจ",
-          "price": 500
-        }
-      ],
-      "medicalRecords": [
-        {
-          "id": "MR001",
-          "date": "2024-12-15",
-          "time": "10:30",
-          "diagnosis": "ภูมิแพ้ตามฤดูกาล",
-          "doctor": "นพ.สมชาย แพทย์ดี",
-          "treatment": "จ่ายยาแก้แพ้ Loratadine 10mg",
-          "type": "ตรวจรักษา",
-          "status": "เสร็จสิ้น"
-        }
-      ],
-      "registrationDate": "2024-01-15",
-      "lastVisit": "2025-01-29",
-      "status": "active"
-    },
-    {
-      "id": "PT002",
-      "hn": "HN001235",
-      "cn": "CN002",
-      "personalInfo": {
-        "firstName": "วิชัย",
-        "lastName": "ใจดี",
-        "fullName": "นาย วิชัย ใจดี",
-        "titleTh": "นาย",
-        "titleEn": "Mr.",
-        "gender": "male",
-        "dateOfBirth": "1975-08-22",
-        "age": 49,
-        "nationality": "ไทย",
-        "religion": "พุทธ",
-        "maritalStatus": "แต่งงาน",
-        "occupation": "ข้าราชการ"
-      },
-      "contactInfo": {
-        "phone": "082-345-6789",
-        "email": "wichai.jaidee@gov.th",
-        "emergencyContact": {
-          "name": "นาง สมใส ใจดี",
-          "relationship": "ภรรยา",
-          "phone": "082-345-6780"
-        },
-        "address": {
-          "street": "567/89 ซอยรามคำแหง 24",
-          "subdistrict": "หัวหมาก",
-          "district": "บางกะปิ",
-          "province": "กรุงเทพมหานคร",
-          "postalCode": "10240"
-        }
-      },
-      "medicalInfo": {
-        "bloodType": "B+",
-        "allergies": [],
-        "chronicDiseases": ["ความดันโลหิตสูง"],
-        "currentMedications": ["Amlodipine 5mg"],
-        "height": 170,
-        "weight": 75,
-        "bmi": 26.0
-      },
-      "insurance": {
-        "type": "ข้าราชการ",
-        "number": "9876543210987",
-        "validUntil": "2025-12-31"
-      },
-      "appointments": [
-        {
-          "id": "A002",
-          "date": "2025-01-29",
-          "time": "10:15",
-          "doctor": "นพ.สุรชัย หัตถกรรม",
-          "service": "ติดตามอาการความดันโลหิตสูง",
-          "notes": "ตรวจติดตามทุก 3 เดือน",
-          "status": "เข้าตรวจแล้ว",
-          "price": 400
-        }
-      ],
-      "medicalRecords": [
-        {
-          "id": "MR002",
-          "date": "2025-01-29",
-          "time": "10:15",
-          "diagnosis": "ความดันโลหิตสูง",
-          "doctor": "นพ.สุรชัย หัตถกรรม",
-          "treatment": "เพิ่มยา Amlodipine เป็น 10mg",
-          "type": "ติดตาม",
-          "status": "กำลังดำเนินการ"
-        }
-      ],
-      "registrationDate": "2023-06-10",
-      "lastVisit": "2025-01-29",
-      "status": "active"
-    },
-    {
-      "id": "PT003",
-      "hn": "HN001236",
-      "cn": "CN003",
-      "personalInfo": {
-        "firstName": "มาลี",
-        "lastName": "สวยงาม",
-        "fullName": "นางสาว มาลี สวยงาม",
-        "titleTh": "นางสาว",
-        "titleEn": "Ms.",
-        "gender": "female",
-        "dateOfBirth": "1985-12-03",
-        "age": 39,
-        "nationality": "ไทย",
-        "religion": "พุทธ",
-        "maritalStatus": "โสด",
-        "occupation": "ครู"
-      },
-      "contactInfo": {
-        "phone": "083-456-7890",
-        "email": "malee.suayngam@school.ac.th",
-        "emergencyContact": {
-          "name": "นาย สมชาย สวยงาม",
-          "relationship": "พี่ชาย",
-          "phone": "083-456-7891"
-        },
-        "address": {
-          "street": "234/56 ถนนพหลโยธิน",
-          "subdistrict": "จตุจักร",
-          "district": "จตุจักร",
-          "province": "กรุงเทพมหานคร",
-          "postalCode": "10900"
-        }
-      },
-      "medicalInfo": {
-        "bloodType": "O+",
-        "allergies": ["ฝุ่นละออง"],
-        "chronicDiseases": [],
-        "currentMedications": ["Vitamin D"],
-        "height": 160,
-        "weight": 52,
-        "bmi": 20.3
-      },
-      "insurance": {
-        "type": "ประกันสุขภาพถ้วนหน้า",
-        "number": "1357924680135",
-        "validUntil": "2025-12-31"
-      },
-      "appointments": [
-        {
-          "id": "A003",
-          "date": "2025-01-29",
-          "time": "11:00",
-          "doctor": "นพ.สมชาย แพทย์ดี",
-          "service": "ปรึกษาอาการภูมิแพ้",
-          "notes": "มีอาการแพ้ฝุ่นบ่อยในช่วงนี้",
-          "status": "รอตรวจ",
-          "price": 450
-        }
-      ],
-      "medicalRecords": [
-        {
-          "id": "MR003",
-          "date": "2025-01-29",
-          "time": "11:00",
-          "diagnosis": "ภูมิแพ้ฝุ่นละออง",
-          "doctor": "นพ.สมชาย แพทย์ดี",
-          "treatment": "แนะนำใช้เครื่องฟอกอากาศและให้ยาแก้แพ้",
-          "type": "ปรึกษา",
-          "status": "รอดำเนินการ"
-        }
-      ],
-      "registrationDate": "2024-03-20",
-      "lastVisit": "2025-01-29",
-      "status": "active"
-    },
-    {
-      "id": "PT004",
-      "hn": "HN001237",
-      "cn": "CN004",
-      "personalInfo": {
-        "firstName": "สมใจ",
-        "lastName": "ใจดี",
-        "fullName": "นางสาว สมใจ ใจดี",
-        "titleTh": "นางสาว",
-        "titleEn": "Ms.",
-        "gender": "female",
-        "dateOfBirth": "1992-03-10",
-        "age": 32,
-        "nationality": "ไทย",
-        "religion": "พุทธ",
-        "maritalStatus": "โสด",
-        "occupation": "นักบัญชี"
-      },
-      "contactInfo": {
-        "phone": "084-567-8901",
-        "email": "somjai.jaidee@company.com",
-        "emergencyContact": {
-          "name": "นาง วิไล ใจดี",
-          "relationship": "แม่",
-          "phone": "084-567-8902"
-        },
-        "address": {
-          "street": "789/12 ซอยอ่อนนุช 17",
-          "subdistrict": "สวนหลวง",
-          "district": "สวนหลวง",
-          "province": "กรุงเทพมหานคร",
-          "postalCode": "10250"
-        }
-      },
-      "medicalInfo": {
-        "bloodType": "AB+",
-        "allergies": [],
-        "chronicDiseases": [],
-        "currentMedications": [],
-        "height": 158,
-        "weight": 50,
-        "bmi": 20.0
-      },
-      "insurance": {
-        "type": "ประกันสังคม",
-        "number": "2468135790246",
-        "validUntil": "2025-12-31"
-      },
-      "appointments": [
-        {
-          "id": "A004",
-          "date": "2025-01-29",
-          "time": "14:30",
-          "doctor": "นพ.วิชัย กระดูกดี",
-          "service": "ตรวจสุขภาพทั่วไป",
-          "notes": "",
-          "status": "รอตรวจ",
-          "price": 500
-        }
-      ],
-      "medicalRecords": [
-        {
-          "id": "MR004",
-          "date": "2024-12-28",
-          "time": "14:30",
-          "diagnosis": "ปวดหลัง",
-          "doctor": "นพ.วิชัย กระดูกดี",
-          "treatment": "จ่ายยาแก้ปวด และแนะนำการออกกำลังกาย",
-          "type": "ตรวจรักษา",
-          "status": "เสร็จสิ้น"
-        }
-      ],
-      "registrationDate": "2024-08-05",
-      "lastVisit": "2024-12-28",
-      "status": "active"
-    }
-  ],
-  "metadata": {
-    "totalPatients": 4,
-    "lastUpdated": "2025-01-29T10:30:00.000Z",
-    "version": "1.0",
-    "description": "Patient database for clinic management system",
-    "clinicStats": {
-      "newPatients": 24,
-      "dailyAppointments": 8,
-      "revenue": 12450,
-      "bedsOccupied": "2/8"
-    }
+[
+  {
+    "id": "PT001", 
+    "details":
+      {
+        "name": "สมชาย ใจดี",
+        "age": "42",
+        "course": ["ทันตกรรม", 2, 5],
+        "date": "30/07/2568",
+        "time": "09:30",
+        "service": "ขูดหินปูน",
+        "comment": "ไม่มีปัญหาสุขภาพช่องปากเพิ่มเติม"
+      }
+  },
+  {
+    "id": "PT002",
+    "details":
+      {
+        "name": "วิภาพร สุขสันต์",
+        "age": "28",
+        "course": ["ตรวจสุขภาพ", 1, 1],
+        "date": "16/05/2566",
+        "time": "13:45",
+        "service": "ตรวจร่างกายประจำปี",
+        "comment": "ผลการตรวจทั่วไปอยู่ในเกณฑ์ปกติ แนะนำให้ออกกำลังกายเพิ่ม"
+      }
+  },
+  {
+    "id": "PT003",
+    "details":
+      {
+        "name": "นภดล รักเรียน",
+        "age": "35",
+        "course": ["กายภาพบำบัด", 3, 10],
+        "date": "17/05/2566",
+        "time": "10:15",
+        "service": "บำบัดอาการปวดหลัง",
+        "comment": "อาการปวดหลังดีขึ้น แนะนำให้ทำท่าบริหารต่อเนื่องที่บ้าน"
+      }
+  },
+  {
+    "id": "PT004",
+    "details":
+      {
+        "name": "จิราพร แสงทอง",
+        "age": "31",
+        "course": ["นวดแผนไทย", 0, 6],
+        "date": "18/05/2566",
+        "time": "14:00",
+        "service": "นวดคลายกล้ามเนื้อ",
+        "comment": "มีอาการเกร็งกล้ามเนื้อบริเวณบ่าและไหล่ แนะนำประคบร้อน"
+      }
+  },
+  {
+    "id": "PT005",
+    "details":
+      {
+        "name": "ประเสริฐ มั่นคง",
+        "age": "54",
+        "course": ["หัตถการ", 4, 8],
+        "date": "19/05/2566",
+        "time": "11:30",
+        "service": "รักษาข้อเข่าเสื่อม",
+        "comment": "ข้อเข่าขวาอาการดีขึ้น ลดการรับน้ำหนักและงดออกกำลังหนัก 2 สัปดาห์"
+      }
+  },
+  {
+    "id": "PT006",
+    "details":
+      {
+        "name": "ศิริพร ดวงดี",
+        "age": "26",
+        "course": ["เวชสำอาง", 1, 3],
+        "date": "20/05/2566",
+        "time": "16:15",
+        "service": "ทรีทเมนต์หน้า",
+        "comment": "ผิวหน้ามีอาการแพ้เล็กน้อย แนะนำให้หลีกเลี่ยงผลิตภัณฑ์ที่มีแอลกอฮอล์"
+      }
   }
-}
+]

@@ -6,21 +6,8 @@ import { getAllMedicalRecords } from '../utils/patientData';
 const medicalRecordsData = getAllMedicalRecords();
 
 // --- Reusable Components ---
-
-const StatusPill = ({ status }) => {
-    const getStatusClass = () => {
-        switch (status) {
-            case 'เสร็จสิ้น': return 'status-completed';
-            case 'กำลังดำเนินการ': return 'status-inprogress';
-            case 'รอดำเนินการ': return 'status-pending';
-            default: return '';
-        }
-    };
-    return <span className={`pill ${getStatusClass()}`}>{status}</span>;
-};
-
-const TypePill = ({ type }) => (
-    <span className="pill type-pill">{type}</span>
+const CoursePill = ({ course }) => (
+    <span className="pill type-pill">{course[0]}</span>
 );
 
 // --- Main Page Component ---
@@ -31,7 +18,7 @@ const MedicalRecords = () => {
     const filteredRecords = medicalRecordsData.filter(record =>
         record.patientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
         record.hn.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        record.diagnosis.toLowerCase().includes(searchTerm.toLowerCase())
+        record.service.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     return (
@@ -53,7 +40,7 @@ const MedicalRecords = () => {
                         <span className="search-icon">🔍</span>
                         <input
                             type="text"
-                            placeholder="ค้นหาชื่อ, HN, หรือการวินิจฉัย..."
+                            placeholder="ค้นหาชื่อ, HN, หรือบริการ..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -68,18 +55,16 @@ const MedicalRecords = () => {
                                 <th>ชื่อผู้ป่วย</th>
                                 <th>วันที่</th>
                                 <th>เวลา</th>
-                                <th>การวินิจฉัย</th>
-                                <th>แพทย์</th>
+                                <th>บริการ</th>
                                 <th>ประเภท</th>
-                                <th>สถานะ</th>
+                                <th>จำนวนครั้ง</th>
                                 <th>การดำเนินการ</th>
-                                <th>ยกเลิก</th>
                             </tr>
                         </thead>
                         <tbody>
                             {filteredRecords.length === 0 ? (
                                 <tr>
-                                    <td colSpan="10" className="no-records">
+                                    <td colSpan="8" className="no-records">
                                         ไม่มีข้อมูลเวชระเบียน
                                     </td>
                                 </tr>
@@ -90,20 +75,12 @@ const MedicalRecords = () => {
                                         <td>{record.patientName}</td>
                                         <td>{record.date}</td>
                                         <td>{record.time}</td>
-                                        <td>{record.diagnosis}</td>
-                                        <td>{record.doctor}</td>
-                                        <td><span className="pill type-pill">{record.type}</span></td>
-                                        <td><span className={`status-pill status-${record.status === 'เสร็จสิ้น' ? 'completed' : 
-                                                record.status === 'กำลังดำเนินการ' ? 'inprogress' : 'pending'}`}>
-                                                {record.status}
-                                            </span>
-                                        </td>
+                                        <td>{record.service}</td>
+                                        <td><CoursePill course={record.course} /></td>
+                                        <td>{record.course[1]}/{record.course[2]}</td>
                                         <td className="table-actions">
                                             <button className="action-btn view-btn">ดูรายละเอียด</button>
                                             <button className="action-btn edit-btn">แก้ไข</button>
-                                        </td>
-                                        <td className='cancel-action'>
-                                            <button className="action-btn cancel-btn">ยกเลิก</button>
                                         </td>
                                     </tr>
                                 ))

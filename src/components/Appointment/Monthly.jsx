@@ -165,10 +165,9 @@ const MonthlyView = () => {
                                 <th>เวลา</th>
                                 <th>ชื่อผู้ป่วย</th>
                                 <th>บริการ</th>
-                                <th>แพทย์</th>
-                                <th>สถานะ</th>
+                                <th>ประเภท</th>
+                                <th>จำนวนครั้ง</th>
                                 <th>การดำเนินการ</th>
-                                <th>ยกเลิก</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -178,22 +177,11 @@ const MonthlyView = () => {
                                     <td>{appointment.time}</td>
                                     <td>{appointment.patientName}</td>
                                     <td>{appointment.service}</td>
-                                    <td>{appointment.doctor}</td>
-                                    <td>
-                                        <span className={`status-pill status-${
-                                            appointment.status === 'confirmed' ? 'เสร็จสิ้น' : 
-                                            appointment.status === 'pending' ? 'รอตรวจ' : 'กำลังดำเนินการ'
-                                        }`}>
-                                            {appointment.status === 'confirmed' ? 'ยืนยันแล้ว' : 
-                                             appointment.status === 'pending' ? 'รอยืนยัน' : 'เสร็จสิ้น'}
-                                        </span>
-                                    </td>
+                                    <td>{appointment.course[0]}</td>
+                                    <td>{appointment.course[1]}/{appointment.course[2]}</td>
                                     <td className="table-actions">
                                         <button className="action-btn view-btn">ดูรายละเอียด</button>
                                         <button className="action-btn edit-btn">แก้ไข</button>
-                                    </td>
-                                    <td className='cancel-action'>
-                                        <button className="action-btn cancel-btn">ยกเลิก</button>
                                     </td>
                                 </tr>
                             ))}

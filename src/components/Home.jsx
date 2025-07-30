@@ -87,16 +87,17 @@ function Home() {
                             <tr>
                                 <th>เวลา</th>
                                 <th>ชื่อผู้ป่วย</th>
+                                <th>บริการ</th>
                                 <th>หมายเหตุ</th>
-                                <th>สถานะ</th>
+                                <th>ประเภท</th>
+                                <th>จำนวนครั้ง</th>
                                 <th>การดำเนินการ</th>
-                                <th>ยกเลิก</th>
                             </tr>
                         </thead>
                         <tbody>
                             {todayAppointments.length === 0 ? (
                                 <tr>
-                                    <td colSpan="6" style={{textAlign: 'center', padding: '20px'}}>
+                                    <td colSpan="7" style={{textAlign: 'center', padding: '20px'}}>
                                         ไม่พบข้อมูลนัดหมาย
                                     </td>
                                 </tr>
@@ -109,18 +110,13 @@ function Home() {
                                             </div>
                                         </td>
                                         <td className="appointment-name-cell">{appointment.patientName}</td>
-                                        <td className="appointment-issue-cell">{appointment.notes || appointment.service}</td>
-                                        <td className="appointment-status-cell">
-                                            <span className={`status-pill status-${appointment.status}`}>
-                                                {appointment.status}
-                                            </span>
-                                        </td>
+                                        <td>{appointment.service}</td>
+                                        <td className="appointment-issue-cell">{appointment.notes}</td>
+                                        <td>{appointment.course[0]}</td>
+                                        <td>{appointment.course[1]}/{appointment.course[2]}</td>
                                         <td className="table-actions">
                                             <button className="action-btn view-btn">ดูรายละเอียด</button>
                                             <button className="action-btn edit-btn">แก้ไข</button>
-                                        </td>
-                                        <td className="cancel-action">
-                                            <button className="action-btn delete-btn">ยกเลิก</button>
                                         </td>
                                     </tr>
                                 ))
