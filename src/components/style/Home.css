@@ -1,5 +1,30 @@
 @import './Table.css';
 
+:root {
+    /* Define color variables for consistency */
+    --primary-bg: #f4f7fa;
+    --secondary-bg: #f8f9fa;
+    --white-color: #ffffff;
+    --text-primary: #2c3e50;
+    --text-secondary: #7f8c8d;
+    --line-color: #e0e0e0;
+
+    --blue: #4285f4;
+    --blue-hover: #357ae8;
+    --orange: #fbbc04;
+    --green: #34a853;
+    --c-success-bg: rgba(52, 168, 83, 0.1);
+
+    --radius: 8px;
+    --shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --transition-base: all 0.2s ease-in-out;
+
+    --fs-h2: 20px;
+    --fs-small: 14px;
+    --fs-xs: 12px;
+}
+
 .home-container {
     padding: 24px;
     background-color: var(--secondary-bg);
@@ -66,16 +91,16 @@
     box-shadow: var(--shadow-lg);
 }
 
-.stat-card.blue { 
-    border-left-color: var(--blue); 
+.stat-card.blue {
+    border-left-color: var(--blue);
     background-image: linear-gradient(to right, rgba(66, 133, 244, 0.05), transparent);
 }
-.stat-card.orange { 
-    border-left-color: var(--orange); 
+.stat-card.orange {
+    border-left-color: var(--orange);
     background-image: linear-gradient(to right, rgba(251, 188, 4, 0.05), transparent);
 }
-.stat-card.green { 
-    border-left-color: var(--green); 
+.stat-card.green {
+    border-left-color: var(--green);
     background-image: linear-gradient(to right, rgba(52, 168, 83, 0.05), transparent);
 }
 
@@ -96,17 +121,6 @@
     font-size: 32px;
     font-weight: 700;
     color: var(--text-primary);
-    margin-bottom: 8px;
-}
-
-.stat-change {
-    font-size: var(--fs-xs);
-    color: var(--green);
-    margin: 0;
-    background-color: var(--c-success-bg);
-    padding: 4px 8px;
-    border-radius: 12px;
-    display: inline-block;
 }
 
 .stat-icon {
@@ -124,8 +138,8 @@
 /* Content Grid */
 .content-grid {
     display: flex;
+    gap: 24px;
 }
-
 
 /* Appointments Section */
 .appointments-section {
@@ -157,28 +171,15 @@
     margin: 0;
 }
 
-.calendar-btn {
-    background: var(--light-gray);
-    border: none;
-    padding: 8px 16px;
-    border-radius: var(--radius);
+.no-data-cell {
+    text-align: center;
+    padding: 20px;
     color: var(--text-secondary);
-    cursor: pointer;
-    font-size: var(--fs-small);
-    transition: var(--transition-base);
-}
-
-.calendar-btn:hover {
-    background-color: var(--medium-gray);
-    color: var(--text-primary);
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-    .content-grid {
-        grid-template-columns: 1fr;
-    }
-    
+    .content-grid,
     .stats-grid {
         grid-template-columns: 1fr;
     }
