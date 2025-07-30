@@ -1,5 +1,5 @@
 import React from 'react';
-import '../style/Appointment/today.css';
+import '../style/Appointment/Today.css';
 
 // Default empty appointments array
 const TodayView = ({ appointments = [] }) => (
