@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import './style/Examination.css';
+import React, { useState, useMemo, useCallback } from 'react';
+import './style/Examination.css'; // Using the original CSS file
 import { getBedData } from '../utils/patientData';
 
-// Get bed data from our utility
+// --- Data ---
 const bedData = getBedData();
 
 // --- Reusable Components ---
@@ -20,6 +20,7 @@ const SummaryCard = ({ icon, value, label, color }) => (
 );
 
 const TimerControl = ({ initialMinutes = 0, onTimerEnd }) => {
+    // This component is kept identical to the original as it was well-contained.
     const [isRunning, setIsRunning] = useState(false);
     const [minutes, setMinutes] = useState(initialMinutes);
     const [seconds, setSeconds] = useState(0);
@@ -54,7 +55,7 @@ const TimerControl = ({ initialMinutes = 0, onTimerEnd }) => {
     const handleEditStart = () => {
         if (!isRunning) {
             setIsEditing(true);
-            setEditValue(`${minutes}:${String(seconds).padStart(2, '0')}`);
+            setEditValue(`${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`);
         }
     };
     
@@ -62,15 +63,9 @@ const TimerControl = ({ initialMinutes = 0, onTimerEnd }) => {
         setIsEditing(false);
         try {
             const [min, sec] = editValue.split(':').map(val => parseInt(val, 10));
-            if (!isNaN(min) && min >= 0) {
-                setMinutes(min);
-            }
-            if (!isNaN(sec) && sec >= 0 && sec < 60) {
-                setSeconds(sec);
-            }
-        } catch (e) {
-            // Invalid format, keep current values
-        }
+            if (!isNaN(min) && min >= 0) setMinutes(min);
+            if (!isNaN(sec) && sec >= 0 && sec < 60) setSeconds(sec);
+        } catch (e) { /* Invalid format, do nothing */ }
     };
 
     return (
@@ -87,19 +82,13 @@ const TimerControl = ({ initialMinutes = 0, onTimerEnd }) => {
                         autoFocus
                     />
                 ) : (
-                    <span 
-                        className="timer-time" 
-                        onClick={handleEditStart}
-                    >
+                    <span className="timer-time" onClick={handleEditStart}>
                         {String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}
                     </span>
                 )}
             </div>
             <div className="timer-buttons">
-                <button 
-                    className="btn-timer-action" 
-                    onClick={isRunning ? resetTimer : startTimer}
-                >
+                <button className="btn-timer-action" onClick={isRunning ? resetTimer : startTimer}>
                     {isRunning ? 'Reset' : 'Start'}
                 </button>
             </div>
@@ -108,15 +97,13 @@ const TimerControl = ({ initialMinutes = 0, onTimerEnd }) => {
 };
 
 const BedCard = ({ bed }) => {
-    const getStatusInfo = () => {
+    const statusInfo = useMemo(() => {
         switch (bed.status) {
             case 'occupied': return { className: 'occupied', label: 'มีผู้ป่วย' };
             case 'available': return { className: 'available', label: 'พร้อมใช้งาน' };
             default: return { className: 'default', label: '' };
         }
-    };
-
-    const statusInfo = getStatusInfo();
+    }, [bed.status]);
 
     return (
         <div className={`bed-card ${statusInfo.className}`}>
@@ -137,26 +124,23 @@ const BedCard = ({ bed }) => {
                                 <p className="service-name">{bed.patient.service}</p>
                             </div>
                         </div>
-                        <TimerControl initialMinutes={parseInt(bed.patient.duration) || 15} />
+                        <TimerControl initialMinutes={parseInt(bed.patient.duration, 10) || 15} />
                     </>
                 ) : (
-                    <>
-                        <div className="empty-bed-view">
-                            <span className="empty-bed-icon">🛏️</span>
-                            <p>ไม่มีผู้ป่วย</p>
-                        </div>
-                        {/* Timer removed for available beds */}
-                    </>
+                    <div className="empty-bed-view">
+                        <span className="empty-bed-icon">🛏️</span>
+                        <p>ไม่มีผู้ป่วย</p>
+                    </div>
                 )}
             </div>
             <div className="bed-card-footer">
                 {bed.status === 'occupied' && (
-                    <>
-                        <button className="btn btn-finish">เสร็จสิ้นการตรวจ</button>
-                    </>
+                    <button className="btn btn-finish">เสร็จสิ้นการตรวจ</button>
                 )}
                 {bed.status === 'available' && (
-                    <button className="btn btn-start" style={{ display: 'block', width: '100%', padding: '10px', backgroundColor: '#4CAF50', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
+                    // The inline style is removed here as it's redundant.
+                    // The .btn and .btn-start classes from your CSS already handle this styling.
+                    <button className="btn btn-start">
                         เริ่มตรวจผู้ป่วย
                     </button>
                 )}
@@ -168,32 +152,37 @@ const BedCard = ({ bed }) => {
 // --- Main Dashboard Component ---
 
 const ExaminationDashboard = () => {
-    const totalBeds = bedData.length;
-    const occupiedBeds = bedData.filter(b => b.status === 'occupied').length;
-    const availableBeds = bedData.filter(b => b.status === 'available').length;
-    const utilizationRate = Math.round((occupiedBeds / totalBeds) * 100);
-    
     const [statusFilter, setStatusFilter] = useState('all');
     const [searchTerm, setSearchTerm] = useState('');
-    
-    const filteredBeds = bedData.filter(bed => {
-        // Filter by status
-        if (statusFilter !== 'all' && bed.status !== statusFilter) {
-            return false;
-        }
-        
-        // Filter by search term (only for occupied beds with patient info)
-        if (searchTerm && bed.status === 'occupied') {
-            const patientInfo = bed.patient ? 
-                bed.patient.name + bed.patient.cn + bed.patient.service : '';
-            return patientInfo.toLowerCase().includes(searchTerm.toLowerCase());
-        } else if (searchTerm) {
-            // If there's a search term but bed is not occupied, don't show it
-            return false;
-        }
-        
-        return true;
-    });
+
+    const summaryStats = useMemo(() => {
+        const totalBeds = bedData.length;
+        const occupiedBeds = bedData.filter(b => b.status === 'occupied').length;
+        const availableBeds = totalBeds - occupiedBeds;
+        const utilizationRate = totalBeds > 0 ? Math.round((occupiedBeds / totalBeds) * 100) : 0;
+        return { totalBeds, occupiedBeds, availableBeds, utilizationRate };
+    }, []);
+
+    const filteredBeds = useMemo(() => {
+        return bedData.filter(bed => {
+            if (statusFilter !== 'all' && bed.status !== statusFilter) {
+                return false;
+            }
+            if (searchTerm && bed.status === 'occupied' && bed.patient) {
+                const patientInfo = (bed.patient.name + bed.patient.cn + bed.patient.service).toLowerCase();
+                return patientInfo.includes(searchTerm.toLowerCase());
+            }
+            if (searchTerm && bed.status !== 'occupied') {
+                return false;
+            }
+            return true;
+        });
+    }, [statusFilter, searchTerm]);
+
+    const resetFilters = useCallback(() => {
+        setStatusFilter('all');
+        setSearchTerm('');
+    }, []);
 
     return (
         <div className="dashboard-container">
@@ -213,8 +202,8 @@ const ExaminationDashboard = () => {
                         />
                     </div>
                     <div className="filter-container">
-                        <select 
-                            value={statusFilter} 
+                        <select
+                            value={statusFilter}
                             onChange={(e) => setStatusFilter(e.target.value)}
                             className="status-filter"
                         >
@@ -227,10 +216,10 @@ const ExaminationDashboard = () => {
             </header>
 
             <section className="summary-section">
-                <SummaryCard icon="🛏️" value={totalBeds} label="เตียงทั้งหมด" color="rgba(3, 169, 244, 0.1)" />
-                <SummaryCard icon="👤" value={occupiedBeds} label="มีผู้ป่วย" color="rgba(239, 83, 80, 0.1)" />
-                <SummaryCard icon="✅" value={availableBeds} label="พร้อมใช้งาน" color="rgba(102, 187, 106, 0.1)" />
-                <SummaryCard icon="📊" value={`${utilizationRate}%`} label="อัตราการใช้งาน" color="rgba(204, 204, 204, 0.2)" />
+                <SummaryCard icon="🛏️" value={summaryStats.totalBeds} label="เตียงทั้งหมด" color="rgba(3, 169, 244, 0.1)" />
+                <SummaryCard icon="👤" value={summaryStats.occupiedBeds} label="มีผู้ป่วย" color="rgba(239, 83, 80, 0.1)" />
+                <SummaryCard icon="✅" value={summaryStats.availableBeds} label="พร้อมใช้งาน" color="rgba(102, 187, 106, 0.1)" />
+                <SummaryCard icon="📊" value={`${summaryStats.utilizationRate}%`} label="อัตราการใช้งาน" color="rgba(204, 204, 204, 0.2)" />
             </section>
 
             {filteredBeds.length > 0 ? (
@@ -243,10 +232,7 @@ const ExaminationDashboard = () => {
                         <span className="empty-icon">🔍</span>
                         <h3>ไม่พบเตียงที่ค้นหา</h3>
                         <p>ลองเปลี่ยนการค้นหาหรือตัวกรอง</p>
-                        <button 
-                            className="btn btn-reset"
-                            onClick={() => { setStatusFilter('all'); setSearchTerm(''); }}
-                        >
+                        <button className="btn btn-reset" onClick={resetFilters}>
                             รีเซ็ตการค้นหา
                         </button>
                     </div>

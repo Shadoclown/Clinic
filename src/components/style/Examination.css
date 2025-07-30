@@ -207,6 +207,7 @@ body {
 
 .bed-card-footer {
   padding: 16px;
+  margin-top: auto;
 }
 
 /* --- Patient Details --- */
@@ -340,7 +341,6 @@ body {
   font-weight: 500;
   cursor: pointer;
   transition: var(--transition-base);
-  margin-top: auto;
 }
 
 .btn:hover {
@@ -348,24 +348,12 @@ body {
   box-shadow: var(--shadow-lg);
 }
 
-.btn-timer {
-  background-color: #f0f8ff; /* Light blue background */
-  color: var(--blue);
-  border: 1px solid var(--blue);
-  margin-top: 5px;
-}
-
-.btn-timer:hover {
-  background-color: var(--blue-light);
-}
-
-/* Button Colors - Enhanced */
 .btn-start { 
-  background-color: var(--c-brand); 
-  color: #fff; 
+  background-color: #4CAF50;
+  color: white; 
 }
 .btn-start:hover { 
-  background-color: var(--blue-hover); 
+  background-color: var(--blue-hover); /* Note: Original CSS had a different hover. You might want to unify this to var(--green-hover) if available. */
 }
 
 .btn-finish { 
@@ -459,18 +447,20 @@ body {
     padding: 2px 4px;
     cursor: text;
     border-radius: 4px;
-    color: var(--text-primary); /* Explicit dark color for visibility */
-}
-
-.timer-time:hover, .timer-time:focus {
-    border-color: #ddd;
-    outline: none;
-    background-color: #f8f8f8; /* Slight background for better visibility when editing */
+    color: var(--text-primary);
 }
 
 input.timer-time {
-    color: #333333; /* Ensure input has the same color */
-    font-family: var(--font-family); /* Consistent font */
+    color: #333333;
+    font-family: var(--font-family);
+    border-color: #ddd;
+    outline: none;
+    background-color: #f8f8f8;
+}
+
+.timer-time:not(input):hover {
+    border-color: #ddd;
+    background-color: #f8f8f8;
 }
 
 .timer-buttons {
@@ -492,6 +482,7 @@ input.timer-time {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 
