@@ -17,7 +17,7 @@ const TodayView = ({ appointments = [] }) => (
                     <th>โทรศัพท์</th>
                     <th>บริการ</th>
                     <th>หมายเหตุ</th>
-                    <th>ประเภท</th>
+                    <th>คอร์ส</th>
                     <th>จำนวนครั้ง</th>
                     <th>การดำเนินการ</th>
                 </tr>
