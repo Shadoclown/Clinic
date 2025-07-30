@@ -11,28 +11,24 @@ function Home() {
         { 
             title: 'ผู้ป่วยใหม่', 
             value: clinicStats.newPatients, 
-            change: '+12% จากเมื่อวาน', 
             icon: '👥',
             color: 'blue'
         },
         { 
             title: 'นัดหมายของวันนี้', 
             value: clinicStats.dailyAppointments, 
-            change: '3 นัดครึ่งวัน', 
             icon: '📅',
             color: 'orange'
         },
         { 
             title: 'รายได้วันนี้', 
             value: `฿${clinicStats.revenue}`, 
-            change: '+8.2% จากเมื่อวาน', 
             icon: '💰',
             color: 'green'
         },
         { 
             title: 'เตียงที่ใช้งาน', 
             value: clinicStats.bedsOccupied, 
-            change: '2 เตียงไม่ว่าง', 
             icon: '🛏️',
             color: 'blue'
         }
@@ -65,7 +61,6 @@ function Home() {
                             <div className="stat-text">
                                 <h3>{stat.title}</h3>
                                 <div className="stat-value">{stat.value}</div>
-                                <p className="stat-change">{stat.change}</p>
                             </div>
                             <div className="stat-icon">
                                 <span>{stat.icon}</span>
