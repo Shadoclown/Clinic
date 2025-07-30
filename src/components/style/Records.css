@@ -1,5 +1,7 @@
+/* --- Global & Font Imports --- */
 @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;700&display=swap');
 
+/* Basic body reset can be in a global file, but included here for completeness */
 body {
   margin: 0;
   font-family: var(--font-family);
@@ -7,12 +9,11 @@ body {
   color: var(--text-primary);
 }
 
-/* --- Page Layout & Header --- */
+/* --- Page Layout & Main Header --- */
 .records-page-container {
   padding: 24px;
   background-color: var(--secondary-bg);
   min-height: 100vh;
-  width: 100%;
 }
 
 .records-header {
@@ -51,7 +52,7 @@ body {
   transform: translateY(-1px);
 }
 
-/* --- Content Card --- */
+/* --- Content Card Layout --- */
 .records-content-card {
   background-color: var(--white-color);
   border-radius: var(--radius-lg);
@@ -112,7 +113,13 @@ body {
   background-color: var(--white-color);
 }
 
-/* Table styles have been moved to Table.css */
+/* --- Table Styles --- */
+/* Most styles are assumed to be in a global 'thai-clinic-table' stylesheet */
+.no-records {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-secondary);
+}
 
 /* --- Pill/Tag Styles --- */
 .pill {
@@ -128,44 +135,11 @@ body {
   background-color: var(--light-gray);
   border: 1px solid var(--medium-gray);
   color: var(--text-secondary);
+  padding: 4px 8px; /* Adjusted to match original inner style */
+  border-radius: 12px; /* Adjusted to match original inner style */
 }
 
-/* --- Action Buttons --- */
-.action-buttons {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-/* Button styles have been moved to Table.css */
-
-/* Status Pills - Enhanced */
-.status-completed { 
-  background-color: var(--c-success-bg); 
-  color: var(--c-success); 
-  border: 1px solid var(--green);
-}
-
-.status-inprogress { 
-  background-color: var(--c-inprogress-bg); 
-  color: var(--c-inprogress); 
-  border: 1px solid var(--c-inprogress);
-}
-
-.status-pending { 
-  background-color: var(--c-pending-bg); 
-  color: var(--c-pending); 
-  border: 1px solid var(--c-pending);
-}
-
-/* Type Pills */
-.type-pill {
-  background-color: var(--light-gray);
-  border: 1px solid var(--medium-gray);
-  color: var(--text-secondary);
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-size: var(--fs-xs);
-  font-weight: 500;
-}
+/* 
+  NOTE: Unused styles for '.action-buttons' and status pills like 
+  '.status-completed' have been removed to clean up the stylesheet.
+*/
