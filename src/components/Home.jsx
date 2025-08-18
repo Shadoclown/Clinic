@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './style/Home.css';
 import { getClinicStats, getTodayAppointments } from '../utils/patientData';
+import AddAppointment from './AddAppointment';
 
 // Sub-component for the header section
-const HomeHeader = () => (
+const HomeHeader = ({ onAddClick }) => (
     <div className="home-header">
         <div className="header-text">
             <h1>แดชบอร์ด</h1>
             <p>ภาพรวมการดำเนินงานคลินิกในวันนี้</p>
         </div>
-        <button className="add-button">+ เพิ่มข้อมูล</button>
+        <button className="add-button" onClick={onAddClick}>+ เพิ่มข้อมูล</button>
     </div>
 );
 
@@ -79,9 +80,12 @@ const AppointmentsTable = ({ appointments }) => (
 );
 
 function Home() {
+    // State to control modal visibility
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    
     // Fetching data from utility functions
     const clinicStats = getClinicStats();
-    const todayAppointments = getTodayAppointments();
+    const [appointments, setAppointments] = useState(getTodayAppointments());
 
     const statsData = [
         { title: 'ผู้ป่วยใหม่', value: clinicStats.newPatients, icon: '👥', color: 'blue' },
@@ -89,10 +93,41 @@ function Home() {
         { title: 'รายได้วันนี้', value: `฿${clinicStats.revenue}`, icon: '💰', color: 'green' },
         { title: 'เตียงที่ใช้งาน', value: clinicStats.bedsOccupied, icon: '🛏️', color: 'blue' }
     ];
+    
+    // Handler for saving a new appointment
+    const handleSaveAppointment = (newAppointment) => {
+        // In a real application, we would save this to the backend
+        // For this demo, we'll just update the local state
+        console.log("New appointment saved:", newAppointment);
+        
+        // Add to local state to immediately show in the UI
+        // Create appointment format needed by the table
+        const appointmentForTable = {
+            id: newAppointment.id,
+            time: newAppointment.details.time,
+            patientName: newAppointment.details.name,
+            phone: 'xxx-xxx-xxxx',
+            service: newAppointment.details.service,
+            notes: newAppointment.details.comment,
+            course: newAppointment.details.course
+        };
+        
+        // Only add to today's appointments if the date matches today
+        const today = new Date();
+        const todayStr = `${today.getDate().toString().padStart(2, '0')}/${(today.getMonth() + 1).toString().padStart(2, '0')}/${today.getFullYear() + 543}`;
+        
+        if (newAppointment.details.date === todayStr) {
+            setAppointments([...appointments, appointmentForTable]);
+        }
+        
+        // In a real application, we would update patients.json here
+        // For demo purposes, we're just showing the concept
+        alert("นัดหมายถูกบันทึกเรียบร้อยแล้ว!");
+    };
 
     return (
         <div className="home-container">
-            <HomeHeader />
+            <HomeHeader onAddClick={() => setIsModalOpen(true)} />
 
             <div className="stats-grid">
                 {statsData.map((stat, index) => (
@@ -107,8 +142,15 @@ function Home() {
             </div>
 
             <div className="content-grid">
-                <AppointmentsTable appointments={todayAppointments} />
+                <AppointmentsTable appointments={appointments} />
             </div>
+            
+            {/* Add Appointment Modal */}
+            <AddAppointment 
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onSave={handleSaveAppointment}
+            />
         </div>
     );
 }

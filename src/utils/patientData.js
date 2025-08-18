@@ -19,6 +19,15 @@ export const getAllPatients = () => {
   return patientData;
 };
 
+// Add a new patient/appointment
+export const addNewAppointment = (newAppointment) => {
+  // In a real application with a backend, this function would call an API
+  // to add the appointment to the database. For this demo, we'll add it
+  // to the local data.
+  patientData.push(newAppointment);
+  return newAppointment;
+};
+
 // Get clinic statistics
 export const getClinicStats = () => {
   // Generate stats based on patient data
