@@ -32,13 +32,12 @@ const StatCard = ({ title, value, icon, color }) => (
 
 // Sub-component for the appointments table
 const AppointmentsTable = ({ appointments }) => {
-    const [expandedRows, setExpandedRows] = useState({});
+    const [expandedRowIndex, setExpandedRowIndex] = useState(null);
     
     const toggleRowExpansion = (index) => {
-        setExpandedRows(prev => ({
-            ...prev,
-            [index]: !prev[index]
-        }));
+        // If clicking the already expanded row, collapse it
+        // Otherwise expand the clicked row (and implicitly collapse any other)
+        setExpandedRowIndex(expandedRowIndex === index ? null : index);
     };
 
     return (
@@ -84,12 +83,12 @@ const AppointmentsTable = ({ appointments }) => {
                                             className="action-btn view-btn"
                                             onClick={() => toggleRowExpansion(index)}
                                         >
-                                            {expandedRows[index] ? 'ซ่อนข้อมูล' : 'ดูรายละเอียด'}
+                                            {expandedRowIndex === index ? 'ซ่อนข้อมูล' : 'ดูรายละเอียด'}
                                         </button>
                                         <button className="action-btn edit-btn">แก้ไข</button>
                                     </td>
                                 </tr>
-                                {expandedRows[index] && (
+                                {expandedRowIndex === index && (
                                     <tr className="patient-detail-row">
                                         <td colSpan="7">
                                             <PatientDetailExpanded patient={appt} />

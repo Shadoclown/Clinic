@@ -59,28 +59,69 @@ const NoAppointmentsRow = () => (
 );
 
 // Component for the entire table
-const AppointmentsTable = ({ appointments }) => (
-    <table className="thai-clinic-table">
-        <thead>
-            <tr>
-                <th>เวลา</th>
-                <th>ชื่อผู้ป่วย</th>
-                <th>โทรศัพท์</th>
-                <th>บริการ</th>
-                <th>หมายเหตุ</th>
-                <th>คอร์ส</th>
-                <th>จำนวนครั้ง</th>
-                <th>การดำเนินการ</th>
-            </tr>
-        </thead>
-        <tbody>
-            {appointments.length > 0
-                ? appointments.map(app => <AppointmentRow key={app.id} appointment={app} />)
-                : <NoAppointmentsRow />
-            }
-        </tbody>
-    </table>
-);
+const AppointmentsTable = ({ appointments }) => {
+    const [expandedRowIndex, setExpandedRowIndex] = useState(null);
+    
+    const toggleRowExpansion = (index) => {
+        setExpandedRowIndex(expandedRowIndex === index ? null : index);
+    };
+    
+    return (
+        <table className="thai-clinic-table">
+            <thead>
+                <tr>
+                    <th>เวลา</th>
+                    <th>ชื่อผู้ป่วย</th>
+                    <th>โทรศัพท์</th>
+                    <th>บริการ</th>
+                    <th>หมายเหตุ</th>
+                    <th>คอร์ส</th>
+                    <th>จำนวนครั้ง</th>
+                    <th>การดำเนินการ</th>
+                </tr>
+            </thead>
+            <tbody>
+                {appointments.length > 0 ? (
+                    appointments.map((app, index) => (
+                        <React.Fragment key={app.id}>
+                            <tr>
+                                <td className="appointment-time-cell">
+                                    <div className="appointment-time">
+                                        <span className="time">{app.time}</span>
+                                    </div>
+                                </td>
+                                <td>{app.patientName}</td>
+                                <td>{app.phone}</td>
+                                <td>{app.service}</td>
+                                <td>{app.notes}</td>
+                                <td>{app.course[0]}</td>
+                                <td>{`${app.course[1]}/${app.course[2]}`}</td>
+                                <td className="table-actions">
+                                    <button 
+                                        className="action-btn view-btn"
+                                        onClick={() => toggleRowExpansion(index)}
+                                    >
+                                        {expandedRowIndex === index ? 'ซ่อนข้อมูล' : 'ดูรายละเอียด'}
+                                    </button>
+                                    <button className="action-btn edit-btn">แก้ไข</button>
+                                </td>
+                            </tr>
+                            {expandedRowIndex === index && (
+                                <tr className="patient-detail-row">
+                                    <td colSpan="8">
+                                        <PatientDetailExpanded patient={app} />
+                                    </td>
+                                </tr>
+                            )}
+                        </React.Fragment>
+                    ))
+                ) : (
+                    <NoAppointmentsRow />
+                )}
+            </tbody>
+        </table>
+    );
+};
 
 // Main TodayView component
 const TodayView = ({ appointments = [] }) => (
