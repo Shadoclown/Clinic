@@ -116,35 +116,9 @@ const PatientDetailExpanded = ({ patient }) => {
           </div>
         </div>
       </div>
-
-      {/* Medical History */}
-      {details.history && details.history.length > 0 && (
-        <div className="medical-history">
-          <h4>ประวัติการรักษา</h4>
-          <table className="history-table">
-            <thead>
-              <tr>
-                <th>วันที่</th>
-                <th>บริการ</th>
-                <th>แพทย์ผู้ตรวจ</th>
-                <th>หมายเหตุ</th>
-              </tr>
-            </thead>
-            <tbody>
-              {details.history.map((record, index) => (
-                <tr key={index}>
-                  <td>{record.date}</td>
-                  <td>{record.service}</td>
-                  <td>{record.doctor}</td>
-                  <td>{record.notes}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
     </div>
   );
 };
+
 
 export default PatientDetailExpanded;
