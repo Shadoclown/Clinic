@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './style/Home.css';
 import { getClinicStats, getTodayAppointments } from '../utils/patientData';
 import AddAppointment from './AddAppointment';
+import PatientDetailExpanded from './PatientDetailExpanded';
 
 // Sub-component for the header section
 const HomeHeader = ({ onAddClick }) => (
@@ -30,54 +31,79 @@ const StatCard = ({ title, value, icon, color }) => (
 );
 
 // Sub-component for the appointments table
-const AppointmentsTable = ({ appointments }) => (
-    <div className="appointments-section">
-        <div className="section-header">
-            <h2>นัดหมายวันนี้</h2>
-        </div>
-        <table className="appointments-table thai-clinic-table">
-            <thead>
-                <tr>
-                    <th>เวลา</th>
-                    <th>ชื่อผู้ป่วย</th>
-                    <th>บริการ</th>
-                    <th>หมายเหตุ</th>
-                    <th>คอร์ส</th>
-                    <th>จำนวนครั้ง</th>
-                    <th>การดำเนินการ</th>
-                </tr>
-            </thead>
-            <tbody>
-                {appointments.length === 0 ? (
+const AppointmentsTable = ({ appointments }) => {
+    const [expandedRows, setExpandedRows] = useState({});
+    
+    const toggleRowExpansion = (index) => {
+        setExpandedRows(prev => ({
+            ...prev,
+            [index]: !prev[index]
+        }));
+    };
+
+    return (
+        <div className="appointments-section">
+            <div className="section-header">
+                <h2>นัดหมายวันนี้</h2>
+            </div>
+            <table className="appointments-table thai-clinic-table">
+                <thead>
                     <tr>
-                        <td colSpan="7" className="no-data-cell">
-                            ไม่พบข้อมูลนัดหมาย
-                        </td>
+                        <th>เวลา</th>
+                        <th>ชื่อผู้ป่วย</th>
+                        <th>บริการ</th>
+                        <th>หมายเหตุ</th>
+                        <th>คอร์ส</th>
+                        <th>จำนวนครั้ง</th>
+                        <th>การดำเนินการ</th>
                     </tr>
-                ) : (
-                    appointments.map((appt, index) => (
-                        <tr key={index}>
-                            <td className="appointment-time-cell">
-                                <div className="appointment-time">
-                                    <span className="time">{appt.time}</span>
-                                </div>
-                            </td>
-                            <td className="appointment-name-cell">{appt.patientName}</td>
-                            <td>{appt.service}</td>
-                            <td className="appointment-issue-cell">{appt.notes}</td>
-                            <td>{appt.course[0]}</td>
-                            <td>{`${appt.course[1]}/${appt.course[2]}`}</td>
-                            <td className="table-actions">
-                                <button className="action-btn view-btn">ดูรายละเอียด</button>
-                                <button className="action-btn edit-btn">แก้ไข</button>
+                </thead>
+                <tbody>
+                    {appointments.length === 0 ? (
+                        <tr>
+                            <td colSpan="7" className="no-data-cell">
+                                ไม่พบข้อมูลนัดหมาย
                             </td>
                         </tr>
-                    ))
-                )}
-            </tbody>
-        </table>
-    </div>
-);
+                    ) : (
+                        appointments.map((appt, index) => (
+                            <React.Fragment key={`${appt.id}-${index}`}>
+                                <tr>
+                                    <td className="appointment-time-cell">
+                                        <div className="appointment-time">
+                                            <span className="time">{appt.time}</span>
+                                        </div>
+                                    </td>
+                                    <td className="appointment-name-cell">{appt.patientName}</td>
+                                    <td>{appt.service}</td>
+                                    <td className="appointment-issue-cell">{appt.notes}</td>
+                                    <td>{appt.course[0]}</td>
+                                    <td>{`${appt.course[1]}/${appt.course[2]}`}</td>
+                                    <td className="table-actions">
+                                        <button 
+                                            className="action-btn view-btn"
+                                            onClick={() => toggleRowExpansion(index)}
+                                        >
+                                            {expandedRows[index] ? 'ซ่อนข้อมูล' : 'ดูรายละเอียด'}
+                                        </button>
+                                        <button className="action-btn edit-btn">แก้ไข</button>
+                                    </td>
+                                </tr>
+                                {expandedRows[index] && (
+                                    <tr className="patient-detail-row">
+                                        <td colSpan="7">
+                                            <PatientDetailExpanded patient={appt} />
+                                        </td>
+                                    </tr>
+                                )}
+                            </React.Fragment>
+                        ))
+                    )}
+                </tbody>
+            </table>
+        </div>
+    );
+};
 
 function Home() {
     // State to control modal visibility

@@ -55,6 +55,15 @@
   vertical-align: middle;
 }
 
+/* --- Expandable Row Styles --- */
+.thai-clinic-table .patient-detail-row {
+  background-color: #f5f9ff !important;
+}
+
+.thai-clinic-table .patient-detail-row:hover {
+  background-color: #f5f9ff !important;
+}
+
 /* --- Specific Cell Content Styling --- */
 .appointment-time-cell {
   width: 120px; /* Give time cell a fixed width */
@@ -144,7 +153,7 @@
   box-shadow: var(--shadow);
 }
 
-/* View Button */
+/* --- View Button --- */
 .thai-clinic-table .view-btn {
   color: var(--blue);
   border-color: var(--blue);
@@ -153,8 +162,12 @@
   background-color: var(--blue);
   color: var(--white-color);
 }
+.thai-clinic-table .view-btn.active {
+  background-color: var(--blue);
+  color: var(--white-color);
+}
 
-/* Edit Button */
+/* --- Edit Button --- */
 .thai-clinic-table .edit-btn {
   color: var(--c-neutral);
   border-color: var(--c-neutral);
@@ -164,7 +177,7 @@
   color: var(--white-color);
 }
 
-/* Delete/Cancel Button */
+/* --- Delete/Cancel Button --- */
 .thai-clinic-table .delete-btn,
 .thai-clinic-table .cancel-btn {
   color: var(--red);

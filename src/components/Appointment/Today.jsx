@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../style/Appointment/Today.css';
+import PatientDetailExpanded from '../PatientDetailExpanded';
 
 // Component for the header section
 const TodayViewHeader = ({ count }) => (
@@ -10,25 +11,43 @@ const TodayViewHeader = ({ count }) => (
 );
 
 // Component for a single row in the appointments table
-const AppointmentRow = ({ appointment }) => (
-    <tr>
-        <td className="appointment-time-cell">
-            <div className="appointment-time">
-                <span className="time">{appointment.time}</span>
-            </div>
-        </td>
-        <td>{appointment.patientName}</td>
-        <td>{appointment.phone}</td>
-        <td>{appointment.service}</td>
-        <td>{appointment.notes}</td>
-        <td>{appointment.course[0]}</td>
-        <td>{`${appointment.course[1]}/${appointment.course[2]}`}</td>
-        <td className="table-actions">
-            <button className="action-btn view-btn">ดูรายละเอียด</button>
-            <button className="action-btn edit-btn">แก้ไข</button>
-        </td>
-    </tr>
-);
+const AppointmentRow = ({ appointment }) => {
+    const [expanded, setExpanded] = useState(false);
+
+    return (
+        <>
+            <tr>
+                <td className="appointment-time-cell">
+                    <div className="appointment-time">
+                        <span className="time">{appointment.time}</span>
+                    </div>
+                </td>
+                <td>{appointment.patientName}</td>
+                <td>{appointment.phone}</td>
+                <td>{appointment.service}</td>
+                <td>{appointment.notes}</td>
+                <td>{appointment.course[0]}</td>
+                <td>{`${appointment.course[1]}/${appointment.course[2]}`}</td>
+                <td className="table-actions">
+                    <button 
+                        className="action-btn view-btn"
+                        onClick={() => setExpanded(!expanded)}
+                    >
+                        {expanded ? 'ซ่อนข้อมูล' : 'ดูรายละเอียด'}
+                    </button>
+                    <button className="action-btn edit-btn">แก้ไข</button>
+                </td>
+            </tr>
+            {expanded && (
+                <tr className="patient-detail-row">
+                    <td colSpan="8">
+                        <PatientDetailExpanded patient={appointment} />
+                    </td>
+                </tr>
+            )}
+        </>
+    );
+};
 
 // Component for the "no data" placeholder row
 const NoAppointmentsRow = () => (

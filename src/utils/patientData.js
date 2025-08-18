@@ -45,15 +45,19 @@ export const getTodayAppointments = () => {
   const appointments = [];
   patientData.forEach((patient) => {
     if (patient.details) {
-      appointments.push({
+      // Get the patient's full details instead of just basic information
+      const fullPatientData = {
         id: patient.id,
         time: patient.details.time,
         patientName: patient.details.name,
-        phone: 'xxx-xxx-xxxx', // Not available in data
+        phone: patient.details.contact?.phone || 'xxx-xxx-xxxx',
         service: patient.details.service,
         notes: patient.details.comment,
-        course: patient.details.course
-      });
+        course: patient.details.course,
+        // Include all additional patient details for expandable view
+        details: patient.details
+      };
+      appointments.push(fullPatientData);
     }
   });
   return appointments;
@@ -73,10 +77,12 @@ export const getAppointmentsByDate = (dateStr) => {
           date: patientDateISO,
           time: patient.details.time,
           patientName: patient.details.name,
-          phone: 'xxx-xxx-xxxx', // Not available in data
+          phone: patient.details.contact?.phone || 'xxx-xxx-xxxx',
           service: patient.details.service,
           notes: patient.details.comment,
-          course: patient.details.course
+          course: patient.details.course,
+          // Include all details
+          details: patient.details
         });
       }
     }
@@ -98,9 +104,11 @@ export const getMonthlyAppointments = () => {
         date: apptDate,
         time: patient.details.time,
         patientName: patient.details.name,
-        phone: 'xxx-xxx-xxxx', // Not available in data
+        phone: patient.details.contact?.phone || 'xxx-xxx-xxxx',
         service: patient.details.service,
-        course: patient.details.course
+        course: patient.details.course,
+        // Include all details
+        details: patient.details
       });
     }
   });
@@ -113,12 +121,15 @@ export const getAllMedicalRecords = () => {
   patientData.forEach((patient) => {
     if (patient.details) {
       records.push({
+        id: patient.id,
         hn: `HN${patient.id.substring(2)}`,
         patientName: patient.details.name,
         date: patient.details.date,
         time: patient.details.time,
         service: patient.details.service,
-        course: patient.details.course
+        course: patient.details.course,
+        // Include all details
+        details: patient.details
       });
     }
   });

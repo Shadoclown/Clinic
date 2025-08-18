@@ -1,0 +1,103 @@
+/* Patient Detail Expandable Section */
+.patient-detail-row td {
+  padding: 0 !important;
+  background-color: #f5f9ff;
+}
+
+.patient-detail-container {
+  padding: 20px;
+  background-color: #f5f9ff;
+  border-top: 1px solid #e1e6ef;
+  border-bottom: 1px solid #e1e6ef;
+  animation: fadeDown 0.3s ease-out;
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.detail-section {
+  margin-bottom: 16px;
+}
+
+.detail-section h4 {
+  color: #2c3e50;
+  font-size: 16px;
+  margin: 0 0 8px 0;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #4285f4;
+}
+
+.detail-row {
+  display: flex;
+  margin-bottom: 8px;
+}
+
+.detail-label {
+  flex: 0 0 40%;
+  font-weight: 500;
+  color: #606060;
+  font-size: 14px;
+}
+
+.detail-value {
+  flex: 1;
+  color: #333;
+  font-size: 14px;
+}
+
+.detail-list {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.medical-history {
+  margin-top: 20px;
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.history-table th,
+.history-table td {
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+  font-size: 13px;
+}
+
+.history-table th {
+  background-color: #f0f4fa;
+  color: #444;
+  font-weight: 500;
+}
+
+.history-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .detail-row {
+    flex-direction: column;
+    margin-bottom: 12px;
+  }
+  
+  .detail-label {
+    margin-bottom: 4px;
+  }
+}
