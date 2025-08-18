@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import './style/Records.css';
 import { getAllMedicalRecords } from '../utils/patientData';
+import PatientDetailExpanded from './PatientDetailExpanded';
 
 // --- Data ---
 const medicalRecordsData = getAllMedicalRecords();
@@ -17,53 +18,82 @@ const RecordsPageHeader = () => (
     </header>
 );
 
-const RecordRow = ({ record }) => (
-    <tr>
-        <td>{record.hn}</td>
-        <td>{record.patientName}</td>
-        <td>{record.date}</td>
-        <td>{record.time}</td>
-        <td>{record.service}</td>
-        <td>
-            <span className="pill type-pill">{record.course[0]}</span>
-        </td>
-        <td>{`${record.course[1]}/${record.course[2]}`}</td>
-        <td className="table-actions">
-            <button className="action-btn view-btn">ดูรายละเอียด</button>
-            <button className="action-btn edit-btn">แก้ไข</button>
-        </td>
-    </tr>
+const RecordRow = ({ record, isExpanded, onToggleExpand }) => (
+    <>
+        <tr>
+            <td>{record.hn}</td>
+            <td>{record.patientName}</td>
+            <td>{record.date}</td>
+            <td>{record.time}</td>
+            <td>{record.service}</td>
+            <td>
+                <span className="pill type-pill">{record.course[0]}</span>
+            </td>
+            <td>{`${record.course[1]}/${record.course[2]}`}</td>
+            <td className="table-actions">
+                <button 
+                    className="action-btn view-btn"
+                    onClick={onToggleExpand}
+                >
+                    {isExpanded ? 'ซ่อนข้อมูล' : 'ดูรายละเอียด'}
+                </button>
+                <button className="action-btn edit-btn">แก้ไข</button>
+            </td>
+        </tr>
+        {isExpanded && (
+            <tr className="patient-detail-row">
+                <td colSpan="8">
+                    <PatientDetailExpanded patient={record} />
+                </td>
+            </tr>
+        )}
+    </>
 );
 
-const RecordsTable = ({ records }) => (
-    <div className="table-wrapper">
-        <table className="records-table thai-clinic-table">
-            <thead>
-                <tr>
-                    <th>HN</th>
-                    <th>ชื่อผู้ป่วย</th>
-                    <th>วันที่</th>
-                    <th>เวลา</th>
-                    <th>บริการ</th>
-                    <th>ประเภท</th>
-                    <th>จำนวนครั้ง</th>
-                    <th>การดำเนินการ</th>
-                </tr>
-            </thead>
-            <tbody>
-                {records.length === 0 ? (
+const RecordsTable = ({ records }) => {
+    const [expandedRowId, setExpandedRowId] = useState(null);
+    
+    const toggleRowExpansion = (recordId) => {
+        setExpandedRowId(expandedRowId === recordId ? null : recordId);
+    };
+
+    return (
+        <div className="table-wrapper">
+            <table className="records-table thai-clinic-table">
+                <thead>
                     <tr>
-                        <td colSpan="8" className="no-records">
-                            ไม่มีข้อมูลเวชระเบียน
-                        </td>
+                        <th>HN</th>
+                        <th>ชื่อผู้ป่วย</th>
+                        <th>วันที่</th>
+                        <th>เวลา</th>
+                        <th>บริการ</th>
+                        <th>ประเภท</th>
+                        <th>จำนวนครั้ง</th>
+                        <th>การดำเนินการ</th>
                     </tr>
-                ) : (
-                    records.map(record => <RecordRow key={record.id} record={record} />)
-                )}
-            </tbody>
-        </table>
-    </div>
-);
+                </thead>
+                <tbody>
+                    {records.length === 0 ? (
+                        <tr>
+                            <td colSpan="8" className="no-records">
+                                ไม่มีข้อมูลเวชระเบียน
+                            </td>
+                        </tr>
+                    ) : (
+                        records.map(record => (
+                            <RecordRow 
+                                key={record.id} 
+                                record={record} 
+                                isExpanded={expandedRowId === record.id}
+                                onToggleExpand={() => toggleRowExpansion(record.id)}
+                            />
+                        ))
+                    )}
+                </tbody>
+            </table>
+        </div>
+    );
+};
 
 
 // --- Main Page Component ---

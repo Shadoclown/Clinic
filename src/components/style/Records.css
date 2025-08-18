@@ -122,6 +122,19 @@ body {
   color: var(--text-secondary);
 }
 
+/* --- Patient Detail Row --- */
+.thai-clinic-table .patient-detail-row {
+  background-color: #f5f9ff !important;
+}
+
+.thai-clinic-table .patient-detail-row:hover {
+  background-color: #f5f9ff !important;
+}
+
+.thai-clinic-table .patient-detail-row td {
+  padding: 0 !important;
+}
+
 /* --- Pill/Tag Styles --- */
 .pill {
   padding: 6px 14px;
@@ -138,4 +151,13 @@ body {
   color: var(--text-secondary);
   padding: 4px 8px;
   border-radius: 12px;
+}
+
+/* Adding more responsive styling for expandable content */
+@media (max-width: 768px) {
+  /* ...existing code... */
+  
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
 }
