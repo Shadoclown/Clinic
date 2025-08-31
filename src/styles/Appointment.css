@@ -1,0 +1,466 @@
+/* --- Appointment Page Styles --- */
+.appointment-page {
+  padding: 0; /* Main content padding handles this now */
+}
+
+.appointment-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.appointment-title {
+  font-size: 1.8em;
+  margin: 0;
+  color: #333;
+}
+
+.tab-navigation {
+  display: flex;
+  margin-bottom: 25px;
+  background-color: #f0f2f5;
+  border-radius: 10px;
+  padding: 5px;
+  width: fit-content;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.tab-button {
+  background-color: transparent;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1em;
+  color: #555;
+  font-weight: 500;
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+  min-width: 100px;
+}
+
+.tab-button:hover {
+  color: #333;
+}
+
+.tab-button.active {
+  background-color: #1890ff; /* Blue for active tab */
+  color: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  font-weight: 600;
+}
+
+.appointment-content {
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.sub-header {
+    font-size: 1.3em;
+    margin: 0 0 20px 0;
+    color: #333;
+}
+
+/* Styles for the navigation bar above calendars/lists */
+.schedule-navigation {
+  display: flex; /* Use flexbox */
+  align-items: center; /* Vertically center items */
+  justify-content: space-between; /* Distribute items with space between them */
+  margin-bottom: 25px;
+  font-size: 1.1em;
+  font-weight: 600;
+  color: #333;
+  /* Removed 'gap: 15px;' as justify-content handles spacing */
+}
+
+.nav-arrow {
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: background-color 0.2s;
+  flex-shrink: 0; /* Prevent arrows from shrinking */
+  width: 30px; /* Give arrows a fixed width */
+  text-align: center; /* Center the arrow symbol */
+}
+
+.nav-arrow:hover {
+  background-color: #f0f2f5;
+}
+
+.current-period {
+    flex-grow: 1; /* Allow the date text to grow and take available space */
+    text-align: center; /* Center the date text horizontally */
+    white-space: nowrap; /* Prevent date text from wrapping */
+    overflow: hidden; /* Hide overflow if text is too long (though flex-grow should prevent this) */
+    text-overflow: ellipsis; /* Add ellipsis if it overflows (unlikely with flex-grow) */
+    padding: 0 10px; /* Add some horizontal padding around the text */
+}
+
+/* --- Daily View Styles --- */
+/* ... (existing Appointment.css content from previous updates) ... */
+
+/* --- Daily View Styles --- */
+.daily-appointments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.daily-appointment-item {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  background-color: #fafafa;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+}
+
+.daily-appointment-item:hover {
+    background-color: #f5f5f5;
+}
+
+.appt-time {
+  font-weight: 600;
+  color: #1890ff; /* Blue time */
+  min-width: 70px;
+  flex-shrink: 0;
+}
+
+.appt-details {
+  flex-grow: 1;
+  margin-left: 20px;
+}
+
+.appt-patient {
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.appt-service {
+  color: #777;
+  font-size: 0.9em;
+}
+
+.appt-contact {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: #555;
+  font-size: 0.95em;
+  flex-shrink: 0;
+}
+
+.phone-icon {
+    font-size: 1.1em;
+    color: #5cb85c; /* Green phone icon */
+}
+
+/* --- Weekly View Styles --- */
+.weekly-schedule-table {
+    width: 100%;
+    border-collapse: collapse; /* Use collapse for tighter borders */
+    margin-top: 20px;
+    table-layout: fixed; /* Ensures columns are of equal width */
+}
+
+.weekly-schedule-table th, .weekly-schedule-table td {
+    border: 1px solid #eee;
+    padding: 8px 5px; /* Reduced padding for cells */
+    text-align: center;
+    vertical-align: top; /* Align content to the top of the cell */
+    font-size: 0.9em;
+    height: 70px; /* Give cells a consistent height to align times */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    position: relative; /* For absolute positioning of indicators if needed */
+}
+
+.weekly-schedule-table th {
+    background-color: #f8f9fa;
+    color: #666;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.weekly-schedule-table th:first-child { /* "เวลา" header */
+    background-color: transparent; /* No background for "เวลา" header */
+    border-top: none;
+    border-left: none;
+    font-weight: 600; /* Make time header bold */
+}
+
+.weekly-schedule-table td {
+    background-color: #fff;
+}
+
+.weekly-schedule-table td:first-child { /* Time column cells */
+    font-weight: 600;
+    color: #1890ff; /* Blue for time text */
+    background-color: transparent; /* No background for time cells */
+    border-left: none;
+    vertical-align: middle; /* Center time vertically */
+}
+
+/* Styling for the actual appointment blocks within the cells */
+.weekly-appt-cell {
+    background-color: #e6f7ff; /* Light blue for appointments */
+    border: 1px solid #91d5ff;
+    border-radius: 6px;
+    padding: 6px; /* Adjusted padding */
+    margin: 2px auto; /* Center the block horizontally in the cell */
+    text-align: left;
+    color: #333;
+    font-size: 0.85em;
+    line-height: 1.3;
+    display: flex; /* Use flex for internal layout */
+    flex-direction: column; /* Stack contents vertically */
+    height: auto; /* Allow height to adjust for multiple items */
+    justify-content: space-between; /* Push status to bottom if content allows */
+    box-sizing: border-box;
+    overflow: hidden; /* Hide overflowing text */
+    min-height: 30px; /* Minimum height for a single appointment cell */
+}
+
+/* Added style for spacing between multiple weekly appointments in the same cell */
+.weekly-appt-cell.has-margin-bottom {
+    margin-bottom: 8px; /* Add margin to separate multiple blocks */
+}
+
+
+.weekly-appt-service {
+    font-size: 0.75em;
+    color: #555;
+    white-space: nowrap; /* Prevent service text from wrapping */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Add ellipsis for overflow */
+}
+
+/* Status badge within the weekly appointment cell */
+.weekly-appt-status {
+    display: inline-block;
+    font-size: 0.7em;
+    font-weight: 600;
+    padding: 3px 6px;
+    border-radius: 4px;
+    text-align: center;
+    white-space: nowrap;
+    margin-top: 4px;
+    align-self: flex-start;
+}
+
+.weekly-appt-status.status-done {
+    background-color: #d9f7be;
+    color: #52c41a;
+}
+.weekly-appt-status.status-in-progress {
+    background-color: #ffe58f;
+    color: #faad14;
+}
+.weekly-appt-status.status-pending {
+    background-color: #f0f2f5;
+    color: #777;
+}
+
+/* Styling for empty cells */
+.no-appt-indicator {
+    color: #ccc;
+    font-size: 1.2em;
+    line-height: 1;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* --- Monthly View Styles --- */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.calendar-day-header {
+  background-color: #f8f9fa;
+  padding: 10px;
+  text-align: center;
+  font-weight: 600;
+  color: #555;
+  border-bottom: 1px solid #eee;
+}
+
+.calendar-day {
+  background-color: #fff;
+  min-height: 100px;
+  padding: 10px;
+  text-align: left;
+  border-right: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  color: #333;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  cursor: pointer; /* Indicate it's clickable */
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.calendar-day:hover {
+  background-color: #f9f9f9;
+}
+
+.calendar-day.selected-day {
+    background-color: #e0f7fa; /* Changed to a lighter blue background */
+    border: 1px solid #81d4fa; /* Adjusted border to match lighter tone */
+    box-shadow: 0 0 5px rgba(24, 144, 255, 0.1); /* Slightly lighter shadow */
+}
+
+.calendar-day.empty {
+  background-color: #fcfcfc;
+  color: #ccc;
+  cursor: default; /* No pointer for empty days */
+}
+
+.calendar-day.empty:hover {
+    background-color: #fcfcfc; /* No hover effect on empty */
+}
+
+.calendar-day:nth-child(7n) { /* Last column (Saturday) */
+  border-right: none;
+}
+
+.calendar-grid > *:nth-last-child(-n+7) { /* Last row */
+  border-bottom: none;
+}
+
+.calendar-day.current-day {
+  background-color: #e6f7ff; /* Highlight current day */
+  border: 1px solid #91d5ff;
+  font-weight: 700;
+  color: #1890ff;
+}
+
+.day-number {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+    align-self: flex-end;
+    background-color: #f0f2f5;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.8em;
+}
+
+.calendar-day.current-day .day-number {
+    background-color: #1890ff;
+    color: white;
+}
+
+.calendar-day.selected-day .day-number {
+    background-color: #1890ff; /* Blue for selected day number */
+    color: white;
+}
+
+
+.monthly-appts-list {
+    font-size: 0.75em;
+    width: 100%;
+    max-height: 60px;
+    overflow: hidden;
+    margin-top: auto;
+}
+
+.monthly-appt-item {
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    padding: 2px 5px;
+    margin-bottom: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #555;
+}
+
+.monthly-appt-name {
+    font-weight: 500;
+}
+
+.monthly-appt-more {
+    font-size: 0.7em;
+    color: #1890ff;
+    font-weight: 600;
+    padding-left: 5px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+/* Styles for the detailed appointment table when a date is selected */
+.selected-date-appointments-detail {
+    margin-top: 40px;
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.detail-header {
+    font-size: 1.4em;
+    margin: 0 0 20px 0;
+    color: #333;
+}
+
+.detail-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px; /* Space between rows */
+}
+
+.detail-table th, .detail-table td {
+    text-align: left;
+    padding: 12px 15px;
+}
+
+.detail-table th {
+    background-color: #f8f9fa;
+    color: #666;
+    font-weight: 500;
+    font-size: 0.95em;
+    text-transform: uppercase;
+    border-bottom: 1px solid #eee;
+}
+
+.detail-table thead tr:first-child th:first-child {
+  border-top-left-radius: 8px;
+}
+.detail-table thead tr:first-child th:last-child {
+  border-top-right-radius: 8px;
+}
+
+.detail-table tbody tr {
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.2s;
+}
+
+.detail-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.detail-table tbody tr:hover {
+  background-color: #fafafa;
+}
+
+.no-appointments-message {
+    text-align: center;
+    color: #777;
+    padding: 20px;
+    border: 1px dashed #eee;
+    border-radius: 8px;
+    margin-top: 20px;
+}
