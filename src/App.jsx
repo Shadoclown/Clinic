@@ -1,30 +1,27 @@
-import { useState } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import './styles/variable.css'  // Import variables first
-import './App.css'
-import './components/style/Table.css'
-import Sidebar from './components/Sidebar'
-import Home from './components/Home'
-import Appointment from './components/Appointment/Appointment'
-import Examination from './components/Examination'
-import Records from './components/Records'
+import React, { useState } from 'react';
+import Sidebar from './components/Sidebar';
+import HeaderInfo from './components/HeaderInfo';
+import Homepage from './components/Homepage';
+import AppointmentPage from './components/AppointmentPage'; // New import
+import './App.css';
 
 function App() {
-    return (
-        <Router>
-            <div className="app-container">
-                <Sidebar />
-                <div className="content">
-                    <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/appointments" element={<Appointment />} />
-                        <Route path="/examination" element={<Examination />} />
-                        <Route path="/records" element={<Records />} />
-                    </Routes>
-                </div>
-            </div>
-        </Router>
-    )
+  const [currentPage, setCurrentPage] = useState('homepage'); // State to manage current page
+
+  const handleNavigate = (page) => {
+    setCurrentPage(page);
+  };
+
+  return (
+    <div className="app-container">
+      <Sidebar currentPage={currentPage} onNavigate={handleNavigate} />
+      <div className="main-content">
+        <HeaderInfo />
+        {currentPage === 'homepage' && <Homepage />}
+        {currentPage === 'appointments' && <AppointmentPage />}
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;

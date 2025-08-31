@@ -1,66 +1,92 @@
-@import './styles/variable.css';
-@import './components/style/Table.css';
+/* General Body Styles */
+@import url(./styles/Sidebar.css);
+@import url(./styles/Homepage.css);
+@import url(./styles/Appointment.css);
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f0f2f5; /* Light grey background */
+  color: #333;
 }
 
-/* App layout */
 .app-container {
-    display: flex;
-    min-height: 100vh;
-    width: 100vw;
-    background-color: var(--secondary-bg);
+  display: flex;
+  min-height: 100vh;
 }
 
-.content {
-    flex: 1;
-    background-color: var(--secondary-bg);
-    overflow-x: auto;
+/* Main Content Area */
+.main-content {
+  flex-grow: 1;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Button Styles */
-button {
-    cursor: pointer;
-    font-family: var(--font-family);
-    transition: var(--transition-base);
+/* Header Info Styles (Top Right) - kept here as it's a top-level element */
+.header-info {
+  text-align: right;
+  margin-bottom: 20px;
+  color: #777;
+  font-size: 0.9em;
+  font-weight: 500;
 }
 
-.btn-primary {
-    background-color: var(--blue);
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: var(--radius);
-    font-weight: 500;
-    box-shadow: var(--shadow);
+/* General button styles used across components */
+.add-button {
+  background-color: #1890ff; /* Blue */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 1em;
+  transition: background-color 0.2s;
 }
 
-.btn-primary:hover {
-    background-color: var(--blue-hover);
-    box-shadow: var(--shadow-lg);
-    transform: translateY(-1px);
+.add-button:hover {
+  background-color: #40a9ff;
 }
 
-/* Card Styles */
-.card {
-    background-color: var(--white-color);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    transition: var(--transition-base);
+.add-icon {
+  font-size: 1.2em;
+  margin-right: 8px;
+  font-weight: bold;
 }
 
-.card:hover {
-    box-shadow: var(--shadow-lg);
+/* General status badge styles - these are applied to both homepage and daily view tables */
+.status-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85em;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+  background-color: #f0f2f5; /* Default background */
+  color: #777; /* Default color */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  min-width: 80px; /* Give it a minimum width for consistency */
 }
 
-/* Table styles have been moved to Table.css */
+.status-badge.status-done {
+  background-color: #e6ffe6; /* Light green */
+  color: #3cb371; /* Medium sea green */
+}
 
-/* Responsive */
-@media (max-width: 768px) {
-    .content {
-        margin-top: 50px;
-    }
+.status-badge.status-in-progress {
+  background-color: #fffbe6; /* Light yellow */
+  color: #ffa500; /* Orange */
+}
+
+.status-badge.status-pending {
+  background-color: #f0f2f5; /* Light grey */
+  color: #777; /* Darker grey */
 }
