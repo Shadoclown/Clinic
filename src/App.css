@@ -2,6 +2,7 @@
 @import url(./styles/Sidebar.css);
 @import url(./styles/Homepage.css);
 @import url(./styles/Appointment.css);
+@import url(./styles/AddAppointmentForm.css);
 
 
 body {

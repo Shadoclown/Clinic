@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+// import './Homepage.css'; // REMOVED - styles are now in App.css
+import AddAppointmentForm from './AddAppointmentForm'; // Import the new form component
 
 function Homepage() {
+  const [showAddForm, setShowAddForm] = useState(false); // State to control form visibility
+
+  // Existing mock appointments for the homepage summary table
   const appointments = [
     { time: '09:00', name: 'นายสมชาย ใจดี', service: 'ฝังเข็ม', status: 'เสร็จสิ้น' },
     { time: '09:30', name: 'นางสมหญิง รักษ์ดี', service: 'กัวซา', status: 'กำลังรักษา' },
@@ -9,12 +14,18 @@ function Homepage() {
     { time: '11:00', name: 'นายประยุทธ์ แข็งแรง', service: 'นวดแผนไทย', status: 'รอ' },
   ];
 
+  const handleSaveNewAppointment = (newApptData) => {
+    // In a real app, you'd integrate this with your global state/API
+    console.log("New appointment saved (from Homepage):", newApptData);
+    // You might want to refresh your appointment list here or add the new item to state
+  };
+
   return (
     <div className="homepage">
       <div className="homepage-header">
         <h2 className="homepage-title">ภาพรวมประจำวัน</h2>
         <div className="homepage-actions">
-          <button className="add-button">
+          <button className="add-button" onClick={() => setShowAddForm(true)}> {/* Click to show form */}
             <span className="add-icon">+</span> เพิ่มนัดหมาย
           </button>
           <span className="update-text">อัปเดตล่าสุด: 15:52:02</span>
@@ -89,6 +100,13 @@ function Homepage() {
           </tbody>
         </table>
       </div>
+
+      {showAddForm && (
+        <AddAppointmentForm
+          onClose={() => setShowAddForm(false)}
+          onSave={handleSaveNewAppointment}
+        />
+      )}
     </div>
   );
 }

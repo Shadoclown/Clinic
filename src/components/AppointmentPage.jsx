@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 // No need to import CSS here as App.css handles it via @import
+import AddAppointmentForm from './AddAppointmentForm'; // Import the new form component
 
 // Helper function to get Thai month name
 const getMonthNameThai = (date) => {
@@ -20,7 +21,6 @@ const formatDateKey = (date) => {
 };
 
 // --- Consolidated Mock Appointments Data ---
-// Keyed by 'YYYY-MM-DD' string
 const mockAllAppointments = {
     '2025-08-31': [
         { time: '09:00', name: 'นายสมชาย ใจดี', service: 'ฝังเข็ม', phone: '081-234-5678', status: 'เสร็จสิ้น', id: 'a1' },
@@ -51,7 +51,6 @@ const mockAllAppointments = {
         { time: '14:00', name: 'นายสมบัติ ใจเย็น', service: 'ครอบแก้ว', status: 'เสร็จสิ้น', id: 'a14' },
         { time: '15:00', name: 'นางสาวเดือนเพ็ญ สบายดี', service: 'ฝังเข็ม', status: 'รอ', id: 'a15' },
     ],
-    // Add more mock data for different dates, months, and years as needed for testing
     '2025-10-10': [
         { time: '10:00', name: 'นายอดุลย์ จิตรใจ', service: 'ปรึกษาทั่วไป', status: 'รอ', id: 'oct1' },
     ],
@@ -375,13 +374,23 @@ function MonthlyView() {
 
 function AppointmentPage() {
   const [activeTab, setActiveTab] = useState('daily'); // 'daily', 'weekly', 'monthly'
+  const [showAddForm, setShowAddForm] = useState(false); // State to control form visibility for this page
+
+  const handleSaveNewAppointment = (newApptData) => {
+    console.log("New appointment saved (from AppointmentPage):", newApptData);
+    // In a real application, you'd integrate this with your global state/API.
+    // For now, it just logs. To make it truly dynamic across views, you'd need
+    // a more robust state management solution or re-fetch data.
+    // Example: You might want to automatically re-fetch appointments for the current view
+    // or manually add the new appointment to `mockAllAppointments` (if this were a real mutable data source).
+  };
 
   return (
     <div className="appointment-page">
       <div className="appointment-page-header">
         <h2 className="appointment-title">ตารางนัดหมาย</h2>
         <div className="action-buttons">
-            <button className="add-button">
+            <button className="add-button" onClick={() => setShowAddForm(true)}> {/* Click to show form */}
                 <span className="add-icon">+</span> เพิ่มนัดหมาย
             </button>
         </div>
@@ -413,6 +422,13 @@ function AppointmentPage() {
         {activeTab === 'weekly' && <WeeklyView />}
         {activeTab === 'monthly' && <MonthlyView />}
       </div>
+
+      {showAddForm && (
+        <AddAppointmentForm
+          onClose={() => setShowAddForm(false)}
+          onSave={handleSaveNewAppointment}
+        />
+      )}
     </div>
   );
 }
