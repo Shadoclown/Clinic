@@ -99,9 +99,6 @@
 }
 
 /* --- Daily View Styles --- */
-/* ... (existing Appointment.css content from previous updates) ... */
-
-/* --- Daily View Styles --- */
 .daily-appointments-list {
   display: flex;
   flex-direction: column;
